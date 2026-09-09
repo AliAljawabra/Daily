@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daily</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0C0E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Daily">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --paper: #0B0C0E;
+    --panel: #16181B;
+    --ink: #ECEDEE;
+    --muted: #8A9096;
+    --line: #2B2E33;
+    --dim: #6A7076;
+    --mid: #A9AEB3;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html, body {
+    margin: 0;
+    background: var(--paper);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #root {
+    font-family: var(--sans);
+    color: var(--ink);
+    padding: calc(22px + env(safe-area-inset-top)) 18px calc(48px + env(safe-area-inset-bottom));
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .datestamp { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 4px 0 26px;
+  }
+
+  .load { border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 30px; }
+  .load-num { font-family: var(--serif); font-size: 62px; line-height: 0.9; letter-spacing: -0.02em; }
+  .load-unit { font-size: 22px; color: var(--muted); }
+  .load-cap { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+  .bar { display: flex; height: 26px; margin-top: 14px; border: 1px solid var(--line); background: var(--panel); overflow: hidden; }
+  .seg { height: 100%; }
+  .key { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 12px; color: var(--muted); }
+  .key span::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 5px; }
+  .k-work::before { background: #F2F3F4; }
+  .k-sleep::before { background: var(--dim); }
+  .k-gym::before { background: var(--mid); }
+  .k-free::before { background: #232629; }
+
+  .block { margin-bottom: 26px; }
+  .qlabel { display: block; font-size: 15px; margin-bottom: 10px; font-weight: 500; }
+  .hint { font-weight: 400; color: var(--muted); font-size: 13px; }
+
+  .scale { display: flex; gap: 8px; }
+  .scale button {
+    flex: 1; min-height: 52px;
+    font-family: var(--serif); font-size: 19px;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--line); cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .scale button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .scale button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+  .toggles { display: grid; gap: 8px; }
+  .toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 54px; padding: 0 16px;
+    background: var(--panel); border: 1px solid var(--line);
+    font-size: 15px; font-family: var(--sans); color: var(--ink);
+    text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .toggle[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .toggle .mark { font-size: 18px; opacity: 0.3; }
+  .toggle[aria-pressed="true"] .mark { opacity: 1; }
+  .toggle:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+  input[type="text"] {
+    width: 100%; box-sizing: border-box; min-height: 52px;
+    padding: 12px 14px; font-size: 16px; font-family: var(--sans);
+    background: var(--panel); border: 1px solid var(--line); color: var(--ink);
+  }
+  input[type="text"]::placeholder { color: var(--dim); }
+
+  .save {
+    width: 100%; min-height: 58px;
+    background: var(--ink); color: var(--paper);
+    border: none; font-size: 16px; font-family: var(--sans); cursor: pointer;
+  }
+  .save:disabled { opacity: 0.4; }
+  .save:focus-visible { outline: 3px solid var(--mid); outline-offset: 3px; }
+
+  .hist { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 34px; }
+  .hist h2 { font-family: var(--serif); font-weight: 400; font-size: 20px; margin: 0 0 4px; }
+  .streaks { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+  .streaks b { color: var(--ink); font-weight: 600; }
+
+  .spark { display: flex; align-items: flex-end; gap: 6px; height: 92px; }
+  .spark .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+  .spark .fill { background: var(--ink); width: 100%; }
+  .spark .d { font-size: 10px; color: var(--muted); text-align: center; padding-top: 5px; }
+
+  .empty { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+  .note { margin-top: 26px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .linkbtn {
+    background: none; border: none; color: var(--muted);
+    font-size: 13px; font-family: var(--sans); padding: 6px 0;
+    cursor: pointer; text-decoration: underline;
+  }
+  .flash { color: var(--ink); font-size: 14px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+(function () {
+  var KEY = 'daily.v1';
+  var root = document.getElementById('root');
+  var state = { entries: [] };
+  var LOAD = { work: 52, sleep: 52, gym: 5 };
+
+  var draft = { sleep: null, energy: null, mood: null, gym: false, work: false, food: false, phone: false, win: '' };
+
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function fmtDay(iso) {
+    var p = iso.split('-');
+    return ['Su','Mo','Tu','We','Th','Fr','Sa'][new Date(+p[0], +p[1]-1, +p[2]).getDay()];
+  }
+
+  function score(e) {
+    var s = 0;
+    if (e.sleep != null) s += Math.min(e.sleep / 5, 1) * 25;
+    if (e.energy != null) s += (e.energy / 5) * 15;
+    if (e.mood != null) s += (e.mood / 5) * 15;
+    if (e.gym) s += 12;
+    if (e.work) s += 13;
+    if (e.food) s += 10;
+    if (e.phone) s += 10;
+    return Math.round(s);
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) state = JSON.parse(raw);
+    } catch (err) { state = { entries: [] }; }
+    if (!state.entries) state.entries = [];
+  }
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (err) { return false; }
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+    });
+  }
+
+  function scaleRow(field, labels) {
+    return '<div class="scale" data-scale="' + field + '">' + labels.map(function (l, i) {
+      return '<button type="button" data-v="' + (i+1) + '" aria-pressed="' + (draft[field] === i+1) + '">' + l + '</button>';
+    }).join('') + '</div>';
+  }
+
+  function toggleRow(field, label) {
+    return '<button type="button" class="toggle" data-toggle="' + field + '" aria-pressed="' + draft[field] + '">' +
+      '<span>' + label + '</span><span class="mark">&#10003;</span></button>';
+  }
+
+  function streaks() {
+    var e = state.entries;
+    var gym = 0, phone = 0, i;
+    for (i = e.length - 1; i >= 0 && e[i].gym; i--) gym++;
+    for (i = e.length - 1; i >= 0 && e[i].phone; i--) phone++;
+    var recent = e.slice(-7);
+    var avg = Math.round(recent.reduce(function (a, x) { return a + score(x); }, 0) / recent.length);
+    return '<div class="streaks">Seven-day average <b>' + avg + '</b> &middot; gym streak <b>' + gym +
+      '</b> ' + (gym === 1 ? 'day' : 'days') + ' &middot; phone under target <b>' + phone + '</b> ' +
+      (phone === 1 ? 'day' : 'days') + '</div>';
+  }
+
+  function sparkline() {
+    var e = state.entries.slice(-7);
+    if (!e.length) return '<p class="empty">Nothing logged yet. Save today and this strip starts filling in &mdash; seven days is enough to see whether the pattern is you or the rota.</p>';
+    return streaks() + '<div class="spark">' + e.map(function (x) {
+      return '<div class="col"><div class="fill" style="height:' + Math.max(score(x), 3) + '%"></div>' +
+        '<div class="d">' + fmtDay(x.date) + '</div></div>';
+    }).join('') + '</div>';
+  }
+
+  function loadBar() {
+    var total = 168, free = total - LOAD.work - LOAD.sleep - LOAD.gym;
+    function w(h) { return (h / total * 100).toFixed(1) + '%'; }
+    return '<div class="load"><div class="load-num">' + LOAD.work + '<span class="load-unit"> hrs</span></div>' +
+      '<div class="load-cap">Committed to the internship and the Bailbrook rota this week, before travel. That is what everything else has to fit around.</div>' +
+      '<div class="bar">' +
+        '<div class="seg" style="width:' + w(LOAD.work) + ';background:#F2F3F4"></div>' +
+        '<div class="seg" style="width:' + w(LOAD.sleep) + ';background:var(--dim)"></div>' +
+        '<div class="seg" style="width:' + w(LOAD.gym) + ';background:var(--mid)"></div>' +
+        '<div class="seg" style="width:' + w(free) + ';background:#232629"></div>' +
+      '</div><div class="key"><span class="k-work">Work 52</span><span class="k-sleep">Sleep 52</span>' +
+      '<span class="k-gym">Gym 5</span><span class="k-free">Everything else ' + free + '</span></div></div>';
+  }
+
+  function render(msg) {
+    var done = state.entries.some(function (x) { return x.date === todayKey(); });
+    var ready = draft.sleep != null && draft.energy != null && draft.mood != null;
+
+    root.innerHTML =
+      '<div class="datestamp">' + new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) + '</div>' +
+      '<h1>' + (done ? 'Logged for today.' : 'How did today actually go?') + '</h1>' +
+      loadBar() +
+      '<div class="block"><span class="qlabel">Hours slept <span class="hint">last night</span></span>' +
+        scaleRow('sleep', ['&lt;5','5&ndash;6','6&ndash;7','7&ndash;8','8+']) + '</div>' +
+      '<div class="block"><span class="qlabel">Energy</span>' + scaleRow('energy', ['1','2','3','4','5']) + '</div>' +
+      '<div class="block"><span class="qlabel">Mood</span>' + scaleRow('mood', ['1','2','3','4','5']) + '</div>' +
+      '<div class="block"><span class="qlabel">What got done</span><div class="toggles">' +
+        toggleRow('gym', 'Trained') +
+        toggleRow('work', 'An hour on tutoring or Durham prep') +
+        toggleRow('food', 'Ate properly, not just whatever was around') +
+        toggleRow('phone', 'Phone under two hours') +
+      '</div></div>' +
+      '<div class="block"><span class="qlabel">One good thing <span class="hint">optional</span></span>' +
+        '<input type="text" id="win" value="' + esc(draft.win) + '" placeholder="Anything. Small counts."></div>' +
+      '<button class="save" id="save"' + (ready ? '' : ' disabled') + '>' + (done ? 'Update today' : 'Save today') + '</button>' +
+      (msg || '') +
+      '<div class="hist"><h2>Last seven days</h2>' + sparkline() + '</div>' +
+      '<p class="note">Scores are built from what you tap, nothing more. A low day during a 52-hour week is information about the week, not about you.<br>' +
+      '<button class="linkbtn" id="backup">Copy a backup</button> &nbsp; ' +
+      '<button class="linkbtn" id="restore">Restore from backup</button> &nbsp; ' +
+      '<button class="linkbtn" id="reset">Clear everything</button></p>';
+
+    wire();
+  }
+
+  function wire() {
+    root.querySelectorAll('[data-scale] button').forEach(function (b) {
+      b.addEventListener('click', function () { draft[b.parentNode.dataset.scale] = +b.dataset.v; render(); });
+    });
+    root.querySelectorAll('[data-toggle]').forEach(function (b) {
+      b.addEventListener('click', function () { draft[b.dataset.toggle] = !draft[b.dataset.toggle]; render(); });
+    });
+
+    var win = root.querySelector('#win');
+    if (win) win.addEventListener('input', function () { draft.win = win.value; });
+
+    root.querySelector('#save').addEventListener('click', function () {
+      var entry = {
+        date: todayKey(), sleep: draft.sleep, energy: draft.energy, mood: draft.mood,
+        gym: draft.gym, work: draft.work, food: draft.food, phone: draft.phone, win: draft.win
+      };
+      state.entries = state.entries.filter(function (x) { return x.date !== entry.date; });
+      state.entries.push(entry);
+      state.entries.sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+      render(save()
+        ? '<div class="flash">Saved. Today scored ' + score(entry) + '.</div>'
+        : '<div class="flash">Could not save. If you are in Private Browsing, switch it off and try again.</div>');
+    });
+
+    root.querySelector('#backup').addEventListener('click', function () {
+      var text = JSON.stringify(state);
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () {
+          render('<div class="flash">Backup copied. Paste it somewhere safe, like a note to yourself.</div>');
+        });
+      } else {
+        window.prompt('Copy this text and keep it safe:', text);
+      }
+    });
+
+    root.querySelector('#restore').addEventListener('click', function () {
+      var text = window.prompt('Paste your backup text here:');
+      if (!text) return;
+      try {
+        var parsed = JSON.parse(text);
+        if (!parsed || !Array.isArray(parsed.entries)) throw new Error('bad');
+        state = parsed;
+        save();
+        render('<div class="flash">Restored ' + state.entries.length + ' days.</div>');
+      } catch (err) {
+        render('<div class="flash">That did not look like a backup. Copy the whole thing, including the brackets.</div>');
+      }
+    });
+
+    root.querySelector('#reset').addEventListener('click', function () {
+      if (!window.confirm('Delete every logged day? This cannot be undone.')) return;
+      state = { entries: [] };
+      save();
+      render();
+    });
+  }
+
+  load();
+  var t = state.entries.filter(function (x) { return x.date === todayKey(); })[0];
+  if (t) draft = { sleep:t.sleep, energy:t.energy, mood:t.mood, gym:t.gym, work:t.work, food:t.food, phone:t.phone, win:t.win || '' };
+  render();
+})();
+</script>
+</body>
+</html>

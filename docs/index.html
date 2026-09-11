@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <title>Ali Aljawabra · GCSE Maths &amp; Science Tutor, Bath</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="GCSE Maths &amp; Science and A-level Economics &amp; Philosophy tutoring in Bath, held online via Teams. Grade 8s and 9s across all GCSEs, A*A*A at A-level. Spaces available for September.">
+<meta name="description" content="GCSE Maths, Science &amp; Business Studies and A-level Economics &amp; Philosophy tutoring in Bath, held online via Teams. Grade 8s and 9s across all GCSEs, A*A*A at A-level. Spaces available for September.">
 <meta name="theme-color" content="#0F2A4A">
 <link rel="canonical" href="https://alitutors.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alitutors.com/">
 <meta property="og:title" content="Ali Aljawabra · GCSE Maths & Science Tutor, Bath">
-<meta property="og:description" content="GCSE Maths & Science and A-level Economics & Philosophy tutoring in Bath, held online via Teams. Grade 8s and 9s across all GCSEs, A*A*A at A-level.">
+<meta property="og:description" content="GCSE Maths, Science & Business Studies and A-level Economics & Philosophy tutoring in Bath, held online via Teams. Grade 8s and 9s across all GCSEs, A*A*A at A-level.">
 <meta property="og:image" content="https://alitutors.com/assets/og-card.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ali Aljawabra · GCSE Maths & Science Tutor, Bath">
-<meta name="twitter:description" content="GCSE Maths & Science and A-level Economics & Philosophy tutoring in Bath, held online via Teams.">
+<meta name="twitter:description" content="GCSE Maths, Science & Business Studies and A-level Economics & Philosophy tutoring in Bath, held online via Teams.">
 <meta name="twitter:image" content="https://alitutors.com/assets/og-card.jpg">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
@@ -42,6 +42,12 @@
     },
     {
       "@type": "Offer",
+      "itemOffered": { "@type": "Service", "name": "GCSE Business Studies Tutoring" },
+      "price": "32",
+      "priceCurrency": "GBP"
+    },
+    {
+      "@type": "Offer",
       "itemOffered": { "@type": "Service", "name": "A-level Economics Tutoring" },
       "price": "35",
       "priceCurrency": "GBP"
@@ -53,12 +59,20 @@
       "priceCurrency": "GBP"
     }
   ],
-  "review": {
-    "@type": "Review",
-    "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-    "author": { "@type": "Person", "name": "Parent of a Year 11 student" },
-    "reviewBody": "Ali tutored my son in Maths and Chemistry during Year 11 and was a huge help. He was very organised, kind and supportive, and really helped my son to get to grips with what he was finding difficult. We were delighted with the exam results and I would highly recommend him."
-  }
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "author": { "@type": "Person", "name": "Claire Cochran" },
+      "reviewBody": "Ali tutored my son in Maths and Chemistry during Year 11 and was a huge help. He was very organised, kind and supportive, and really helped my son to get to grips with what he was finding difficult. We were delighted with the exam results and I would highly recommend him."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "author": { "@type": "Person", "name": "Sarah Brett" },
+      "reviewBody": "My daughter was sitting at a grade 3 in Business Studies when we came to Ali. She finished with a grade 8 and she is absolutely over the moon, and honestly so are we. Ali took a subject she had written herself off in and gave her the confidence to actually enjoy it. We can't recommend him highly enough."
+    }
+  ]
 }
 </script>
 <style>
@@ -207,7 +221,7 @@
   /* ---- Pricing ---- */
   .alt { background: var(--paper-alt); }
   .price-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
   }
   .price-card {
     background: #FFFFFF; border: 1px solid var(--line); border-radius: 6px;
@@ -233,7 +247,6 @@
   .steps {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
   }
-  .step { }
   .step .n {
     font-family: var(--serif); font-size: 15px; color: var(--gold);
     border: 1px solid var(--gold-soft); border-radius: 50%;
@@ -244,6 +257,7 @@
   .step p { font-size: 14.5px; color: var(--muted); margin: 0; }
 
   /* ---- Testimonial ---- */
+  .testimonials { display: flex; flex-direction: column; gap: 20px; }
   .testimonial {
     background: var(--navy); color: var(--paper); border-radius: 8px;
     padding: 40px clamp(24px, 5vw, 52px); position: relative;
@@ -274,6 +288,7 @@
     padding: 28px 0 40px; text-align: center;
     font-size: 13px; color: var(--muted);
   }
+  footer a { color: inherit; }
 
   /* ---- FAQ ---- */
   .faq-list { border-top: 1px solid var(--line); }
@@ -315,7 +330,7 @@
   <div class="wrap">
     <div class="hero-text">
       <span class="badge">Spaces available for September</span>
-      <h1>GCSE Maths &amp; Science tutoring in Bath</h1>
+      <h1>GCSE &amp; A-level tutoring in Bath</h1>
       <p class="hero-lede">
         I'm Ali. <b>Grade 8s and 9s across all my GCSEs</b>, then <b>A*A*A at A-level</b> in Economics,
         Philosophy and Maths. Now in my second year of tutoring GCSE and A-level students.
@@ -368,6 +383,12 @@
     <div class="price-grid">
       <div class="price-card">
         <h3>GCSE Maths &amp; Combined/Triple Science</h3>
+        <div class="rate">£32 <span>/ hour</span></div>
+        <p class="block-rate">Block of five: £160</p>
+        <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>
+      </div>
+      <div class="price-card">
+        <h3>GCSE Business Studies</h3>
         <div class="rate">£32 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £160</p>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>
@@ -426,7 +447,7 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary>Which exam boards do you cover?</summary>
-        <p>Content is tailored to whichever exam board the student's school uses (AQA, Edexcel, OCR and others) for GCSE Maths, Combined/Triple Science, and A-level Economics and Philosophy.</p>
+        <p>Content is tailored to whichever exam board the student's school uses (AQA, Edexcel, OCR and others) for GCSE Maths, Combined/Triple Science, Business Studies, and A-level Economics and Philosophy.</p>
       </details>
       <details class="faq-item">
         <summary>Are sessions online or in person?</summary>
@@ -454,13 +475,24 @@
 
 <section class="alt" id="testimonial">
   <div class="wrap">
-    <div class="testimonial">
-      <blockquote>
-        &ldquo;Ali tutored my son in Maths and Chemistry during Year 11 and was a huge help. He was very
-        organised, kind and supportive, and really helped my son to get to grips with what he was finding
-        difficult. We were delighted with the exam results and I would highly recommend him.&rdquo;
-      </blockquote>
-      <cite>Parent of a Year 11 student, Maths &amp; Chemistry</cite>
+    <div class="testimonials">
+      <div class="testimonial">
+        <blockquote>
+          &ldquo;Ali tutored my son in Maths and Chemistry during Year 11 and was a huge help. He was very
+          organised, kind and supportive, and really helped my son to get to grips with what he was finding
+          difficult. We were delighted with the exam results and I would highly recommend him.&rdquo;
+        </blockquote>
+        <cite>Claire Cochran, parent</cite>
+      </div>
+      <div class="testimonial">
+        <blockquote>
+          &ldquo;My daughter was sitting at a grade 3 in Business Studies when we came to Ali. She finished
+          with a grade 8 and she is absolutely over the moon, and honestly so are we. Ali took a subject
+          she had written herself off in and gave her the confidence to actually enjoy it. We can't
+          recommend him highly enough.&rdquo;
+        </blockquote>
+        <cite>Sarah Brett, parent</cite>
+      </div>
     </div>
   </div>
 </section>
@@ -483,8 +515,8 @@
 </section>
 
 <footer>
-  Ali Aljawabra · GCSE Maths &amp; Science and A-level Economics &amp; Philosophy tutoring · Bath &amp; online
-  <br><a href="privacy.html" style="color:inherit;">Privacy Policy</a>
+  Ali Aljawabra · GCSE Maths, Science &amp; Business Studies and A-level Economics &amp; Philosophy tutoring · Bath &amp; online
+  <br><a href="privacy.html">Privacy Policy</a>
 </footer>
 
 </body>

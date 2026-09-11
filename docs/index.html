@@ -36,7 +36,13 @@
   "makesOffer": [
     {
       "@type": "Offer",
-      "itemOffered": { "@type": "Service", "name": "GCSE Maths & Combined/Triple Science Tutoring" },
+      "itemOffered": { "@type": "Service", "name": "GCSE Maths Tutoring" },
+      "price": "32",
+      "priceCurrency": "GBP"
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": { "@type": "Service", "name": "GCSE Combined/Triple Science Tutoring" },
       "price": "32",
       "priceCurrency": "GBP"
     },
@@ -221,7 +227,7 @@
   /* ---- Pricing ---- */
   .alt { background: var(--paper-alt); }
   .price-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
   }
   .price-card {
     background: #FFFFFF; border: 1px solid var(--line); border-radius: 6px;
@@ -382,7 +388,13 @@
 
     <div class="price-grid">
       <div class="price-card">
-        <h3>GCSE Maths &amp; Combined/Triple Science</h3>
+        <h3>GCSE Maths</h3>
+        <div class="rate">£32 <span>/ hour</span></div>
+        <p class="block-rate">Block of five: £160</p>
+        <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>
+      </div>
+      <div class="price-card">
+        <h3>GCSE Combined/Triple Science</h3>
         <div class="rate">£32 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £160</p>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>

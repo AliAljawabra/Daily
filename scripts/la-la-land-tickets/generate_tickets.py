@@ -22,7 +22,6 @@ CREAM = Color(0xFA / 255, 0xF3 / 255, 0xE2 / 255)
 CREAM_DIM = Color(0xE7 / 255, 0xDE / 255, 0xC8 / 255, alpha=0.85)
 LAVENDER = Color(0xD8 / 255, 0xC8 / 255, 0xE6 / 255, alpha=0.9)
 SILHOUETTE = Color(0x0B / 255, 0x07 / 255, 0x14 / 255)
-GREY_FOOTNOTE = Color(0.42, 0.42, 0.44)
 
 GRAD_TOP = (0x16 / 255, 0x0E / 255, 0x30 / 255)      # deep indigo/violet
 GRAD_BOTTOM = (0x5B / 255, 0x2B / 255, 0x4E / 255)   # warm dusk purple
@@ -337,11 +336,9 @@ def build_pdf():
     x0 = (PAGE_W - ticket_w) / 2.0
 
     top_margin = 20 * MM
-    bottom_margin = 15 * MM
-    footer_h = 15 * MM
-    gap_to_footer = 10 * MM
+    bottom_margin = 30 * MM
 
-    fixed = top_margin + ticket_h * 2 + gap_to_footer + footer_h + bottom_margin
+    fixed = top_margin + ticket_h * 2 + bottom_margin
     gap_between = PAGE_H - fixed
 
     y_ticket1 = PAGE_H - top_margin - ticket_h
@@ -349,15 +346,6 @@ def build_pdf():
 
     draw_ticket(c, x0, y_ticket1, ticket_w, ticket_h, seed=7, seat_no=95)
     draw_ticket(c, x0, y_ticket2, ticket_w, ticket_h, seed=19, seat_no=96)
-
-    footer_top = y_ticket2 - gap_to_footer
-    c.setFillColor(Color(0.18, 0.16, 0.2))
-    c.setFont("Times-Italic", 11.5)
-    c.drawCentredString(PAGE_W / 2.0, footer_top - 5 * MM, "Here's to the fools who dream.")
-    c.setFillColor(GREY_FOOTNOTE)
-    c.setFont("Helvetica", 7)
-    c.drawCentredString(PAGE_W / 2.0, footer_top - 10.5 * MM,
-                         "Keepsake only - the official e-tickets are emailed separately and are what's scanned on the door.")
 
     c.showPage()
     c.save()

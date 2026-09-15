@@ -203,7 +203,14 @@ def tracked_text(c, x, y, text, font, size, char_space, color, align="left", alp
 
 # ------------------------------------------------------------ ticket draw --
 
-def draw_ticket(c, x0, y0, w, h, seed, seat_no):
+def fit_font_size(c, text, font, max_width, start_size, min_size=6.5):
+    size = start_size
+    while size > min_size and c.stringWidth(text, font, size) > max_width:
+        size -= 0.3
+    return size
+
+
+def draw_ticket(c, x0, y0, w, h, seed, seat_no, guest_name=None):
     """x0,y0 = bottom-left corner of the ticket, in points."""
     radius = 3.6 * MM
     stub_w = 40 * MM
@@ -321,6 +328,12 @@ def draw_ticket(c, x0, y0, w, h, seed, seat_no):
         tracked_text(c, sx, stub_y0 - i * stub_gap, lab, "Helvetica-Bold", 6.6, 1.9,
                      YELLOW if i == 3 else CREAM, align="center")
 
+    if guest_name:
+        guest_max_w = stub_w - 6 * MM
+        tracked_text(c, sx, y0 + 38.5 * MM, "GUEST", "Helvetica-Bold", 6.4, 1.8, YELLOW, align="center")
+        name_size = fit_font_size(c, guest_name.upper(), "Helvetica-Bold", guest_max_w, 10.5, 6.5)
+        tracked_text(c, sx, y0 + 33.2 * MM, guest_name.upper(), "Helvetica-Bold", name_size, 0.3, CREAM, align="center")
+
     c.setFillColor(CREAM)
     c.setFont("Helvetica-Bold", 30)
     c.drawCentredString(sx, y0 + 10.5 * MM, str(seat_no))
@@ -344,8 +357,8 @@ def build_pdf():
     y_ticket1 = PAGE_H - top_margin - ticket_h
     y_ticket2 = y_ticket1 - gap_between - ticket_h
 
-    draw_ticket(c, x0, y_ticket1, ticket_w, ticket_h, seed=7, seat_no=95)
-    draw_ticket(c, x0, y_ticket2, ticket_w, ticket_h, seed=19, seat_no=96)
+    draw_ticket(c, x0, y_ticket1, ticket_w, ticket_h, seed=7, seat_no=95, guest_name="Grace Catton")
+    draw_ticket(c, x0, y_ticket2, ticket_w, ticket_h, seed=19, seat_no=96, guest_name="Ali Aljawabra")
 
     c.showPage()
     c.save()

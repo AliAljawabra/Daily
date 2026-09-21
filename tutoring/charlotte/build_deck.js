@@ -82,7 +82,7 @@ s.addText("Six teaching weeks\nand two days",{x:M,y:3.72,w:3.55,h:0.7,isTextBox:
     fontFace:SANS,fontSize:11.5,color:BODY});
 });
 card(s,M,5.25,11.83,1.45,TINT);
-s.addText("Both papers allow a calculator, and both cover the whole specification.",
+s.addText("Both papers allow a calculator, and both draw on the whole course.",
   {x:1.05,y:5.5,w:11.2,h:0.3,isTextBox:true,margin:0,fontFace:SANS,fontSize:13,bold:true,color:NAVY});
 s.addText("Calculator technique is covered in the next session and checked before every timed piece of work. A topic that appears on Paper 1 is likely to appear again on Paper 2.",
   {x:1.05,y:5.86,w:11.2,h:0.6,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:11.5,
@@ -125,7 +125,7 @@ s.addText("Boundaries shift, so aiming at last year's number exactly leaves no r
    color:BODY,lineSpacing:17});
 
 /* ---------------------------------------------------------- 4 WHERE MARKS ARE */
-s=p.addSlide(); head(s,"WHERE THE MARKS ARE","Number and algebra is 60% of the qualification");
+s=p.addSlide(); head(s,"WHERE THE MARKS ARE","Number and algebra is about 60% of the marks");
 s.addChart(p.ChartType.bar,[{name:"Marks of 200",labels:["Handling data","Shape, space and measure","Number and algebra"],values:[30,50,120]}],
  {x:0.55,y:1.75,w:6.3,h:2.9,barDir:"bar",chartColors:["9AA6B8",GOLD,NAVY],varyColors:true,
   showValue:true,dataLabelPosition:"outEnd",dataLabelColor:NAVY,dataLabelFontFace:SANS,
@@ -134,8 +134,8 @@ s.addChart(p.ChartType.bar,[{name:"Marks of 200",labels:["Handling data","Shape,
   valAxisHidden:true,valGridLine:{style:"none"},catGridLine:{style:"none"},
   barGapWidthPct:55,valAxisMaxVal:140,chartArea:{fill:{color:CREAM}},plotArea:{fill:{color:CREAM}}});
 
-[["The largest section is also the weakest","Charlotte's gaps are concentrated in number and algebra. Work there pays back across 120 marks, so the first three weeks stay on it."],
- ["Handling data does not depend on algebra","Averages, tables, probability and Venn diagrams are 30 marks that the algebra gaps do not block. They come in week 4."]].forEach((n,i)=>{
+[["The largest section is also the weakest","Charlotte's gaps are concentrated in number and algebra. Work there pays back across about 120 marks, so the first three weeks stay on it."],
+ ["Handling data does not depend on algebra","Averages, tables, probability and Venn diagrams are about 30 marks that the algebra gaps do not block. They come in week 4."]].forEach((n,i)=>{
   const y=1.8+i*1.5;
   card(s,7.1,y,5.48,1.32,CARD,LINE);
   s.addText(n[0],{x:7.42,y:y+0.18,w:4.85,h:0.28,isTextBox:true,margin:0,
@@ -146,7 +146,7 @@ s.addChart(p.ChartType.bar,[{name:"Marks of 200",labels:["Handling data","Shape,
 card(s,M,4.95,11.83,1.75,NAVY);
 s.addText("How many marks we cover",{x:1.1,y:5.15,w:11.1,h:0.32,isTextBox:true,
   margin:0,fontFace:SERIF,fontSize:19,color:GOLD});
-[["about 80","marks are pitched at grades 4 and 5","Covering only this band means converting 65 of 80, which leaves room to drop 15 marks across the two papers."],
+[["about 80","marks are pitched at grades 4 and 5","The specification puts about 40% of each paper at grades 4 and 5. Covering only that band means converting 65 of 80, leaving room to drop 15 marks."],
  ["about 105","marks once single-step grade 6 topics are added","The target to pass stays at 65, with room to drop 40 marks."]].forEach((q,i)=>{
   const x=1.1+i*5.6;
   s.addText(q[0],{x,y:5.53,w:1.75,h:0.4,isTextBox:true,margin:0,valign:"top",fontFace:SERIF,fontSize:23,color:CREAM});
@@ -259,7 +259,7 @@ const weekPairs=[
       paper:"Timed section, 40 minutes, marked against the mark scheme"}]},
  {eyebrow:"WEEKS 5 AND 6",title:"Shape, then papers",
   w:[{n:"5",label:"WEEK 5  ·  19 to 25 Oct",name:"Shape and space",
-      pts:["Angle facts, area and perimeter","Circles, prisms and cylinders","Pythagoras and right-angled trigonometry","Length, area and volume scale factors","Audit repeated (checkpoint 2)"],
+      pts:["Angle facts, area and perimeter","Circles, prisms and cylinders","Pythagoras and right-angled trigonometry","Similar shapes: area and volume ratios","Audit repeated (checkpoint 2)"],
       home:"Daily practice: all six target skills, mixed.",
       paper:"First full paper, 2 hours, exam conditions"},
      {n:"6",label:"WEEK 6  ·  26 Oct to 1 Nov",name:"Papers",
@@ -289,7 +289,7 @@ s=p.addSlide(); head(s,"EXAM WEEK","2 to 6 November");
 [["MON 2 NOV","Last session","No new content. A run through everything covered, a pacing rehearsal and a calculator check, finishing on a topic Charlotte is confident with."],
  ["WED 4 NOV","Paper 1H","Morning, 2 hours, 100 marks. Two passes: the recognisable questions first, then back to anything flagged. The last ten minutes for checking."],
  ["THU 5 NOV","The day between","No full review of the paper. We go back to the questions Charlotte started and left, where a mark is often one line away, then cover the two or three topics she could not begin."],
- ["FRI 6 NOV","Paper 2H","Morning, 2 hours, 100 marks. Same pacing. Both papers cover the whole specification, so topics from Wednesday will come up again."]].forEach((d,i)=>{
+ ["FRI 6 NOV","Paper 2H","Morning, 2 hours, 100 marks. Same pacing. Both papers draw on the whole course, so topics from Wednesday will come up again."]].forEach((d,i)=>{
   const x=M+i*3.0, dark=i===1||i===3;
   card(s,x,1.8,2.83,4.15,dark?NAVY:CARD,dark?null:LINE);
   s.addText(d[0],{x:x+0.28,y:2.02,w:2.3,h:0.24,isTextBox:true,margin:0,fontFace:SANS,
@@ -300,7 +300,7 @@ s=p.addSlide(); head(s,"EXAM WEEK","2 to 6 November");
     fontSize:11,color:dark?ONNAVYMUTE:BODY,lineSpacing:15.5});
 });
 card(s,M,6.12,11.83,0.62,TINT);
-s.addText("No new content after 25 October. The remaining time is for consolidation.",
+s.addText("No new content after 25 October. The remaining time is for consolidation. Results are released to candidates on 21 January 2027.",
   {x:1.1,y:6.12,w:11.1,h:0.62,isTextBox:true,margin:0,valign:"middle",fontFace:SANS,
    fontSize:12,bold:true,color:NAVY});
 
@@ -308,10 +308,10 @@ s.addText("No new content after 25 October. The remaining time is for consolidat
 s=p.addSlide(); head(s,"SCOPE","What we cover, and what we leave out");
 [{icon:"✓",t:"Covered",sub:"About 105 marks sit in this list, comfortably above the target.",
   fill:CARD,border:GOLD,col:NAVY,
-  pts:["Fractions, decimals, percentages, reverse percentages","Negatives, indices, standard form, rounding","Ratio and proportion by the unitary method","Solving, expanding, substituting, rearranging","Linear simultaneous equations","Sequences and straight-line graphs","Angles, area, circles, prisms, Pythagoras, trigonometry","Length, area and volume scale factors","Averages, frequency tables, probability, Venn diagrams"]},
+  pts:["Fractions, decimals, percentages, reverse percentages","Negatives, indices, standard form, rounding","Ratio and proportion by the unitary method","Solving, expanding, substituting, rearranging","Linear simultaneous equations","Sequences and straight-line graphs","Angles, area, circles, prisms, Pythagoras, trigonometry","Similar shapes: area and volume ratios","Averages, frequency tables, probability, Venn diagrams"]},
  {icon:"✕",t:"Left out",sub:"Worth 60 to 80 marks, and unlikely to repay the time in six weeks.",
   fill:TINT,border:LINE,col:BODY,
-  pts:["Circle theorems and their proofs","Vectors and vector geometry","Histograms with unequal class widths","Algebraic fractions, functions, graph transformations","Surds, bounds, 3D trigonometry","Quadratic formula, sine and cosine rules","Quadratic simultaneous equations and inequalities","Iteration and numerical methods"]}
+  pts:["Circle theorems and their proofs","Vectors and vector geometry","Histograms with unequal class widths","Algebraic fractions, functions, graph transformations","Surds, bounds, 3D trigonometry","Quadratic formula, sine and cosine rules","Quadratic simultaneous equations"]}
 ].forEach((c,i)=>{
   const x=M+i*6.13;
   card(s,x,1.72,5.7,4.18,c.fill,c.border);
@@ -418,7 +418,7 @@ s.addText("A short note from me: what we covered, Charlotte's recall score out o
 
 /* ---------------------------------------------------------- 15 CONTINGENCIES */
 s=p.addSlide(); head(s,"CONTINGENCIES","What could get in the way, and what we do");
-[["Entry or tier not confirmed","This one sits with you and the school. Entry deadlines for the November series fall in early October, so it is worth confirming in the next week or so."],
+[["Entry not yet confirmed","The standard entry deadline for the November series was 12 September, so this needs checking with the school now. Late fees have applied since 13 September and rise again from 10 October."],
  ["A week is lost to illness","Week 6 carries the slack. The third full paper comes out first, then the pacing session. The teaching weeks stay as they are."],
  ["The daily work does not fit","We look at this at the end of week 2. If it is not working, week 5 shape content reduces to three topics and that time goes to number and algebra."],
  ["The audit is worse than expected","Weeks 2 and 3 stay as they are, and week 4 drops sequences and straight-line graphs. Number and algebra stay in."]
@@ -445,7 +445,7 @@ s.addText("Rebuild number and algebra first.\nCover about 105 marks of content a
 rule(s,M,3.95,6.2,"3A4E70");
 s.addText("THIS WEEK",{x:M,y:4.22,w:4,h:0.3,isTextBox:true,margin:0,fontFace:SANS,
   fontSize:10.5,bold:true,color:GOLD,charSpacing:2.2});
-[["1","Confirm the entry, tier and exam times with the school"],
+[["1","Check with the school that Charlotte is entered, and for which tier"],
  ["2","Fluency audit and calculator setup in the next session"],
  ["3","Baseline paper at home, and the error log set up"]].forEach((t,i)=>{
   const y=4.62+i*0.56;

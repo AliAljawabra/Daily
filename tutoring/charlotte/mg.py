@@ -107,7 +107,7 @@ intro=[("What to do","Go to the RAG tracker tab and put R, A or G in the 'Your r
 ("Be honest rather than kind","A topic marked G gets almost no time from us. If you are torn between two, pick the lower one."),
 ("The early grades matter most","Grades 1 to 3 will look easy. Do not skim them. A topic you rate R there is the most useful thing you can tell me, because those marks appear on every paper."),
 ("Topic link","Each row links to the Maths Genie page for that topic, which has a video, questions and worked solutions if you want to check before rating."),
-("Grade column","This is the grade Maths Genie puts the topic at, so you can see how the ratings spread across the grades."),
+("Grade","The topics are grouped into grade blocks with a navy header before each one. The grade is what Maths Genie puts the topic at."),
 ("How long","About 119 rows, mostly one glance each. Roughly 30 minutes."),
 ]
 r=4
@@ -117,7 +117,7 @@ for k,v in intro:
     s0.row_dimensions[r].height=30; r+=1
 r+=1
 s0.cell(r,1,"Example of a filled row").font=Font(name="Arial",size=11,bold=True,color=NAVY); r+=1
-for c,h in enumerate(["Maths Genie grade","Topic","Your rating","Notes"],1): s0.cell(r,c,h).font=hdrF; s0.cell(r,c).fill=hdrFill
+for c,h in enumerate(["Grade","Topic","Your rating","Notes"],1): s0.cell(r,c,h).font=hdrF; s0.cell(r,c).fill=hdrFill
 r+=1
 for c,v in enumerate([4,"Indices","A","Fine with x and divide, never sure about power of 0"],1):
     cc=s0.cell(r,c,v); cc.font=bodyF; cc.alignment=wrap; cc.border=bd
@@ -125,36 +125,53 @@ s0.cell(r,3).fill=PatternFill("solid",fgColor=AMB)
 for col,wd in zip(range(1,5),[24,30,14,44]): s0.column_dimensions[get_column_letter(col)].width=wd
 
 ws=wb.create_sheet("RAG tracker")
-cols=["Maths Genie grade","No.","Topic","Your rating","Notes","Maths Genie","PMT worksheet","QP","MS","Ans"]
+cols=["Grade","Topic","Your rating","Notes","Maths Genie","PMT worksheet","QP","MS","Ans"]
 ws.append(cols)
 for c in ws[1]: c.font=hdrF; c.fill=hdrFill; c.alignment=Alignment(vertical="center",wrap_text=True)
-ws.row_dimensions[1].height=30; ws.freeze_panes="D2"
-i=1
-for t in topics:
+ws.row_dimensions[1].height=30; ws.freeze_panes="C2"
+import collections
+bygrade=collections.OrderedDict()
+for t in topics: bygrade.setdefault(t['grade'],[]).append(t)
+bandF=Font(name="Arial",size=11,bold=True,color="FFC3A965")
+bandFill=PatternFill("solid",fgColor=NAVY)
+i=1; blocks=[]
+for g,items in bygrade.items():
     i+=1
-    ws.cell(i,1,t['grade']); ws.cell(i,2,t['num'].replace('-','.'))
-    ws.cell(i,3,t['title'].title())
-    ws.cell(i,4,""); ws.cell(i,5,"")
-    c=ws.cell(i,6,"open"); c.hyperlink=BASE+t['slug']; c.font=linkF
-    sheets=PMT[t['title']]
-    ws.cell(i,7,"; ".join(sheets) if sheets else "no PMT sheet")
-    if sheets and sheets[0] in recs:
-        rec=recs[sheets[0]]
-        for lab,k,col in (("QP","QP",8),("MS","MS",9),("Ans","MA",10)):
-            cc=ws.cell(i,col,lab); cc.hyperlink=rec[k]; cc.font=linkF
-    for col in range(1,11):
-        cell=ws.cell(i,col)
-        if col not in (6,8,9,10): cell.font=bodyF
-        cell.border=bd; cell.alignment=wrap if col in (5,7) else top
-        if col in (1,2,3): cell.fill=PatternFill("solid",fgColor=GBAND[t['grade']])
-    ws.cell(i,4).fill=PatternFill("solid",fgColor=INP); ws.cell(i,5).fill=PatternFill("solid",fgColor=INP)
-    ws.cell(i,4).alignment=Alignment(horizontal="center",vertical="center")
-    ws.cell(i,4).font=Font(name="Arial",size=11,bold=True)
+    ws.cell(i,1,f"GRADE {g}")
+    ws.cell(i,2,f"{len(items)} topics")
+    for col in range(1,10):
+        cell=ws.cell(i,col); cell.fill=bandFill; cell.font=bandF
+        cell.alignment=Alignment(vertical="center")
+    ws.row_dimensions[i].height=22
+    start=i+1
+    for t in items:
+        i+=1
+        ws.cell(i,1,t['grade']); ws.cell(i,2,t['title'].title())
+        ws.cell(i,3,""); ws.cell(i,4,"")
+        c=ws.cell(i,5,"open"); c.hyperlink=BASE+t['slug']; c.font=linkF
+        sheets=PMT[t['title']]
+        ws.cell(i,6,"; ".join(sheets) if sheets else "no PMT sheet")
+        if sheets and sheets[0] in recs:
+            rec=recs[sheets[0]]
+            for lab,k,col in (("QP","QP",7),("MS","MS",8),("Ans","MA",9)):
+                cc=ws.cell(i,col,lab); cc.hyperlink=rec[k]; cc.font=linkF
+        for col in range(1,10):
+            cell=ws.cell(i,col)
+            if col not in (5,7,8,9): cell.font=bodyF
+            cell.border=bd; cell.alignment=wrap if col in (4,6) else top
+        ws.cell(i,1).fill=PatternFill("solid",fgColor=GBAND[t['grade']])
+        ws.cell(i,1).alignment=Alignment(horizontal="center",vertical="top")
+        ws.cell(i,1).font=Font(name="Arial",size=10,color="FF5D6471")
+        ws.cell(i,2).fill=PatternFill("solid",fgColor=GBAND[t['grade']])
+        ws.cell(i,3).fill=PatternFill("solid",fgColor=INP); ws.cell(i,4).fill=PatternFill("solid",fgColor=INP)
+        ws.cell(i,3).alignment=Alignment(horizontal="center",vertical="center")
+        ws.cell(i,3).font=Font(name="Arial",size=11,bold=True)
+    blocks.append((start,i))
 last=i
 dv=DataValidation(type="list",formula1='"R,A,G"',allow_blank=True,showDropDown=False)
 dv.error="Enter R, A or G"; dv.prompt="R = cannot do it, A = shaky, G = confident"
-ws.add_data_validation(dv); dv.add(f"D2:D{last}")
+ws.add_data_validation(dv); [dv.add(f"C{a}:C{b}") for a,b in blocks]
 for val,col in (("R",RED),("A",AMB),("G",GRN)):
-    ws.conditional_formatting.add(f"D2:D{last}",CellIsRule(operator="equal",formula=[f'"{val}"'],fill=PatternFill("solid",fgColor=col)))
-for col,wd in zip(range(1,11),[10,6,36,11,34,11,34,6,6,6]): ws.column_dimensions[get_column_letter(col)].width=wd
+    ws.conditional_formatting.add(f"C2:C{last}",CellIsRule(operator="equal",formula=[f'"{val}"'],fill=PatternFill("solid",fgColor=col)))
+for col,wd in zip(range(1,10),[8,38,11,34,11,34,6,6,6]): ws.column_dimensions[get_column_letter(col)].width=wd
 wb.save("Charlotte_RAG_mathsgenie.xlsx"); print("built rows:",last-1)

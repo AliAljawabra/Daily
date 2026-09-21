@@ -73,18 +73,18 @@ s3=wb.create_sheet("Summary",0)
 s3["A1"]="Summary"; s3["A1"].font=Font(name="Arial",size=16,bold=True,color=NAVY)
 s3["A2"]="Fills in automatically once the RAG tracker is completed."
 s3["A2"].font=Font(name="Arial",size=10,italic=True,color="FF5D6471")
-s3.append([]); s3.append(["Rating","Topics in scope","What we do","Questions each","Questions total"])
+s3.append([]); s3.append(["Rating","Topics at grades 1 to 6","Rough workload","Questions each","Questions total"])
 for c in s3[4]: c.font=hdrF; c.fill=hdrFill
 rr=4
 for val,act,q in [("R","Full worksheet, taught first",13),("A","Work until 3 right in a row",6),("G","2 question spot check",2)]:
     rr+=1
-    s3.cell(rr,1,val); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$E$2:$E${last},$A{rr},'RAG tracker'!$D$2:$D${last},\"<>Not this time\")")
+    s3.cell(rr,1,val); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$D$2:$D${last},$A{rr},'RAG tracker'!$A$2:$A${last},\"<=6\")")
     s3.cell(rr,3,act); s3.cell(rr,4,q); s3.cell(rr,5,f"=$B{rr}*$D{rr}")
     for c in range(1,6): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
     s3.cell(rr,1).fill=PatternFill("solid",fgColor={"R":RED,"A":AMB,"G":GRN}[val])
 rr+=1
-s3.cell(rr,1,"Not yet rated"); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$E$2:$E${last},\"\")")
-s3.cell(rr,3,"Counts every row, including the ones we are not scheduling")
+s3.cell(rr,1,"Not yet rated"); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$D$2:$D${last},\"\")")
+s3.cell(rr,3,"Counts every row, all grades")
 for c in range(1,6): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
 rr+=1
 s3.cell(rr,3,"Total questions"); s3.cell(rr,5,f"=SUM(E5:E7)")
@@ -95,15 +95,14 @@ for r2 in (rr-1,rr):
     s3.cell(r2,3).font=bodyF; s3.cell(r2,5).font=bodyF
 rr+=2
 s3.cell(rr,1,"By grade").font=Font(name="Arial",size=11,bold=True,color=NAVY); rr+=1
-for c,h in enumerate(["Grade","Topics","In our plan","Red","Amber","Green"],1): s3.cell(rr,c,h).font=hdrF; s3.cell(rr,c).fill=hdrFill
+for c,h in enumerate(["Maths Genie grade","Topics","","Red","Amber","Green"],1): s3.cell(rr,c,h).font=hdrF; s3.cell(rr,c).fill=hdrFill
 gstart=rr+1
 for g in range(1,9):
     rr+=1
     s3.cell(rr,1,g)
     s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$A$2:$A${last},$A{rr})")
-    s3.cell(rr,3,"Core" if g<=5 else ("Stretch" if g==6 else "Not this time"))
     for c,val in ((4,"R"),(5,"A"),(6,"G")):
-        s3.cell(rr,c,f"=COUNTIFS('RAG tracker'!$A$2:$A${last},$A{rr},'RAG tracker'!$E$2:$E${last},\"{val}\")")
+        s3.cell(rr,c,f"=COUNTIFS('RAG tracker'!$A$2:$A${last},$A{rr},'RAG tracker'!$D$2:$D${last},\"{val}\")")
     for c in range(1,7): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
 rr+=1
 s3.cell(rr,1,"Total"); s3.cell(rr,2,f"=SUM(B{gstart}:B{rr-1})")
@@ -111,32 +110,4 @@ for c in (4,5,6): s3.cell(rr,c,f"=SUM({get_column_letter(c)}{gstart}:{get_column
 for c in range(1,7): s3.cell(rr,c).font=Font(name="Arial",size=10,bold=True); s3.cell(rr,c).fill=PatternFill("solid",fgColor=TINT)
 for col,wd in zip(range(1,7),[18,12,38,16,16,16]): s3.column_dimensions[get_column_letter(col)].width=wd
 
-s4=wb.create_sheet("Spec check")
-s4["A1"]="Cross-check against the Pearson 4MA1 specification"
-s4["A1"].font=Font(name="Arial",size=14,bold=True,color=NAVY)
-s4["A2"]="Every subsection of the specification, and the Maths Genie topics that cover it. Built so nothing is lost by using Maths Genie as the spine."
-s4["A2"].font=Font(name="Arial",size=10,italic=True,color="FF5D6471")
-s4.append([]); s4.append(["Spec ref","Specification topic","Covered by","Status"])
-for c in s4[4]: c.font=hdrF; c.fill=hdrFill
-r4=4
-for ref in sorted(COVER,key=lambda r:(int(r.split('.')[0]),int(r.split('.')[1]))):
-    r4+=1
-    s4.cell(r4,1,ref); s4.cell(r4,2,TITLE[ref])
-    s4.cell(r4,3,", ".join(COVER[ref]) if COVER[ref] else "NOTHING")
-    s4.cell(r4,4,"Covered" if COVER[ref] else "GAP")
-    for c in range(1,5): s4.cell(r4,c).font=bodyF; s4.cell(r4,c).border=bd; s4.cell(r4,c).alignment=wrap
-    if not COVER[ref]:
-        for c in range(1,5): s4.cell(r4,c).fill=PatternFill("solid",fgColor=RED)
-    s4.row_dimensions[r4].height=28
-r4+=2
-s4.cell(r4,1,"Notes").font=Font(name="Arial",size=11,bold=True,color=NAVY)
-for i,t in enumerate([
- "4.3 Symmetry has no Maths Genie topic. Lines of symmetry and order of rotational symmetry are on the specification. Cover it inside Transformations.",
- "Congruence (4.2 F and G) has no topic of its own. It sits inside Similar Shapes Lengths and Transformations.",
- "Set notation beyond Venn diagrams (union, intersection, complement, n(A), subsets) sits only inside Venn Diagrams. Check she has seen the symbols.",
- "Everything else on the specification maps to at least one Maths Genie topic.",
- "Grade 7 and above rows say 'Not scheduled' whatever the rating, and are excluded from the question totals above.",
- "Grades shown are Maths Genie's estimates, not Pearson's. Boundaries move each series."],start=1):
-    s4.cell(r4+i,1,t).font=Font(name="Arial",size=10,color="FF5D6471")
-for col,wd in zip(range(1,5),[10,34,70,12]): s4.column_dimensions[get_column_letter(col)].width=wd
 wb.save("Charlotte_RAG_mathsgenie.xlsx"); print("saved")

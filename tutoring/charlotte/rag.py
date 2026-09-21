@@ -71,6 +71,20 @@ ROWS=[
 ("6.3H","Tree diagrams and conditional probability","Tree diagrams, independent events, simple conditional probability",H,CORE,["Tree Diagrams","Conditional Probability"]),
 ]
 
+
+U1,U2,UB="Unit 1","Unit 2","Units 1 and 2"
+UNIT={
+"1.1":U1,"1.2":U1,"1.3":U1,"1.3H":U1,"1.4":UB,"1.4H":U1,"1.5":U1,"1.6":UB,"1.7":U2,
+"1.8":U1,"1.8H":U1,"1.9":U2,"1.10":U1,"1.11":U1,
+"2.1":U1,"2.2":U1,"2.2H":UB,"2.3":U2,"2.4":U1,"2.5":U2,"2.6":U2,"2.7":U1,"2.7H":UB,
+"2.8":U2,"2.8H":U2,
+"3.1":U2,"3.1H":U2,"3.2":U2,"3.3":U1,"3.3b":U1,"3.3H":UB,"3.4":U2,
+"4.1":U1,"4.2":UB,"4.3":U2,"4.4":UB,"4.5":U2,"4.6":U2,"4.6H":U2,"4.7":U1,
+"4.8":U1,"4.8H":U1,"4.9":U1,"4.9H":U1,"4.10":UB,"4.10H":U2,"4.11":U2,"4.11H":U2,
+"5.1":U2,"5.2":U2,
+"6.1":UB,"6.1H":UB,"6.2":U2,"6.2H":U2,"6.3":U1,"6.3H":U1,
+}
+
 NAVY="FF162947"; GOLD="FFC3A965"; TINT="FFEFEBE1"
 RED="FFF4CCCC"; AMB="FFFCE5CD"; GRN="FFD9EAD3"
 hdrF=Font(name="Arial",size=10,bold=True,color="FFF6F4EF"); hdrFill=PatternFill("solid",fgColor=NAVY)
@@ -92,6 +106,7 @@ intro=[("What to do","Go to the RAG tracker tab. For each row, read the topic an
 ("Be honest rather than kind","A topic marked G gets almost no time from us. If you are unsure between two ratings, pick the lower one."),
 ("Higher only rows","Some rows are marked 'Higher only'. Those are the harder end of the paper. Rate them anyway, even if you have never seen them."),
 ("How long","About 55 rows. It should take 20 to 30 minutes. You do not need to do any maths to fill it in."),
+("Modular unit column","Ignore this unless you are on the modular route. It says which of the two units the topic sits in."),
 ]
 r=4
 for k,v in intro:
@@ -100,44 +115,44 @@ for k,v in intro:
     s0.row_dimensions[r].height=30; r+=1
 r+=1
 s0.cell(r,1,"Example of a filled row").font=Font(name="Arial",size=11,bold=True,color=NAVY); r+=1
-ex=["Ref","Topic","What it covers","Level","Your rating","Notes"]
+ex=["Ref","Topic","What it covers","Level","Modular unit","Your rating","Notes"]
 for c,h in enumerate(ex,1): s0.cell(r,c,h).font=hdrF; s0.cell(r,c).fill=hdrFill
 r+=1
-exv=["1.2","Fractions","Equivalent fractions and simplifying, mixed numbers, all four operations","Foundation","A","Fine adding, always get stuck dividing"]
+exv=["1.2","Fractions","Equivalent fractions and simplifying, mixed numbers, all four operations","Foundation","Unit 1","A","Fine adding, always get stuck dividing"]
 for c,v in enumerate(exv,1):
     cc=s0.cell(r,c,v); cc.font=bodyF; cc.alignment=wrap; cc.border=bd
-s0.cell(r,5).fill=PatternFill("solid",fgColor=AMB)
-for col,wd in zip(range(1,7),[22,26,46,16,12,34]): s0.column_dimensions[get_column_letter(col)].width=wd
+s0.cell(r,6).fill=PatternFill("solid",fgColor=AMB)
+for col,wd in zip(range(1,8),[22,26,44,15,13,12,30]): s0.column_dimensions[get_column_letter(col)].width=wd
 
 # ---------- RAG tracker ----------
 ws=wb.create_sheet("RAG tracker")
-cols=["Ref","Topic","What it covers","Level","Your rating","Notes","In our plan","What we do about it"]
+cols=["Ref","Topic","What it covers","Level","Modular unit","Your rating","Notes","In our plan","What we do about it"]
 ws.append(cols)
 for c in ws[1]: c.font=hdrF; c.fill=hdrFill; c.alignment=Alignment(vertical="center",wrap_text=True)
 ws.row_dimensions[1].height=30; ws.freeze_panes="A2"
 for i,(ref,topic,covers,level,plan,sheets) in enumerate(ROWS,start=2):
     ws.cell(i,1,ref); ws.cell(i,2,topic); ws.cell(i,3,covers); ws.cell(i,4,level)
-    ws.cell(i,5,""); ws.cell(i,6,""); ws.cell(i,7,plan)
-    ws.cell(i,8,f'=IF($E{i}="","",IF($E{i}="R","Full worksheet, taught first",'
-                f'IF($E{i}="A","Work until 3 right in a row",'
-                f'IF($E{i}="G","2 question spot check in week 5",""))))')
-    for c in range(1,9):
+    ws.cell(i,5,UNIT.get(ref,"")); ws.cell(i,6,""); ws.cell(i,7,""); ws.cell(i,8,plan)
+    ws.cell(i,9,f'=IF($F{i}="","",IF($F{i}="R","Full worksheet, taught first",'
+                f'IF($F{i}="A","Work until 3 right in a row",'
+                f'IF($F{i}="G","2 question spot check in week 5",""))))')
+    for c in range(1,10):
         cell=ws.cell(i,c); cell.font=bodyF; cell.border=bd
-        cell.alignment=wrap if c in (3,6,8) else top
+        cell.alignment=wrap if c in (3,7,9) else top
     ws.row_dimensions[i].height=34
 last=len(ROWS)+1
 dv=DataValidation(type="list",formula1='"R,A,G"',allow_blank=True,showDropDown=False)
 dv.error="Enter R, A or G"; dv.prompt="R = cannot do it, A = shaky, G = confident"
-ws.add_data_validation(dv); dv.add(f"E2:E{last}")
+ws.add_data_validation(dv); dv.add(f"F2:F{last}")
 for val,col in (("R",RED),("A",AMB),("G",GRN)):
-    ws.conditional_formatting.add(f"E2:E{last}",
+    ws.conditional_formatting.add(f"F2:F{last}",
         CellIsRule(operator="equal",formula=[f'"{val}"'],fill=PatternFill("solid",fgColor=col)))
 inputFill=PatternFill("solid",fgColor="FFFFF2CC")
 for i in range(2,last+1):
-    ws.cell(i,5).fill=inputFill; ws.cell(i,6).fill=inputFill
-    ws.cell(i,5).alignment=Alignment(horizontal="center",vertical="center")
-    ws.cell(i,5).font=Font(name="Arial",size=11,bold=True)
-for col,wd in zip(range(1,9),[7,30,60,17,11,30,13,27]): ws.column_dimensions[get_column_letter(col)].width=wd
+    ws.cell(i,6).fill=inputFill; ws.cell(i,7).fill=inputFill
+    ws.cell(i,6).alignment=Alignment(horizontal="center",vertical="center")
+    ws.cell(i,6).font=Font(name="Arial",size=11,bold=True)
+for col,wd in zip(range(1,10),[7,30,58,17,14,11,26,13,27]): ws.column_dimensions[get_column_letter(col)].width=wd
 
 # ---------- Worksheets ----------
 ws2=wb.create_sheet("Worksheets")
@@ -149,14 +164,14 @@ for i,(ref,topic,covers,level,plan,sheets) in enumerate(ROWS,start=2):
     if not sheets:
         r+=1
         ws2.cell(r,1,ref); ws2.cell(r,2,topic); ws2.cell(r,3,plan)
-        ws2.cell(r,4,f"='RAG tracker'!$E{i}")
+        ws2.cell(r,4,f"='RAG tracker'!$F{i}")
         ws2.cell(r,5,"No PMT worksheet for this topic")
         for c in range(1,13): ws2.cell(r,c).font=bodyF; ws2.cell(r,c).border=bd
         continue
     for sname in sheets:
         r+=1
         ws2.cell(r,1,ref); ws2.cell(r,2,topic); ws2.cell(r,3,plan)
-        ws2.cell(r,4,f"='RAG tracker'!$E{i}")
+        ws2.cell(r,4,f"='RAG tracker'!$F{i}")
         ws2.cell(r,5,sname)
         rec=LINK.get(sname)
         if rec:
@@ -187,12 +202,12 @@ plan_rows=[("R","Full worksheet, taught first",13),("A","Work until 3 right in a
 rr=4
 for val,act,q in plan_rows:
     rr+=1
-    s3.cell(rr,1,val); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$E$2:$E${last},$A{rr})")
+    s3.cell(rr,1,val); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$F$2:$F${last},$A{rr})")
     s3.cell(rr,3,act); s3.cell(rr,4,q); s3.cell(rr,5,f"=$B{rr}*$D{rr}")
     for c in range(1,6): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
     s3.cell(rr,1).fill=PatternFill("solid",fgColor={"R":RED,"A":AMB,"G":GRN}[val])
 rr+=1
-s3.cell(rr,1,"Not yet rated"); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$E$2:$E${last},\"\")")
+s3.cell(rr,1,"Not yet rated"); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$F$2:$F${last},\"\")")
 for c in range(1,6): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
 rr+=1
 s3.cell(rr,3,"Total questions"); s3.cell(rr,5,f"=SUM(E5:E7)")
@@ -214,6 +229,42 @@ for i,t in enumerate([
  "3.4 Calculus is on the Higher specification but PMT has no topic worksheet for it."],start=1):
     s3.cell(rr+i,1,t).font=Font(name="Arial",size=10,color="FF5D6471")
 for col,wd in zip(range(1,6),[18,12,38,16,16]): s3.column_dimensions[get_column_letter(col)].width=wd
+
+
+# ---------- Routes ----------
+s4=wb.create_sheet("Routes")
+s4["A1"]="Which qualification is this?"; s4["A1"].font=Font(name="Arial",size=14,bold=True,color=NAVY)
+s4["A2"]="Two different Edexcel qualifications share the same content. The tracker works for both, but the exam structure and the grading differ."
+s4["A2"].font=Font(name="Arial",size=10,italic=True,color="FF5D6471")
+s4.append([]); s4.append(["","Linear","Modular"])
+for c in s4[4]: c.font=hdrF; c.fill=hdrFill
+cmp=[("Qualification code","4MA1","4XMAH (Higher cash-in)"),
+("Exam codes","4MA1/1H and 4MA1/2H","4WM1H/01 and 4WM2H/01"),
+("Structure","Two papers, each sampling the whole specification","Two units, the content split between them"),
+("November 2026 dates","Wed 4 Nov and Fri 6 Nov, both morning, 2 hours","Wed 4 Nov and Fri 6 Nov, both morning, 2 hours"),
+("Marks","100 raw marks per paper, 200 total","100 raw marks per unit, converted to 120 UMS per unit, 240 total"),
+("Grade 5 boundary","65 out of 200 raw in November 2025","120 out of 240 UMS, fixed"),
+("Grade 4 boundary","45 out of 200 raw in November 2025","96 out of 240 UMS, fixed"),
+("Resits","The whole qualification is resat","Individual units can be resat"),
+("Availability","UK and international centres","Centres outside the UK only"),
+("Content","Identical. The modular route splits the same content across two units.","Identical. The modular route splits the same content across two units.")]
+rr4=4
+for a,b,c in cmp:
+    rr4+=1
+    s4.cell(rr4,1,a).font=Font(name="Arial",size=10,bold=True,color=NAVY)
+    s4.cell(rr4,2,b).font=bodyF; s4.cell(rr4,3,c).font=bodyF
+    for col in range(1,4):
+        s4.cell(rr4,col).border=bd; s4.cell(rr4,col).alignment=wrap
+    s4.row_dimensions[rr4].height=30
+rr4+=2
+s4.cell(rr4,1,"How to tell which one Charlotte is on").font=Font(name="Arial",size=11,bold=True,color=NAVY)
+for i,t in enumerate([
+ "The modular qualification is only available to centres outside the UK, so a UK school means the linear 4MA1.",
+ "Ask the school for the entry code on her statement of entry. 4MA1 is linear, 4WM1H or 4WM2H is modular.",
+ "The dates and times are the same either way, so the plan does not change. The grading does.",
+ "On the modular route a raw mark is converted to UMS, so the grade 5 line is fixed at 120 of 240 rather than moving each series."],start=1):
+    s4.cell(rr4+i,1,t).font=Font(name="Arial",size=10,color="FF5D6471")
+for col,wd in zip(range(1,4),[26,44,48]): s4.column_dimensions[get_column_letter(col)].width=wd
 
 wb.save("Charlotte_RAG_tracker.xlsx")
 print("rows:",len(ROWS),"worksheet rows:",wsheets_last-1,"unmatched:",set(missing))

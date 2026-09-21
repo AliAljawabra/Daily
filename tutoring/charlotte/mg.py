@@ -139,13 +139,12 @@ bandFill=PatternFill("solid",fgColor=NAVY)
 i=1; blocks=[]
 for g,items in bygrade.items():
     i+=1
-    ws.cell(i,1,f"GRADE {g}")
-    ws.cell(i,2,f"{len(items)} topics")
+    ws.cell(i,2,f"GRADE {g}   \u00b7   {len(items)} topics")
     for col in range(1,10):
         cell=ws.cell(i,col); cell.fill=bandFill; cell.font=bandF
         cell.alignment=Alignment(vertical="center")
     ws.cell(i,1).border=Border(right=vrule)
-    ws.row_dimensions[i].height=22
+    ws.row_dimensions[i].height=24
     start=i+1
     for t in items:
         i+=1

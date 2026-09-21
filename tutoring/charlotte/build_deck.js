@@ -173,9 +173,9 @@ steps.forEach((st,i)=>{
 });
 s.addText("How the balance shifts",{x:M,y:3.7,w:6,h:0.3,isTextBox:true,margin:0,
   fontFace:SERIF,fontSize:18,color:NAVY});
-[["Weeks 1 and 2","80% teaching  ·  20% exam questions","Most of the time goes on content."],
- ["Weeks 3 to 5","Roughly half teaching, half timed work","Timed sections start short and lengthen."],
- ["Week 6","Full papers only, no new content","Two full papers, marked and reviewed."]].forEach((b,i)=>{
+[["Weeks 1 and 2","Teaching led by the baseline paper","Timed work is the opening hour."],
+ ["Weeks 3 to 5","Each session built from that week's paper","Timed work grows to the full two hours."],
+ ["Week 6","Two full papers, no new content","Both marked and reviewed in session."]].forEach((b,i)=>{
   const x=M+i*4.0;
   card(s,x,4.1,3.83,1.28,CARD,LINE);
   s.addText(b[0],{x:x+0.28,y:4.28,w:3.3,h:0.26,isTextBox:true,margin:0,fontFace:SANS,
@@ -186,49 +186,48 @@ s.addText("How the balance shifts",{x:M,y:3.7,w:6,h:0.3,isTextBox:true,margin:0,
     fontSize:10,color:BODY});
 });
 card(s,M,5.62,11.83,1.08,TINT);
-s.addText("Full papers come in weeks 1, 5 and twice in week 6, with timed sections in weeks 3 and 4.",
+s.addText("A timed paper every week from week 1, and two in week 6.",
   {x:1.1,y:5.82,w:11.1,h:0.28,isTextBox:true,margin:0,fontFace:SANS,fontSize:12,bold:true,color:NAVY});
-s.addText("That gives three rounds of feedback with time left to act on each one.",
+s.addText("Seven timed pieces in six weeks. Each one is marked and turned into the next session, so the teaching follows the marks she is actually losing.",
   {x:1.1,y:6.14,w:11.1,h:0.3,isTextBox:true,margin:0,fontFace:SANS,fontSize:11,color:BODY});
 
 /* ---------------------------------------------------------- 6 PAST PAPERS */
-s=p.addSlide(); head(s,"PAST PAPERS","How they are used, and from when");
-s.addText("Past papers do two jobs here, and we use them differently for each.",
+s=p.addSlide(); head(s,"PAST PAPERS","A timed paper every week");
+s.addText("Charlotte has been taught this course once already, so the papers are the main teaching tool here, not only the measurement.",
   {x:M,y:1.6,w:11.4,h:0.3,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:12.5,color:BODY});
 
 card(s,M,2.02,5.7,2.98,CARD,GOLD);
-s.addText("Questions, from the next session",{x:1.1,y:2.24,w:5.0,h:0.34,isTextBox:true,margin:0,
+s.addText("The schedule",{x:1.1,y:2.2,w:5.0,h:0.34,isTextBox:true,margin:0,
   valign:"top",fontFace:SERIF,fontSize:20,color:NAVY});
-s.addText("Every topic is practised on real exam questions rather than textbook exercises.",
-  {x:1.1,y:2.64,w:5.0,h:0.4,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:10.5,
-   italic:true,color:BODY,lineSpacing:14});
-bullets(s,["Topic-sorted questions while the topic is being covered",
-           "Mixed and ungrouped in the daily practice, so the method has to be chosen first",
-           "Marked against the published mark scheme",
-           "Anything wrong goes into the error log"],1.1,3.16,5.0,11,BODY,0.3);
+[["WEEK 1","Full paper, timed, as the baseline"],
+ ["WEEK 2","First hour of a paper, timed"],
+ ["WEEK 3","First hour of a paper, timed"],
+ ["WEEK 4","Full paper, exam conditions"],
+ ["WEEK 5","Full paper, exam conditions"],
+ ["WEEK 6","Two full papers"]].forEach((r,i)=>{
+  const y=2.62+i*0.33;
+  s.addText(r[0],{x:1.1,y:y+0.02,w:1.0,h:0.24,isTextBox:true,margin:0,fontFace:SANS,
+    fontSize:9.5,bold:true,color:GOLD,charSpacing:1.2});
+  s.addText(r[1],{x:2.15,y,w:3.95,h:0.28,isTextBox:true,margin:0,valign:"top",fontFace:SANS,
+    fontSize:11.5,color:NAVY});
+});
+s.addText("Seven timed pieces, five of them full papers. About 18 hours with marking.",
+  {x:1.1,y:4.6,w:5.0,h:0.28,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:9.5,
+   color:BODY,lineSpacing:13});
 
 card(s,6.88,2.02,5.7,2.98,NAVY);
-s.addText("Whole papers, four of them",{x:7.23,y:2.24,w:5.0,h:0.34,isTextBox:true,margin:0,
+s.addText("What happens to each one",{x:7.23,y:2.2,w:5.0,h:0.34,isTextBox:true,margin:0,
   valign:"top",fontFace:SERIF,fontSize:20,color:CREAM});
-s.addText("Timed, under exam conditions, on set dates. These are how we measure progress.",
-  {x:7.23,y:2.64,w:5.0,h:0.4,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:10.5,
-   italic:true,color:ONNAVYMUTE,lineSpacing:14});
-[["WEEK 1","Baseline paper, at home, timed"],
- ["WEEK 5","Full paper under exam conditions"],
- ["WEEK 6","Two full papers, marked and reviewed"]].forEach((r,i)=>{
-  const y=3.10+i*0.44;
-  s.addText(r[0],{x:7.23,y:y+0.03,w:1.0,h:0.26,isTextBox:true,margin:0,fontFace:SANS,
-    fontSize:9.5,bold:true,color:GOLD,charSpacing:1.2});
-  s.addText(r[1],{x:8.3,y,w:3.95,h:0.3,isTextBox:true,margin:0,valign:"top",fontFace:SANS,
-    fontSize:11.5,color:ONNAVY});
-});
-s.addText("The baseline uses a past paper rather than the specimen, since part of the specimen has already been seen.\nAbout twelve hours in total, including the marking.",
-  {x:7.23,y:4.26,w:5.0,h:0.6,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:10,
-   color:ONNAVYMUTE,lineSpacing:13.5});
+bullets(s,["Charlotte marks it against the published mark scheme",
+           "The losses are listed, largest first",
+           "The next session teaches the losses inside her target band",
+           "Anything above the band is noted and left",
+           "Repeated errors go into the error log",
+           "Topic questions fill the gaps between papers"],7.23,2.7,5.0,11,ONNAVY,0.3);
 
 card(s,M,5.2,11.83,1.5,TINT);
-[["MARKING","A paper is only worth the time if it is marked and reviewed. Charlotte marks each one against the published mark scheme, and the session afterwards covers her five biggest losses."],
- ["WHY NOT MORE","There is no shortage of 4MA1 papers, so the limit is time. A full paper costs two hours to sit and one to review. In weeks 2 to 4 those hours are better spent on teaching and short timed sections."]
+[["WHY THE FIRST HOUR IN WEEKS 2 AND 3","Questions on a Higher paper rise in difficulty, so most of the grade 4 and 5 marks sit in the opening hour. Early on that hour is worth more to her than the full two, and it is far less discouraging."],
+ ["IF THE BASELINE COMES IN VERY LOW","Under 15 out of 100 in week 1 and the timed hours in weeks 2 and 3 come out, with topic questions in their place until week 4. We would know that within a fortnight."]
 ].forEach((c,i)=>{
   const x=1.1+i*5.9;
   s.addText(c[0],{x,y:5.38,w:5.3,h:0.24,isTextBox:true,margin:0,fontFace:SANS,fontSize:9,
@@ -242,30 +241,30 @@ const weekPairs=[
  {eyebrow:"WEEKS 1 AND 2",title:"Starting with the foundations",
   w:[{n:"1",label:"WEEK 1  ·  21 to 27 Sep",name:"Baseline and setup",
       pts:["Fluency audit: 35 questions, 50 minutes","Calculator setup: fraction key, ANS and STO, standard form, table mode, degree mode","The formula sheet: what is provided, so no time goes on learning it","Method marks: how working earns marks","Setting up the error log"],
-      home:"Baseline paper at home, 2 hours, timed. Daily practice: negatives in algebra.",
-      paper:"Baseline paper, reviewed together in session two"},
+      home:"Practice four days: negatives inside algebra.",
+      paper:"Full baseline paper, timed, reviewed in session two"},
      {n:"2",label:"WEEK 2  ·  28 Sep to 4 Oct",name:"Number",
       pts:["Fractions: all four operations","Percentage multipliers, increase and decrease","Reverse percentages","Standard form and index laws","One method per topic, used every time"],
-      home:"Daily practice: negatives and fractions.",
-      paper:"Topic questions on percentages"}]},
+      home:"Practice four days: negatives and fractions.",
+      paper:"First hour of a past paper, timed"}]},
  {eyebrow:"WEEKS 3 AND 4",title:"Algebra, then the data topics",
   w:[{n:"3",label:"WEEK 3  ·  5 to 11 Oct",name:"Algebra",
       pts:["Collecting terms and expanding brackets","Solving with x on both sides","Substitution and rearranging formulae","Linear simultaneous equations","Audit repeated (checkpoint 1)"],
-      home:"Daily practice: fractions and percentages.",
-      paper:"Timed section, 25 minutes, two-pass rule applied"},
+      home:"Practice four days: fractions and percentages.",
+      paper:"First hour of a past paper, timed, two-pass rule applied"},
      {n:"4",label:"WEEK 4  ·  12 to 18 Oct",name:"Ratio, data and graphs",
       pts:["Ratio and proportion by the unitary method","Averages and frequency tables","Estimated mean from grouped data","Probability, tree diagrams and Venn diagrams","Sequences and straight-line graphs"],
-      home:"Daily practice: solving and ratio.",
-      paper:"Timed section, 40 minutes, marked against the mark scheme"}]},
+      home:"Practice four days: solving and ratio.",
+      paper:"Full paper, 2 hours, exam conditions"}]},
  {eyebrow:"WEEKS 5 AND 6",title:"Shape, then papers",
   w:[{n:"5",label:"WEEK 5  ·  19 to 25 Oct",name:"Shape and space",
       pts:["Angle facts, area and perimeter","Circles, prisms and cylinders","Pythagoras and right-angled trigonometry","Similar shapes: area and volume ratios","Audit repeated (checkpoint 2)"],
-      home:"Daily practice: all six target skills, mixed.",
-      paper:"First full paper, 2 hours, exam conditions"},
+      home:"Practice four days: all six target skills, mixed.",
+      paper:"Full paper, 2 hours, exam conditions"},
      {n:"6",label:"WEEK 6  ·  26 Oct to 1 Nov",name:"Papers",
-      pts:["Review and correct the week 5 paper","Second full paper, then the five biggest losses","Third full paper if the first two are on target","Pacing and exam technique session","No new content after 25 October"],
-      home:"Daily practice: from the error log.",
-      paper:"Two full papers, plus a third if week 5 reached 35 out of 100"}]}];
+      pts:["Review and correct the week 5 paper","Second full paper, then the five biggest losses","Retrieval across the whole covered list","Pacing and exam technique session","No new content after 25 October"],
+      home:"Practice four days: from the error log.",
+      paper:"Two full papers, marked and reviewed in session"}]}];
 
 weekPairs.forEach(wp=>{
   const s=p.addSlide(); head(s,wp.eyebrow,wp.title);
@@ -333,7 +332,7 @@ s.addText("Four habits, covered in week 1 and applied to every timed piece of wo
   {x:M,y:1.62,w:11.4,h:0.34,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:12.5,color:BODY});
 [["01","Method marks","Working earns marks even when the final answer is wrong. Every question gets a substitution line and visible steps, and nothing is rubbed out."],
  ["02","Always something written","A correct first step scores, and a blank does not. Every question gets at least one line, including the ones we have left out."],
- ["03","Two passes","The recognisable questions first, then back to anything flagged. Practised on every timed section from week 3, so it is familiar by November."],
+ ["03","Two passes","The recognisable questions first, then back to anything flagged. Practised on every timed paper from week 1, so it is automatic by November."],
  ["04","The last line","Marks are often lost at the end of correct work. Answers get checked for units, for degrees, and for the rounding the question asked for."]
 ].forEach((t,i)=>{
   const x=M+i*3.0, dk=i%2===0;
@@ -351,8 +350,8 @@ s.addText("Every marked piece of work records marks lost to blanks, to missing w
    fontSize:11.5,color:NAVY,lineSpacing:16});
 
 /* ---------------------------------------------------------- 13 HOME */
-s=p.addSlide(); head(s,"BETWEEN SESSIONS","Twenty minutes a day, six days a week");
-s.addText("This starts from the next session and runs to the exams. Six days a week for six weeks comes to about twelve hours, close to the total lesson time, and short daily sessions work better here than one long session at the weekend.",
+s=p.addSlide(); head(s,"BETWEEN SESSIONS","The week between sessions");
+s.addText("This starts from the next session. The timed paper is the largest single piece of work, and the short practice sits around it on four days rather than six, so the two are not competing for the same evenings.",
   {x:M,y:1.62,w:11.4,h:0.4,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:12.5,
    color:BODY,lineSpacing:17});
 [["5 min","Target skill","Twenty questions on the week's target skill, written out in full and timed, with the score noted."],
@@ -369,27 +368,27 @@ s.addText("This starts from the next session and runs to the exams. Six days a w
     fontSize:10.5,color:BODY,lineSpacing:14.5});
 });
 [["1","Nothing new is learned at home"],["2","Charlotte marks her own work"],
- ["3","The same time each day"],["4","Sunday is five minutes, error log only"],
- ["5","A photo of the marked sheet, sent the same day"]].forEach((r,i)=>{
+ ["3","Four practice days, one paper day"],["4","The paper is sat in one sitting"],
+ ["5","A photo of the marked work, sent the same day"]].forEach((r,i)=>{
   const x=M+i*2.4;
   badge(s,x,4.48,r[0],NAVY,GOLD,0.38);
   s.addText(r[1],{x:x,y:4.95,w:2.2,h:0.56,isTextBox:true,margin:0,valign:"top",fontFace:SANS,
     fontSize:11,bold:true,color:NAVY,lineSpacing:14.5});
 });
 card(s,M,5.72,11.83,0.98,NAVY);
-s.addText("We will look at how the daily work is going at the end of week 2.",
+s.addText("We will look at how the week is working at the end of week 2.",
   {x:1.1,y:5.9,w:11.1,h:0.28,isTextBox:true,margin:0,fontFace:SANS,fontSize:12.5,bold:true,color:GOLD});
-s.addText("It is the easiest part of the plan to lose and the hardest to make up. If twenty minutes is not fitting around everything else, please say so and we will adjust the plan around what is realistic.",
+s.addText("The paper and the short practice come to about four hours a week. If that is not realistic alongside everything else, please say so. The practice days come down before the papers do, because the papers are what the teaching is built on.",
   {x:1.1,y:6.22,w:11.1,h:0.34,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:11,color:ONNAVYMUTE});
 
 /* ---------------------------------------------------------- 14 PROGRESS */
 s=p.addSlide(); head(s,"PROGRESS","How we will track it");
-s.addText("Two numbers: Charlotte's audit score, and her marks on a timed paper. Each checkpoint has a set response.",
+s.addText("Two numbers: Charlotte's audit score, and her mark on that week's timed paper. There is a score every week from week 1, and each checkpoint has a set response.",
   {x:M,y:1.62,w:11.4,h:0.3,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:12.5,color:BODY});
 [["WEEK 1","Baseline","Audit and a full paper","Recorded as a starting point."],
  ["WEEK 3","Checkpoint 1","Audit repeated","The weakest skills should have improved."],
- ["WEEK 5","First full paper","35 / 100 or better","On track. If it is below, see the note underneath."],
- ["WEEK 6","Second full paper","40 / 100 or better","80 out of 200, 15 clear of the boundary."]
+ ["WEEK 5","Full paper","35 / 100 or better","On track. If it is below, see the note underneath."],
+ ["WEEK 6","Final papers","40 / 100 or better","80 out of 200, 15 clear of the boundary."]
 ].forEach((c,i)=>{
   const x=M+i*3.0, dk=i>=2;
   card(s,x,2.1,2.83,2.55,dk?NAVY:CARD,dk?null:LINE);
@@ -405,14 +404,14 @@ s.addText("Two numbers: Charlotte's audit score, and her marks on a timed paper.
 card(s,M,4.88,11.83,1.82,TINT);
 s.addText("If a number comes in low",{x:1.1,y:5.05,w:5.2,h:0.3,isTextBox:true,
   margin:0,fontFace:SERIF,fontSize:17,color:NAVY});
-bullets(s,["If the audit has not moved by week 3, the daily work is usually the cause, and we look at that first.",
-           "Below 35 out of 100 in week 5, week 6 drops the third paper and goes back to the two weakest topics.",
+bullets(s,["If the audit has not moved by week 3, we look at how the weekly work is being done before adding any content.",
+           "Below 35 out of 100 in week 5, one of the week 6 papers is replaced by teaching the two weakest topics.",
            "Above 50 out of 100 in week 5, we add the single-step grade 6 topics."],
   1.1,5.45,7.6,10.5,BODY,0.28);
 s.addShape(p.ShapeType.line,{x:9.05,y:5.05,w:0,h:1.45,line:{color:"D8D3C6",width:0.75}});
 s.addText("AFTER EACH SESSION",{x:9.4,y:5.05,w:3.0,h:0.24,isTextBox:true,margin:0,fontFace:SANS,
   fontSize:9,bold:true,color:GOLD,charSpacing:1.4});
-s.addText("A short note from me: what we covered, Charlotte's recall score out of six, and whether the daily work came back.",
+s.addText("A short note from me: what we covered, Charlotte's recall score out of six, and whether the week's work came back.",
   {x:9.4,y:5.34,w:3.1,h:1.1,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:11,
    color:BODY,lineSpacing:15});
 
@@ -420,7 +419,7 @@ s.addText("A short note from me: what we covered, Charlotte's recall score out o
 s=p.addSlide(); head(s,"CONTINGENCIES","What could get in the way, and what we do");
 [["Entry not yet confirmed","The standard entry deadline for the November series was 12 September, so this needs checking with the school now. Late fees have applied since 13 September and rise again from 10 October."],
  ["A week is lost to illness","Week 6 carries the slack. The third full paper comes out first, then the pacing session. The teaching weeks stay as they are."],
- ["The daily work does not fit","We look at this at the end of week 2. If it is not working, week 5 shape content reduces to three topics and that time goes to number and algebra."],
+ ["The week does not fit","We look at this at the end of week 2. The practice days reduce first, then the week 5 shape content goes to three topics. The weekly paper is the last thing to be cut."],
  ["The audit is worse than expected","Weeks 2 and 3 stay as they are, and week 4 drops sequences and straight-line graphs. Number and algebra stay in."]
 ].forEach((r,i)=>{
   const x=M+(i%2)*6.13, y=1.78+Math.floor(i/2)*2.25;

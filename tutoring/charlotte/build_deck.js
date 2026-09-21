@@ -124,40 +124,10 @@ hdr.forEach((hd,i)=>{
 card(s,5.05,4.02,7.53,1.98,CARD,LINE);
 s.addText("We plan to 80 marks, not to 65",{x:5.4,y:4.24,w:6.9,h:0.34,isTextBox:true,margin:0,
   valign:"top",fontFace:SERIF,fontSize:19,color:NAVY});
-s.addText("Two reasons. Boundaries move, so a plan that lands exactly on last year's number can still miss. More importantly, margin does not come from the target we set. It comes from the size of the pool of marks we teach, which is the next two slides.",
+s.addText("Two reasons. Boundaries move, so a plan that lands exactly on last year's number can still miss. More importantly, margin does not come from the target we set. It comes from the size of the pool of marks we teach, which is the next slide.",
   {x:5.4,y:4.68,w:6.9,h:1.15,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:12,
    color:BODY,lineSpacing:17});
 s.addNotes("Nov 2025 Higher boundaries used here: 9=166, 8=136, 7=107, 6=86, 5=65, 4=45. Verify against the Pearson published boundaries before quoting to the parent.");
-
-/* ---------------------------------------------------------- 4 TIER */
-s=p.addSlide(); head(s,"THE TIER","Why Higher, and when it is confirmed");
-const tiers=[
- {t:"Higher tier",sub:"Grades 4 to 9",pick:true,
-  pts:["Grade 5 needs 65 of 200, which is 33%","She can leave two thirds of the paper and still reach the target","Roughly 60% of the content sits above her band","No cap on the grade if she outperforms"]},
- {t:"Foundation tier",sub:"Grades 1 to 5",pick:false,
-  pts:["Grade 5 needs roughly three quarters of the paper","Every topic sits inside our teach list, so nothing is wasted","Almost no room for error across 200 marks","Grade 5 is the ceiling, whatever she scores"]}];
-tiers.forEach((t,i)=>{
-  const x=M+i*6.13;
-  card(s,x,1.8,5.7,2.82,t.pick?CARD:TINT,t.pick?GOLD:LINE);
-  s.addText(t.t,{x:x+0.35,y:2.02,w:3.4,h:0.34,isTextBox:true,margin:0,
-    fontFace:SERIF,fontSize:21,color:NAVY});
-  s.addText(t.sub,{x:x+0.35,y:2.4,w:3.4,h:0.26,isTextBox:true,margin:0,
-    fontFace:SANS,fontSize:10.5,bold:true,color:GOLD,charSpacing:1.4});
-  if(t.pick){
-    s.addShape(p.ShapeType.roundRect,{x:x+4.05,y:2.05,w:1.3,h:0.38,rectRadius:0.19,
-      fill:{color:NAVY},line:{type:"none"}});
-    s.addText("CHOSEN",{x:x+4.05,y:2.05,w:1.3,h:0.38,isTextBox:true,margin:0,align:"center",
-      valign:"middle",fontFace:SANS,fontSize:9,bold:true,color:GOLD,charSpacing:1.4});
-  }
-  bullets(s,t.pts,x+0.35,2.9,5.0,12,t.pick?NAVY:BODY);
-});
-card(s,M,5.02,11.83,1.6,NAVY);
-s.addText("Higher, because at 33% her mistakes are cheap.",{x:1.1,y:5.26,w:11.1,h:0.3,
-  isTextBox:true,margin:0,fontFace:SANS,fontSize:13,bold:true,color:GOLD});
-s.addText("On Foundation the same grade asks for near accuracy on every question, which is the opposite of her profile. The school confirms the entry and tier in week one. Edexcel entry deadlines for the November series fall in early October, so this is the first action on the list, not an administrative detail to settle later.",
-  {x:1.1,y:5.6,w:11.1,h:0.85,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:11.5,
-   color:ONNAVY,lineSpacing:16});
-s.addNotes("Foundation grade 5 on 4MA1 has typically sat around 73 to 80 per cent of 200. Check the current figure before presenting. If the school has already entered her, confirm which tier and whether a change is still possible.");
 
 /* ---------------------------------------------------------- 5 WHERE MARKS ARE */
 s=p.addSlide(); head(s,"WHERE THE MARKS ARE","Number and algebra is 60% of the qualification");
@@ -197,8 +167,8 @@ s.addNotes("Weightings from the 4MA1 specification: Number and algebra 57 to 63%
 
 /* ---------------------------------------------------------- 6 ROUTE */
 s=p.addSlide(); head(s,"THE ROUTE","Six weeks, at a glance");
-const steps=[["1","21-27 Sep","Diagnose"],["2","28 Sep-4 Oct","Number"],["3","5-11 Oct","Algebra"],
-             ["4","12-18 Oct","Ratio and data"],["5","19-25 Oct","Shape"],["6","26 Oct-1 Nov","Papers"],
+const steps=[["1","21 to 27 Sep","Diagnose"],["2","28 Sep to 4 Oct","Number"],["3","5 to 11 Oct","Algebra"],
+             ["4","12 to 18 Oct","Ratio and data"],["5","19 to 25 Oct","Shape"],["6","26 Oct to 1 Nov","Papers"],
              ["★","4 and 6 Nov","Exams"]];
 const n=steps.length, x0=0.95, span=11.45, gap=span/(n-1);
 s.addShape(p.ShapeType.line,{x:x0+0.27,y:2.24,w:span,h:0,line:{color:"C9CEDB",width:1.25}});
@@ -232,32 +202,78 @@ s.addText("Five timed pieces gives three rounds of feedback that can still chang
   {x:1.1,y:6.14,w:11.1,h:0.3,isTextBox:true,margin:0,fontFace:SANS,fontSize:11,color:BODY});
 s.addNotes("Past papers are a measuring tool as well as a teaching tool. The week 1 paper is a baseline, sat at home over the first weekend and marked together in session two.");
 
+/* ---------------------------------------------------------- PAST PAPERS */
+s=p.addSlide(); head(s,"PAST PAPERS","How they are used, and from when");
+s.addText("Past papers do two different jobs. Treating them as one job is what wastes them.",
+  {x:M,y:1.6,w:11.4,h:0.3,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:12.5,color:BODY});
+
+card(s,M,2.02,5.7,2.98,CARD,GOLD);
+s.addText("Questions, from week one",{x:1.1,y:2.24,w:5.0,h:0.34,isTextBox:true,margin:0,
+  valign:"top",fontFace:SERIF,fontSize:20,color:NAVY});
+s.addText("This part starts in session one and never stops. Every topic is consolidated on real exam questions rather than textbook exercises.",
+  {x:1.1,y:2.64,w:5.0,h:0.62,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:10.5,
+   italic:true,color:BODY,lineSpacing:14});
+bullets(s,["Topic-sorted questions while the topic is being taught",
+           "The same questions mixed and ungrouped in the daily retrieval, so she has to choose the method",
+           "Marked by her against the published mark scheme",
+           "Wrong answers go straight into the error log"],1.1,3.28,5.0,11,BODY,0.3);
+
+card(s,6.88,2.02,5.7,2.98,NAVY);
+s.addText("Whole papers, four of them",{x:7.23,y:2.24,w:5.0,h:0.34,isTextBox:true,margin:0,
+  valign:"top",fontFace:SERIF,fontSize:20,color:CREAM});
+s.addText("Timed, under exam conditions, on fixed dates. These are the measuring instrument, so they are spent deliberately.",
+  {x:7.23,y:2.64,w:5.0,h:0.62,isTextBox:true,margin:0,valign:"top",fontFace:SANS,fontSize:10.5,
+   italic:true,color:ONNAVYMUTE,lineSpacing:14});
+[["WEEK 1","Baseline Paper 1H, sat at home, timed"],
+ ["WEEK 5","Full paper under exam conditions"],
+ ["WEEK 6","Two full papers, marked and patched"]].forEach((r,i)=>{
+  const y=3.28+i*0.46;
+  s.addText(r[0],{x:7.23,y:y+0.03,w:1.0,h:0.26,isTextBox:true,margin:0,fontFace:SANS,
+    fontSize:9.5,bold:true,color:GOLD,charSpacing:1.2});
+  s.addText(r[1],{x:8.3,y,w:3.95,h:0.3,isTextBox:true,margin:0,valign:"top",fontFace:SANS,
+    fontSize:11.5,color:ONNAVY});
+});
+s.addText("About twelve hours in total, including the marking.",{x:7.23,y:4.62,w:5.0,h:0.26,
+  isTextBox:true,margin:0,fontFace:SANS,fontSize:10,color:ONNAVYMUTE});
+
+card(s,M,5.2,11.83,1.5,TINT);
+[["THE RULE","A paper that is not marked and patched is two hours of nothing. She marks every paper herself against the published mark scheme, and the session after it goes to her five biggest losses. The patch is the lesson, not the paper."],
+ ["WHY NOT MORE, AND NOT SOONER","There is no shortage of 4MA1 papers, so supply is not the limit. Her time is. A full paper costs two hours to sit and one to patch, and in weeks 2 to 4 those three hours buy more as teaching and short timed sections."]
+].forEach((c,i)=>{
+  const x=1.1+i*5.9;
+  s.addText(c[0],{x,y:5.38,w:5.3,h:0.24,isTextBox:true,margin:0,fontFace:SANS,fontSize:9,
+    bold:true,color:GOLD,charSpacing:1.4});
+  s.addText(c[1],{x,y:5.66,w:5.3,h:0.88,isTextBox:true,margin:0,valign:"top",fontFace:SANS,
+    fontSize:10.5,color:BODY,lineSpacing:14.5});
+});
+s.addNotes("The week 1 baseline is the argument to make if it is questioned. A paper she can only start a third of still tells us what she reaches for, where she blanks and how she uses the clock, and none of that comes out of a fluency audit. Weeks 2 to 4 have no full paper because a second low score teaches nothing the first has not already taught.");
+
 /* ------------------------------------------------- 7-9 WEEK PAIRS */
 const weekPairs=[
  {eyebrow:"WEEKS 1 AND 2",title:"Fix the foundations first",
-  w:[{n:"1",label:"WEEK 1  ·  21-27 Sep",name:"Diagnose and set up",
+  w:[{n:"1",label:"WEEK 1  ·  21 to 27 Sep",name:"Diagnose and set up",
       pts:["Fluency audit: 35 questions, 50 minutes","Calculator setup: fraction key, ANS and STO, standard form, table mode, degree mode","The formula sheet: what is given, so we do not drill it","Method marks: the working rules, applied from day one","Set up the error log"],
       home:"Baseline paper at home, 2 hours, timed. Daily drill: negatives inside algebra.",
       paper:"Baseline Paper 1H, marked together in session two"},
-     {n:"2",label:"WEEK 2  ·  28 Sep-4 Oct",name:"The number engine",
+     {n:"2",label:"WEEK 2  ·  28 Sep to 4 Oct",name:"The number engine",
       pts:["Fractions: all four operations","Percentage multipliers, increase and decrease","Reverse percentages","Standard form and index laws","One method per topic, used every time"],
       home:"Daily drill: negatives and fractions.",
-      paper:"Six past paper percentage questions, untimed"}]},
+      paper:"Topic-sorted past paper questions on percentages"}]},
  {eyebrow:"WEEKS 3 AND 4",title:"The biggest block of marks",
-  w:[{n:"3",label:"WEEK 3  ·  5-11 Oct",name:"The algebra spine",
+  w:[{n:"3",label:"WEEK 3  ·  5 to 11 Oct",name:"The algebra spine",
       pts:["Collecting terms and expanding brackets","Solving with x on both sides","Substitution and rearranging formulae","Linear simultaneous equations","Re-run the audit: checkpoint 1"],
       home:"Daily drill: fractions and percentages.",
-      paper:"First timed section, 25 minutes, two-pass rule applied"},
-     {n:"4",label:"WEEK 4  ·  12-18 Oct",name:"The low-cost marks",
+      paper:"Timed section, 25 minutes, two-pass rule applied"},
+     {n:"4",label:"WEEK 4  ·  12 to 18 Oct",name:"The low-cost marks",
       pts:["Ratio and proportion by the unitary method","Averages and frequency tables","Estimated mean from grouped data","Probability, tree diagrams and Venn diagrams","Sequences and straight-line graphs"],
       home:"Daily drill: solving and ratio.",
       paper:"Timed section, 40 minutes, marked against the mark scheme"}]},
  {eyebrow:"WEEKS 5 AND 6",title:"Shape, then papers only",
-  w:[{n:"5",label:"WEEK 5  ·  19-25 Oct",name:"Shape and space",
+  w:[{n:"5",label:"WEEK 5  ·  19 to 25 Oct",name:"Shape and space",
       pts:["Angle facts, area and perimeter","Circles, prisms and cylinders","Pythagoras and right-angled trigonometry","Length, area and volume scale factors","Re-run the audit: checkpoint 2"],
       home:"Daily drill: all six bottleneck skills, mixed.",
       paper:"First full paper, 2 hours, exam conditions"},
-     {n:"6",label:"WEEK 6  ·  26 Oct-1 Nov",name:"Half term: papers",
+     {n:"6",label:"WEEK 6  ·  26 Oct to 1 Nov",name:"Half term: papers",
       pts:["Mark and patch the week 5 paper","Second full paper, then patch the top five losses","Third full paper if the first two are on target","Exam technique and pacing session","No new content after 25 October"],
       home:"Daily drill: straight from the error log.",
       paper:"Two full papers, plus a third if week 5 cleared 35 out of 100"}]}];

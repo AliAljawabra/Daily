@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Year 7 Maths Entrance Exam: Preparation Plan</title>
+<style>
+  :root {
+    --navy: #0F2A4A;
+    --navy-deep: #0A1D34;
+    --paper: #F7F4EE;
+    --paper-alt: #EFEAE0;
+    --ink: #1B2430;
+    --muted: #5B6572;
+    --line: #DDD6C7;
+    --gold: #8B6B26;
+    --gold-soft: #C8A85A;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  @page { size: A4; margin: 13mm 13mm 12mm 13mm; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 9.7pt;
+    line-height: 1.48;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  p { margin: 0 0 7px; }
+  ul, ol { margin: 0 0 8px; padding-left: 17px; }
+  li { margin-bottom: 3px; }
+  b, strong { font-weight: 600; }
+
+  .page { page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+  .keep { page-break-inside: avoid; }
+
+  /* Cover */
+  .cover { padding-top: 40mm; }
+  .cover .mark {
+    font-family: var(--serif); font-size: 15pt; color: var(--navy);
+    letter-spacing: 0.01em; margin-bottom: 60mm;
+  }
+  .cover h1 {
+    font-family: var(--serif); font-weight: 400; color: var(--navy);
+    font-size: 30pt; line-height: 1.1; margin: 0 0 14px;
+  }
+  .cover .sub { font-size: 12pt; color: var(--muted); max-width: 42em; margin-bottom: 26px; }
+  .cover .facts {
+    border-top: 2px solid var(--navy); padding-top: 14px;
+    display: flex; gap: 34px; flex-wrap: wrap; font-size: 10pt;
+  }
+  .cover .facts div span { display: block; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 2px; }
+  .cover .facts div b { font-family: var(--serif); font-weight: 400; font-size: 14pt; color: var(--navy); }
+
+  .kicker {
+    font-size: 8.5pt; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--gold); margin: 0 0 6px;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 400; color: var(--navy);
+    font-size: 17pt; margin: 0 0 9px; line-height: 1.14;
+  }
+  h3 {
+    font-family: var(--serif); font-weight: 400; color: var(--navy);
+    font-size: 12pt; margin: 15px 0 5px;
+  }
+  h4 {
+    font-size: 10pt; font-weight: 700; color: var(--navy);
+    margin: 11px 0 4px; letter-spacing: 0.01em;
+  }
+  .lede { font-size: 10.3pt; color: var(--muted); max-width: 58em; margin: 0 0 12px; }
+
+  hr.rule { border: 0; border-top: 1px solid var(--line); margin: 18px 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; margin: 7px 0 11px; }
+  th {
+    background: var(--navy); color: #FFFFFF; font-weight: 600;
+    text-align: left; padding: 6px 7px; font-size: 8.3pt;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  td { padding: 4.5px 7px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:nth-child(even) td { background: #FAF8F4; }
+  td.n { font-family: var(--serif); color: var(--navy); white-space: nowrap; }
+
+  .box {
+    border: 1px solid var(--line); border-radius: 4px;
+    background: #FBFAF7; padding: 11px 13px; margin: 10px 0;
+  }
+  .box h4 { margin-top: 0; }
+  .accent {
+    border-left: 3px solid var(--gold-soft); background: var(--paper);
+    padding: 10px 13px; margin: 10px 0; border-radius: 0 4px 4px 0;
+  }
+  .navybox {
+    background: var(--navy); color: #F3EEE3; border-radius: 5px;
+    padding: 13px 16px; margin: 11px 0;
+  }
+  .navybox h4 { color: var(--gold-soft); margin-top: 0; }
+  .navybox p, .navybox li { color: #E7E2D8; }
+
+  .session { border-top: 2px solid var(--navy); padding-top: 8px; margin-bottom: 15px; page-break-inside: avoid; }
+  .session .head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 4px; }
+  .session .no { font-family: var(--serif); font-size: 15pt; color: var(--navy); }
+  .session .date { font-size: 8.6pt; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold); font-weight: 700; }
+  .session .obj { font-size: 10pt; font-weight: 600; margin-bottom: 7px; }
+  .runsheet { font-size: 9.2pt; margin: 0 0 8px; }
+  .runsheet div { display: flex; gap: 10px; padding: 2px 0; }
+  .runsheet div em { font-style: normal; font-family: var(--serif); color: var(--navy); min-width: 52px; }
+  .hw { font-size: 9.2pt; color: var(--muted); border-top: 1px dotted var(--line); padding-top: 6px; }
+  .hw b { color: var(--ink); }
+
+  .q { margin-bottom: 7px; font-size: 9.6pt; page-break-inside: avoid; }
+  .q .num { font-family: var(--serif); color: var(--navy); font-weight: 400; }
+  .opts { color: var(--ink); }
+  .opts span { display: inline-block; min-width: 5.6em; }
+
+  .two { column-count: 2; column-gap: 26px; }
+  .three { column-count: 3; column-gap: 20px; }
+
+  .grid40 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px 14px; font-size: 9.4pt; }
+  .grid40 div { border-bottom: 1px dotted var(--line); padding: 2px 0; }
+  .grid40 b { font-family: var(--serif); color: var(--navy); font-weight: 400; display: inline-block; min-width: 1.8em; }
+
+  .toc { font-size: 10.4pt; }
+  .toc div { display: flex; gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--line); }
+  .toc div b { font-family: var(--serif); color: var(--gold); font-weight: 400; min-width: 2.2em; }
+
+  figure { margin: 10px 0; }
+  figcaption { font-size: 8.6pt; color: var(--muted); margin-top: 4px; }
+  svg text { font-family: var(--sans); font-size: 9px; fill: var(--ink); }
+
+  .tick { list-style: none; padding-left: 0; }
+  .tick li { padding-left: 20px; position: relative; }
+  .tick li::before { content: ''; position: absolute; left: 0; top: 3px; width: 11px; height: 11px; border: 1px solid var(--navy); border-radius: 2px; }
+
+  .answergrid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin: 10px 0 4px; }
+  .answergrid div { border: 1px solid var(--line); border-radius: 2px; height: 30px; position: relative; background: #FFFFFF; }
+  .answergrid div::before { content: attr(data-n); position: absolute; top: 1px; left: 3px; font-size: 7pt; color: var(--muted); }
+
+  .work { border: 1px solid var(--line); border-radius: 3px; background: #FFFFFF; margin: 6px 0 2px;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 21px, #EDE8DE 21px, #EDE8DE 22px);
+    background-position: 0 4px; }
+  .work.h3l { height: 70px; } .work.h4l { height: 92px; } .work.h5l { height: 114px; }
+  .work.h6l { height: 136px; } .work.h8l { height: 180px; }
+  .worklab { font-size: 7.6pt; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-top: 8px; }
+
+  .footnote { font-size: 8.6pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 8px; margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <div class="mark">Ali Tutors</div>
+  <div class="kicker">Preparation plan</div>
+  <h1>Year 7 Maths<br>Entrance Examination</h1>
+  <p class="sub">Fifteen sessions, one hour a week, from late September to the exam on Saturday 16 January. Includes the baseline diagnostic, the week-by-week scheme of work, the daily home practice, three mocks, and the exam-week protocol.</p>
+  <div class="facts">
+    <div><span>Exam</span><b>Sat 16 Jan</b></div>
+    <div><span>Length</span><b>50 minutes</b></div>
+    <div><span>Calculator</span><b>Not permitted</b></div>
+    <div><span>Sessions</span><b>15 &times; 1 hour</b></div>
+    <div><span>Home practice</span><b>20 min &times; 5 days</b></div>
+  </div>
+  <p style="margin-top:34px;font-size:9pt;color:var(--muted);border-top:1px solid var(--line);padding-top:12px">
+    Ali Aljawabra &middot; Ali Tutors, Bath &middot; alitutors.com<br>
+    Prepared 21 September 2026. Sections 5 and 6 are original diagnostic material written for this plan.
+  </p>
+</section>
+
+<!-- ============ CONTENTS ============ -->
+<section class="page">
+  <div class="kicker">Contents</div>
+  <h2>What is in this plan</h2>
+  <div class="toc">
+    <div><b>1</b><span>The exam, and what it is really testing</span></div>
+    <div><b>2</b><span>Five decisions the plan is built on</span></div>
+    <div><b>3</b><span>The calendar: fifteen sessions and three mocks</span></div>
+    <div><b>4</b><span>The standard hour</span></div>
+    <div><b>5</b><span>Session 1: the baseline diagnostic</span></div>
+    <div><b>6</b><span>Diagnostic mark scheme and strand grid</span></div>
+    <div><b>7</b><span>Scheme of work, session by session</span></div>
+    <div><b>8</b><span>Home practice: the daily twenty minutes</span></div>
+    <div><b>9</b><span>The error book</span></div>
+    <div><b>10</b><span>Section A technique: multiple choice</span></div>
+    <div><b>11</b><span>Section B technique: written answers</span></div>
+    <div><b>12</b><span>Owning the fifty minutes</span></div>
+    <div><b>13</b><span>The three mocks and how to mark them</span></div>
+    <div><b>14</b><span>When the specimen paper arrives</span></div>
+    <div><b>15</b><span>Triage: what to cut if time runs short</span></div>
+    <div><b>16</b><span>The parent page</span></div>
+    <div><b>17</b><span>Exam week and exam day</span></div>
+    <div><b>A</b><span>Appendix A: the arithmetic sprint sheets</span></div>
+    <div><b>B</b><span>Appendix B: methods card, the forty things to know cold</span></div>
+    <div><b>C</b><span>Appendix C: progress tracker</span></div>
+    <div><b>D</b><span>Appendix D: what I need before Session 1</span></div>
+  </div>
+
+  <div class="accent" style="margin-top:26px">
+    <h4>One caveat, stated up front</h4>
+    <p style="margin-bottom:0">No assessment of this child has happened yet, and the specimen paper has not been released. Sections 1 to 4, 8 to 17 and the appendices hold whatever the diagnostic shows. Section 7, the topic order, is a default sequence that gets reordered at the end of Session 1 and again when the specimen paper arrives. That reordering is expected, not a failure of the plan.</p>
+  </div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="page">
+  <div class="kicker">Section 1</div>
+  <h2>The exam, and what it is really testing</h2>
+  <p class="lede">Read the specification closely and the content list is unremarkable. Everything named sits inside the Year 5 and Year 6 curriculum. The difficulty is not in the topics.</p>
+
+  <p>The exam is 50 minutes, split into a multiple choice section worth about 40 per cent of the marks and a written section worth about 60 per cent. No calculator. The content spans four strands: Number, Algebra, Shape, Handling Data.</p>
+
+  <p>Three features of that design decide how the preparation should work.</p>
+
+  <h3>It is an arithmetic test wearing four different hats</h3>
+  <p>Remove the calculator and almost every question, whatever strand it sits in, ends in a piece of mental or written arithmetic. Area of a triangle is one multiplication and one halving. Percentage of an amount is a division and a multiplication. Mean is an addition and a division. A child who is secure on method but slow or inaccurate with number will lose marks across all four strands at once, and the mark scheme will make those look like four separate weaknesses when they are one.</p>
+  <p>This is why arithmetic fluency, not topic coverage, is the spine of the plan.</p>
+
+  <h3>Fifty minutes is short</h3>
+  <p>Fifty minutes across two sections means the child cannot afford to stall. Most candidates at this level lose more marks to unfinished papers and careless slips than to topics they have never met. Pace is a trainable skill and it is trained by repeated timed exposure, not by being told to work faster.</p>
+
+  <h3>Multiple choice is a different exam from written answers</h3>
+  <p>Section A rewards speed, estimation, elimination and working backwards from the options. Section B rewards laid-out method, because method marks exist there and nowhere else. These need separating and practising as two distinct skills. A child drilled only on written method will be slow in Section A. A child drilled only on multiple choice will write bare answers in Section B and lose the method marks.</p>
+
+  <div class="navybox">
+    <h4>What the plan therefore prioritises, in order</h4>
+    <ol style="margin-bottom:0">
+      <li>Arithmetic accuracy and speed without a calculator</li>
+      <li>Fractions, decimals, percentages and ratio, which carry the heaviest mark load in Number</li>
+      <li>Timed exam exposure, starting early and repeating often</li>
+      <li>Area, perimeter, angles and averages, which are high yield and quick to secure</li>
+      <li>Algebra and chart interpretation, which are narrow at this level and can be taught late</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="page">
+  <div class="kicker">Section 2</div>
+  <h2>Five decisions the plan is built on</h2>
+
+  <h3>1. The hour teaches. The week practises.</h3>
+  <p>Fifteen hours of tuition between now and January is not enough on its own. Twenty minutes a day, five days a week, over sixteen weeks is roughly twenty-six hours of additional practice. The home practice is where fluency is built. The lesson is where method is taught, errors are diagnosed and technique is rehearsed. If the lesson is spent on drill that could have happened at home, the hour has been wasted.</p>
+
+  <h3>2. Diagnose before teaching anything.</h3>
+  <p>Session 1 is a full baseline, not an introduction. Without it the topic order is guesswork, and with one hour a week there is no room for guesswork. The diagnostic is in Section 5 and is designed to produce a per-strand score, not a single mark, so the output is a priority list rather than a grade.</p>
+
+  <h3>3. Space the retrieval.</h3>
+  <p>A topic taught in week three and never revisited is gone by January. Every home practice week includes two retrieval days pulling from earlier topics, and every lesson opens with a timed starter drawn from previous weeks. Nothing is taught once.</p>
+
+  <h3>4. Practise under exam conditions from early on, not just at the end.</h3>
+  <p>There are two 25-minute half-papers in the first half of term and three full mocks after it. The first timed experience should not be in January. Timing pressure changes what a child can do, and the gap between untimed and timed performance is itself a thing to be measured and closed.</p>
+
+  <h3>5. Work from errors, not from topics.</h3>
+  <p>After Session 1, what gets taught is decided by what the child actually gets wrong, logged in the error book and re-tested on a schedule. The scheme of work in Section 7 is the default. The error book overrides it.</p>
+
+  <div class="box">
+    <h4>What this plan deliberately does not do</h4>
+    <ul style="margin-bottom:0">
+      <li><b>It does not cover Year 7 or Year 8 content.</b> The specification is explicit that the paper sits at National Curriculum levels 4 and 5. Teaching beyond that buys nothing and costs confidence.</li>
+      <li><b>It does not increase the volume of home practice as January approaches.</b> Twenty minutes a day is the whole term. Volume spikes in the final fortnight produce fatigue, not marks.</li>
+      <li><b>It does not use a calculator at any point,</b> including for checking. The exam does not, so the preparation does not.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="page">
+  <div class="kicker">Section 3</div>
+  <h2>The calendar</h2>
+  <p class="lede">Fifteen weekly sessions from the week commencing 21 September to the week of the exam, with a two-week break over Christmas. Dates are shown as the week commencing, so the fixed weekly slot can sit anywhere in that week.</p>
+
+  <table>
+    <thead><tr><th style="width:8%">No.</th><th style="width:20%">Week commencing</th><th>Focus</th><th style="width:22%">Assessment</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>Mon 21 Sep</td><td>Baseline diagnostic and priority setting</td><td>Full diagnostic</td></tr>
+      <tr><td class="n">2</td><td>Mon 28 Sep</td><td>Four operations, written methods, rounding, order of operations</td><td>Sprint baseline</td></tr>
+      <tr><td class="n">3</td><td>Mon 5 Oct</td><td>Place value, decimals, negative numbers</td><td></td></tr>
+      <tr><td class="n">4</td><td>Mon 12 Oct</td><td>Factors, multiples, primes, square numbers</td><td></td></tr>
+      <tr><td class="n">5</td><td>Mon 19 Oct</td><td>Fractions: equivalence, simplifying, of an amount, add and subtract</td><td></td></tr>
+      <tr><td class="n">6</td><td>Mon 26 Oct <span style="color:var(--muted)">(half term)</span></td><td>Percentages, and the fraction to decimal to percentage triangle</td><td></td></tr>
+      <tr><td class="n">7</td><td>Mon 2 Nov</td><td>Ratio and proportion</td><td>Half-paper 1: Number, 25 min</td></tr>
+      <tr><td class="n">8</td><td>Mon 9 Nov</td><td>Perimeter and area: rectangle, triangle, parallelogram, compound</td><td></td></tr>
+      <tr><td class="n">9</td><td>Mon 16 Nov</td><td>Angles, symmetry, properties of shapes, metric units</td><td></td></tr>
+      <tr><td class="n">10</td><td>Mon 23 Nov</td><td>Mean, median, mode, range</td><td>Half-paper 2: Shape and Data, 25 min</td></tr>
+      <tr><td class="n">11</td><td>Mon 30 Nov</td><td>Bar charts, pie charts, real-life graphs</td><td></td></tr>
+      <tr><td class="n">12</td><td>Mon 7 Dec</td><td>Coordinates, sequences, formulae, inverse operations</td><td></td></tr>
+      <tr><td class="n">13</td><td>Mon 14 Dec</td><td>Mock 1 sat and marked in the session, then repair</td><td>Mock 1, full 50 min</td></tr>
+      <tr><td style="color:var(--gold)" class="n">&middot;</td><td style="color:var(--muted)">21 Dec &amp; 28 Dec</td><td style="color:var(--muted)">Christmas break. Holiday pack only: sprint three times a week, plus Mock 2 sat at home on Tue 29 Dec.</td><td style="color:var(--muted)">Mock 2, at home</td></tr>
+      <tr><td class="n">14</td><td>Mon 4 Jan</td><td>Mock 2 repair, then multiple choice speed intensive</td><td></td></tr>
+      <tr><td class="n">15</td><td>Mon 11 Jan</td><td>Mock 3 repair, final ten facts, exam protocol</td><td>Mock 3, at home Sat 9 Jan</td></tr>
+    </tbody>
+  </table>
+
+  <div class="accent">
+    <h4>Two scheduling notes</h4>
+    <p><b>Half term, week commencing 26 Oct.</b> I would keep the session. A free weekday morning is the best slot of the term and percentages is a topic worth full attention. If the family is away, move Session 6 into the Christmas fortnight rather than dropping it.</p>
+    <p style="margin-bottom:0"><b>The Christmas fortnight.</b> If one extra session can be added in the week commencing 28 Dec, the best use of it is to sit and mark Mock 2 together rather than having it marked at home. That is the single highest-value addition available to this plan.</p>
+  </div>
+
+  <h3>Where Session 15 sits in exam week</h3>
+  <p>The exam is Saturday 16 January. Hold Session 15 on Tuesday 12 or Wednesday 13 January, not Thursday or Friday. The last two days before the paper are for rest and light review, not for new work or for discovering a weakness with no time left to fix it.</p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="page">
+  <div class="kicker">Section 4</div>
+  <h2>The standard hour</h2>
+  <p class="lede">Same shape every week, so no time is lost to settling in and the child knows what is coming. Sessions 1, 13, 14 and 15 are the exceptions and have their own run sheets.</p>
+
+  <table>
+    <thead><tr><th style="width:14%">Minutes</th><th style="width:26%">Block</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td class="n">0 to 6</td><td><b>Timed starter</b></td><td>The week's arithmetic sprint, 40 items, against the clock. Marked immediately and the score logged. Then three spaced retrieval questions from earlier topics, taken from the error book.</td></tr>
+      <tr><td class="n">6 to 13</td><td><b>Error review</b></td><td>Only the questions the child got wrong in the week's home practice. Correct answers are not revisited. For each error: what was done, what should have been done, one sentence naming the rule. Logged in the error book.</td></tr>
+      <tr><td class="n">13 to 36</td><td><b>Teaching block</b></td><td>One topic. Worked example on the page while the child narrates it back, then a guided pair, then four to six independent questions with me watching the working rather than the answers.</td></tr>
+      <tr><td class="n">36 to 50</td><td><b>Exam-format practice</b></td><td>The same topic in exam form and against a clock: six multiple choice at 45 seconds each, then two written questions at three minutes each. This block is where the topic becomes exam-ready.</td></tr>
+      <tr><td class="n">50 to 57</td><td><b>Repair</b></td><td>Whatever the exam-format block exposed, fixed on the spot. If nothing was exposed, an extension question one level harder.</td></tr>
+      <tr><td class="n">57 to 60</td><td><b>Set and close</b></td><td>Home practice handed over, the week's two retrieval topics named, and one thing the child has to be able to explain back to a parent by Friday.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box">
+    <h4>Three rules for the hour</h4>
+    <ul style="margin-bottom:0">
+      <li><b>The child holds the pen in the teaching block.</b> If I am writing and they are watching, they are not learning the method, they are watching me remember it.</li>
+      <li><b>Every wrong answer gets explained before it gets corrected.</b> The wrong answer usually contains the misconception, and the misconception is the thing worth treating.</li>
+      <li><b>Nothing in the hour is untimed except the teaching block.</b> Working against a clock has to become ordinary rather than an event.</li>
+    </ul>
+  </div>
+
+  <h3>Online or in person</h3>
+  <p>If sessions run online, two adjustments. First, the child needs a second device or a phone camera pointed at their page, so I can see working as it happens rather than after it. Second, timed blocks are run with a visible shared timer, not a verbal countdown. Everything else holds.</p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="page">
+  <div class="kicker">Section 5</div>
+  <h2>Session 1: the baseline diagnostic</h2>
+  <p class="lede">Built to mirror the real paper in shape, and to produce four separate strand scores rather than one number. Run it in the first 45 minutes of Session 1 and use the last 15 minutes to talk through two of the questions the child got wrong, listening to the reasoning.</p>
+
+  <table>
+    <thead><tr><th style="width:16%">Part</th><th style="width:14%">Timing</th><th>Content</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Sprint</td><td>4 minutes</td><td>40 arithmetic items. Measures recall speed, which nothing else in the diagnostic can see.</td></tr>
+      <tr><td class="n">Section A</td><td>16 minutes</td><td>20 multiple choice, weighted toward Number in the same way the real paper is.</td></tr>
+      <tr><td class="n">Section B</td><td>25 minutes</td><td>Six written questions, 30 marks, method required.</td></tr>
+      <tr><td class="n">Talk-through</td><td>15 minutes</td><td>Two wrong answers, explained aloud by the child. This is where misconceptions surface.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="accent">
+    <p style="margin-bottom:0">Tell the child beforehand that this is not a test they can fail, that it is how I work out what to spend the term on, and that leaving something blank is more useful to me than guessing. That last instruction is the reverse of exam advice and applies only today.</p>
+  </div>
+
+  <h3 style="margin-top:22px">Part 1: arithmetic sprint, 4 minutes</h3>
+  <p style="font-size:9.4pt;color:var(--muted);margin-bottom:8px">Answers only. Stop at four minutes and mark the point reached. Score out of 40 and note how many were attempted.</p>
+  <div class="grid40">
+    <div><b>1</b> 6 &times; 7</div><div><b>11</b> 7 &times; 7</div><div><b>21</b> 3.4 &minus; 1.8</div><div><b>31</b> &minus;3 &minus; 4</div>
+    <div><b>2</b> 9 &times; 8</div><div><b>12</b> 96 &divide; 8</div><div><b>22</b> 25 + 38</div><div><b>32</b> &minus;2 &times; 6</div>
+    <div><b>3</b> 12 &times; 7</div><div><b>13</b> 3 &times; 12</div><div><b>23</b> 200 &minus; 87</div><div><b>33</b> 7 &times; 100</div>
+    <div><b>4</b> 56 &divide; 8</div><div><b>14</b> 45 &divide; 5</div><div><b>24</b> 0.5 &times; 8</div><div><b>34</b> 4.5 &times; 10</div>
+    <div><b>5</b> 63 &divide; 9</div><div><b>15</b> 9 &times; 9</div><div><b>25</b> half of 86</div><div><b>35</b> 320 &divide; 10</div>
+    <div><b>6</b> 11 &times; 12</div><div><b>16</b> 132 &divide; 11</div><div><b>26</b> a quarter of 60</div><div><b>36</b> 6.2 &times; 100</div>
+    <div><b>7</b> 4 &times; 9</div><div><b>17</b> 40 + 70</div><div><b>27</b> 10% of 350</div><div><b>37</b> double 47</div>
+    <div><b>8</b> 144 &divide; 12</div><div><b>18</b> 130 &minus; 60</div><div><b>28</b> 50% of 96</div><div><b>38</b> half of 130</div>
+    <div><b>9</b> 8 &times; 6</div><div><b>19</b> 1000 &minus; 450</div><div><b>29</b> &minus;5 + 8</div><div><b>39</b> 99 + 99</div>
+    <div><b>10</b> 72 &divide; 9</div><div><b>20</b> 0.6 + 0.7</div><div><b>30</b> 4 &minus; 9</div><div><b>40</b> 5&sup2; + 3&sup2;</div>
+  </div>
+
+</section>
+
+<section class="page">
+  <div class="kicker">Section 5, continued</div>
+  <h2>Part 2: Section A, 20 multiple choice, 16 minutes</h2>
+  <p style="font-size:9.2pt;color:var(--muted)">One mark each, answers written as letters. 16 minutes, timed.</p>
+  <div class="two" style="font-size:9.5pt">
+    <div class="q"><span class="num">1.</span> 7 &times; 8 =<br><span class="opts"><span>A 54</span><span>B 48</span><span>C 63</span><span>D 56</span></span></div>
+    <div class="q"><span class="num">2.</span> 4,807 to the nearest hundred is<br><span class="opts"><span>A 4,800</span><span>B 4,810</span><span>C 4,900</span><span>D 4,000</span></span></div>
+    <div class="q"><span class="num">3.</span> &minus;6 + 9 =<br><span class="opts"><span>A &minus;15</span><span>B &minus;3</span><span>C 3</span><span>D 15</span></span></div>
+    <div class="q"><span class="num">4.</span> Which of these is prime?<br><span class="opts"><span>A 21</span><span>B 29</span><span>C 27</span><span>D 33</span></span></div>
+    <div class="q"><span class="num">5.</span> Simplify 18/24<br><span class="opts"><span>A 3/4</span><span>B 2/3</span><span>C 9/12</span><span>D 6/8</span></span></div>
+    <div class="q"><span class="num">6.</span> Three fifths of 45 =<br><span class="opts"><span>A 9</span><span>B 15</span><span>C 30</span><span>D 27</span></span></div>
+    <div class="q"><span class="num">7.</span> 25% of 64 =<br><span class="opts"><span>A 12</span><span>B 24</span><span>C 16</span><span>D 32</span></span></div>
+    <div class="q"><span class="num">8.</span> Which is a square number?<br><span class="opts"><span>A 18</span><span>B 27</span><span>C 40</span><span>D 36</span></span></div>
+    <div class="q"><span class="num">9.</span> 0.4 as a fraction in its simplest form<br><span class="opts"><span>A 4/10</span><span>B 2/5</span><span>C 1/4</span><span>D 1/40</span></span></div>
+    <div class="q"><span class="num">10.</span> 25 sweets shared in the ratio 2:3 between Ana and Ben. Ben gets<br><span class="opts"><span>A 10</span><span>B 12</span><span>C 15</span><span>D 20</span></span></div>
+    <div class="q"><span class="num">11.</span> A rectangle is 7 cm by 4 cm. Its perimeter is<br><span class="opts"><span>A 11 cm</span><span>B 28 cm</span><span>C 14 cm</span><span>D 22 cm</span></span></div>
+    <div class="q"><span class="num">12.</span> A triangle has base 10 cm and perpendicular height 6 cm. Its area is<br><span class="opts"><span>A 30 cm&sup2;</span><span>B 60 cm&sup2;</span><span>C 16 cm&sup2;</span><span>D 32 cm&sup2;</span></span></div>
+    <div class="q"><span class="num">13.</span> Two angles of a triangle are 55&deg; and 65&deg;. The third is<br><span class="opts"><span>A 50&deg;</span><span>B 60&deg;</span><span>C 70&deg;</span><span>D 80&deg;</span></span></div>
+    <div class="q"><span class="num">14.</span> 2.5 kg in grams is<br><span class="opts"><span>A 25 g</span><span>B 250 g</span><span>C 2,500 g</span><span>D 25,000 g</span></span></div>
+    <div class="q"><span class="num">15.</span> The point (&minus;3, 2) lies in the<br><span class="opts" style="display:block"><span style="min-width:10em">A upper right</span><span style="min-width:10em">B lower left</span><br><span style="min-width:10em">C lower right</span><span style="min-width:10em">D upper left</span></span></div>
+    <div class="q"><span class="num">16.</span> Next term of 4, 9, 14, 19, ...<br><span class="opts"><span>A 24</span><span>B 23</span><span>C 25</span><span>D 29</span></span></div>
+    <div class="q"><span class="num">17.</span> Using C = 3n + 5, when n = 4, C =<br><span class="opts"><span>A 12</span><span>B 17</span><span>C 21</span><span>D 32</span></span></div>
+    <div class="q"><span class="num">18.</span> The mean of 3, 7, 8, 10, 12 is<br><span class="opts"><span>A 7</span><span>B 8</span><span>C 9</span><span>D 10</span></span></div>
+    <div class="q"><span class="num">19.</span> The median of 9, 4, 12, 7, 5 is<br><span class="opts"><span>A 7</span><span>B 4</span><span>C 12</span><span>D 5</span></span></div>
+    <div class="q"><span class="num">20.</span> The range of 14, 6, 21, 9 is<br><span class="opts"><span>A 6</span><span>B 12</span><span>C 15</span><span>D 21</span></span></div>
+  </div>
+  <div class="worklab">Answers</div>
+  <div class="answergrid"><div data-n="1"></div><div data-n="2"></div><div data-n="3"></div><div data-n="4"></div><div data-n="5"></div><div data-n="6"></div><div data-n="7"></div><div data-n="8"></div><div data-n="9"></div><div data-n="10"></div><div data-n="11"></div><div data-n="12"></div><div data-n="13"></div><div data-n="14"></div><div data-n="15"></div><div data-n="16"></div><div data-n="17"></div><div data-n="18"></div><div data-n="19"></div><div data-n="20"></div></div>
+</section>
+
+<!-- ============ 5b: written ============ -->
+<section class="page">
+  <div class="kicker">Section 5, continued</div>
+  <h2>Part 3: Section B, six written questions, 25 minutes</h2>
+  <p style="font-size:9.4pt;color:var(--muted)">30 marks. Method must be shown. Marks are awarded for method even where the final answer is wrong.</p>
+
+  <div class="q keep" style="font-size:9.8pt">
+    <h4>B1. Written methods <span style="font-weight:400;color:var(--muted)">(4 marks)</span></h4>
+    <p style="margin-bottom:4px">Work these out. Show your method.</p>
+    <p style="margin-bottom:0">(a) 3,684 + 2,957 &nbsp;&nbsp; (b) 5,002 &minus; 1,438 &nbsp;&nbsp; (c) 236 &times; 7 &nbsp;&nbsp; (d) 918 &divide; 6</p>
+    <div class="work h5l"></div>
+  </div>
+
+  <div class="q keep" style="font-size:9.8pt">
+    <h4>B2. Percentage of an amount <span style="font-weight:400;color:var(--muted)">(4 marks)</span></h4>
+    <p style="margin-bottom:0">A jumper costs &pound;40. In a sale it is reduced by 15%. (a) How much is taken off the price? (b) What is the sale price? Show how you worked out the 15%.</p>
+    <div class="work h4l"></div>
+  </div>
+
+  <div class="q keep" style="font-size:9.8pt">
+    <h4>B3. Proportion <span style="font-weight:400;color:var(--muted)">(3 marks)</span></h4>
+    <p style="margin-bottom:0">A recipe for 4 people uses 300 g of flour and 150 ml of milk. Write down the amount of flour and the amount of milk needed for 10 people.</p>
+    <div class="work h3l"></div>
+  </div>
+
+  <div class="q keep" style="font-size:9.8pt">
+    <h4>B4. Area and perimeter <span style="font-weight:400;color:var(--muted)">(7 marks)</span></h4>
+    <p style="margin-bottom:8px">Diagrams are not drawn to scale. (a) Find the area of the parallelogram. (b) Find the area of the triangle. (c) Find the area and the perimeter of the L-shape.</p>
+    <div style="display:flex;gap:34px;align-items:flex-end;flex-wrap:wrap">
+      <figure>
+        <svg width="215" height="96" viewBox="-6 -10 225 106">
+          <polygon points="40,0 202,0 162,72 0,72" fill="#F7F4EE" stroke="#0F2A4A" stroke-width="1.4"/>
+          <line x1="40" y1="0" x2="40" y2="72" stroke="#8B6B26" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="46" y="40" fill="#8B6B26">4 cm</text>
+          <text x="72" y="86">9 cm</text>
+        </svg>
+        <figcaption>(a) Parallelogram</figcaption>
+      </figure>
+      <figure>
+        <svg width="140" height="118" viewBox="-6 -10 150 128">
+          <polygon points="0,100 120,100 80,0" fill="#F7F4EE" stroke="#0F2A4A" stroke-width="1.4"/>
+          <line x1="80" y1="0" x2="80" y2="100" stroke="#8B6B26" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="86" y="56" fill="#8B6B26">5 cm</text>
+          <text x="48" y="114">6 cm</text>
+        </svg>
+        <figcaption>(b) Triangle</figcaption>
+      </figure>
+      <figure>
+        <svg width="225" height="142" viewBox="-14 -14 239 156">
+          <polygon points="0,0 120,0 120,60 200,60 200,120 0,120" fill="#F7F4EE" stroke="#0F2A4A" stroke-width="1.4"/>
+          <text x="50" y="-3">6 cm</text>
+          <text x="124" y="36">3 cm</text>
+          <text x="150" y="55">4 cm</text>
+          <text x="204" y="96">3 cm</text>
+          <text x="86" y="134">10 cm</text>
+          <text x="-13" y="64">6 cm</text>
+        </svg>
+        <figcaption>(c) L-shape</figcaption>
+      </figure>
+    </div>
+    <div class="work h4l"></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">Section 5, continued</div>
+  <h2>Part 3, questions B5 and B6</h2>
+
+  <div class="q keep" style="font-size:9.8pt">
+    <h4>B5. Sequences and formulae <span style="font-weight:400;color:var(--muted)">(6 marks)</span></h4>
+    <p style="margin-bottom:4px">(a) A sequence starts 3, 8, 13, 18, ...</p>
+    <p style="margin-bottom:4px;padding-left:16px">(i) Write down the next two terms. (ii) Describe the rule in words. (iii) Will 51 ever appear in this sequence? Explain your answer.</p>
+    <p style="margin-bottom:0">(b) A formula says T = 4n &minus; 3. (i) Find T when n = 7. (ii) Find n when T = 29.</p>
+    <div class="work h5l"></div>
+  </div>
+
+  <div class="q keep" style="font-size:9.8pt">
+    <h4>B6. Handling data <span style="font-weight:400;color:var(--muted)">(6 marks)</span></h4>
+    <p style="margin-bottom:6px">(a) Five test scores are 12, 15, 11, 15, 17. Find the mean, the median, the mode and the range.</p>
+    <p style="margin-bottom:6px">(b) The pie chart shows the favourite sport of 72 pupils. How many chose football? How many chose hockey?</p>
+    <p style="margin-bottom:8px">(c) The graph converts miles to kilometres. Use it to convert 30 miles to kilometres, and 40 kilometres to miles.</p>
+    <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap">
+      <figure>
+        <svg width="250" height="170" viewBox="0 0 250 170">
+          <path d="M80,80 L80,10 A70,70 0 0,1 150,80 Z" fill="#0F2A4A"/>
+          <path d="M80,80 L150,80 A70,70 0 0,1 45,140.6 Z" fill="#5B7EA6"/>
+          <path d="M80,80 L45,140.6 A70,70 0 0,1 10,80 Z" fill="#C8A85A"/>
+          <path d="M80,80 L10,80 A70,70 0 0,1 80,10 Z" fill="#EFEAE0"/>
+          <circle cx="80" cy="80" r="70" fill="none" stroke="#0F2A4A" stroke-width="1.2"/>
+          <rect x="168" y="26" width="10" height="10" fill="#0F2A4A"/><text x="183" y="35">Football</text>
+          <rect x="168" y="46" width="10" height="10" fill="#5B7EA6"/><text x="183" y="55">Rugby</text>
+          <rect x="168" y="66" width="10" height="10" fill="#C8A85A"/><text x="183" y="75">Hockey</text>
+          <rect x="168" y="86" width="10" height="10" fill="#EFEAE0" stroke="#0F2A4A" stroke-width="0.8"/><text x="183" y="95">Other</text>
+        </svg>
+        <figcaption>(b) Favourite sport, 72 pupils</figcaption>
+      </figure>
+      <figure>
+        <svg width="320" height="250" viewBox="0 0 320 250">
+          <g stroke="#DDD6C7" stroke-width="0.8">
+            <line x1="40" y1="220" x2="290" y2="220"/><line x1="40" y1="195" x2="290" y2="195"/>
+            <line x1="40" y1="170" x2="290" y2="170"/><line x1="40" y1="145" x2="290" y2="145"/>
+            <line x1="40" y1="120" x2="290" y2="120"/><line x1="40" y1="95" x2="290" y2="95"/>
+            <line x1="40" y1="70" x2="290" y2="70"/><line x1="40" y1="45" x2="290" y2="45"/>
+            <line x1="40" y1="20" x2="290" y2="20"/>
+            <line x1="40" y1="20" x2="40" y2="220"/><line x1="90" y1="20" x2="90" y2="220"/>
+            <line x1="140" y1="20" x2="140" y2="220"/><line x1="190" y1="20" x2="190" y2="220"/>
+            <line x1="240" y1="20" x2="240" y2="220"/><line x1="290" y1="20" x2="290" y2="220"/>
+          </g>
+          <line x1="40" y1="220" x2="290" y2="220" stroke="#1B2430" stroke-width="1.4"/>
+          <line x1="40" y1="20" x2="40" y2="220" stroke="#1B2430" stroke-width="1.4"/>
+          <line x1="40" y1="220" x2="290" y2="20" stroke="#0F2A4A" stroke-width="1.8"/>
+          <text x="36" y="234" text-anchor="middle">0</text><text x="90" y="234" text-anchor="middle">10</text>
+          <text x="140" y="234" text-anchor="middle">20</text><text x="190" y="234" text-anchor="middle">30</text>
+          <text x="240" y="234" text-anchor="middle">40</text><text x="290" y="234" text-anchor="middle">50</text>
+          <text x="32" y="223" text-anchor="end">0</text><text x="32" y="198" text-anchor="end">10</text>
+          <text x="32" y="173" text-anchor="end">20</text><text x="32" y="148" text-anchor="end">30</text>
+          <text x="32" y="123" text-anchor="end">40</text><text x="32" y="98" text-anchor="end">50</text>
+          <text x="32" y="73" text-anchor="end">60</text><text x="32" y="48" text-anchor="end">70</text>
+          <text x="32" y="23" text-anchor="end">80</text>
+          <text x="165" y="248" text-anchor="middle">Miles</text>
+          <text x="14" y="120" text-anchor="middle" transform="rotate(-90 14 120)">Kilometres</text>
+        </svg>
+        <figcaption>(c) Miles to kilometres</figcaption>
+      </figure>
+    </div>
+    <div class="work h4l"></div>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="page">
+  <div class="kicker">Section 6</div>
+  <h2>Diagnostic mark scheme and strand grid</h2>
+
+  <h3>Sprint answers</h3>
+  <div class="grid40" style="font-size:9pt">
+    <div><b>1</b> 42</div><div><b>11</b> 49</div><div><b>21</b> 1.6</div><div><b>31</b> &minus;7</div>
+    <div><b>2</b> 72</div><div><b>12</b> 12</div><div><b>22</b> 63</div><div><b>32</b> &minus;12</div>
+    <div><b>3</b> 84</div><div><b>13</b> 36</div><div><b>23</b> 113</div><div><b>33</b> 700</div>
+    <div><b>4</b> 7</div><div><b>14</b> 9</div><div><b>24</b> 4</div><div><b>34</b> 45</div>
+    <div><b>5</b> 7</div><div><b>15</b> 81</div><div><b>25</b> 43</div><div><b>35</b> 32</div>
+    <div><b>6</b> 132</div><div><b>16</b> 12</div><div><b>26</b> 15</div><div><b>36</b> 620</div>
+    <div><b>7</b> 36</div><div><b>17</b> 110</div><div><b>27</b> 35</div><div><b>37</b> 94</div>
+    <div><b>8</b> 12</div><div><b>18</b> 70</div><div><b>28</b> 48</div><div><b>38</b> 65</div>
+    <div><b>9</b> 48</div><div><b>19</b> 550</div><div><b>29</b> 3</div><div><b>39</b> 198</div>
+    <div><b>10</b> 8</div><div><b>20</b> 1.3</div><div><b>30</b> &minus;5</div><div><b>40</b> 34</div>
+  </div>
+
+  <h3>Section A answers</h3>
+  <div class="grid40" style="font-size:9pt">
+    <div><b>1</b> D</div><div><b>6</b> D</div><div><b>11</b> D</div><div><b>16</b> A</div>
+    <div><b>2</b> A</div><div><b>7</b> C</div><div><b>12</b> A</div><div><b>17</b> B</div>
+    <div><b>3</b> C</div><div><b>8</b> D</div><div><b>13</b> B</div><div><b>18</b> B</div>
+    <div><b>4</b> B</div><div><b>9</b> B</div><div><b>14</b> C</div><div><b>19</b> A</div>
+    <div><b>5</b> A</div><div><b>10</b> C</div><div><b>15</b> D</div><div><b>20</b> C</div>
+  </div>
+
+  <h3>Section B mark scheme, 30 marks</h3>
+  <table>
+    <thead><tr><th style="width:9%">Q</th><th style="width:8%">Marks</th><th>Answer and allocation</th></tr></thead>
+    <tbody>
+      <tr><td class="n">B1</td><td class="n">4</td><td>(a) 6,641 &nbsp; (b) 3,564 &nbsp; (c) 1,652 &nbsp; (d) 153. One mark each. Award the mark for a correct method with a single slip only if the method is fully laid out.</td></tr>
+      <tr><td class="n">B2</td><td class="n">4</td><td>(a) 10% of 40 = 4, 5% = 2, so 15% = &pound;6. One mark for a valid method, one for &pound;6. (b) 40 &minus; 6 = &pound;34. One for the subtraction, one for &pound;34. Follow through from an incorrect (a).</td></tr>
+      <tr><td class="n">B3</td><td class="n">3</td><td>Scale factor 2.5, or 75 g and 37.5 ml per person: one mark. Flour 750 g: one mark. Milk 375 ml: one mark.</td></tr>
+      <tr><td class="n">B4</td><td class="n">7</td><td>(a) 9 &times; 4 = 36 cm&sup2;, one for method one for answer. (b) half of 6 &times; 5 = 15 cm&sup2;, one for method one for answer. (c) Area 60 &minus; 12 = 48 cm&sup2;, one for a valid split or subtraction, one for 48. Perimeter 32 cm, one mark. Units must be present for the final mark in each part.</td></tr>
+      <tr><td class="n">B5</td><td class="n">6</td><td>(a)(i) 23 and 28, one mark. (ii) Add 5 each time, one mark. (iii) No, two marks: one for the answer, one for a reason such as every term ends in 3 or 8, and the sequence goes 48 then 53. (b)(i) 25, one mark. (ii) 8, one mark.</td></tr>
+      <tr><td class="n">B6</td><td class="n">6</td><td>(a) Mean 14, median 15, mode 15, range 6. Two marks for all four, one mark for two or three. (b) Football 18, Hockey 12, one mark each. (c) 48 km, one mark. 25 miles, one mark.</td></tr>
+    </tbody>
+  </table>
+
+</section>
+
+<section class="page">
+  <div class="kicker">Section 6, continued</div>
+  <h2>Strand grid and how to read it</h2>
+  <p>Transfer the marks into this grid. The percentage per strand, not the total, is what sets the term's priorities.</p>
+  <table>
+    <thead><tr><th>Strand</th><th style="width:20%">Section A</th><th style="width:22%">Section B</th><th style="width:14%">Total</th><th style="width:14%">Score</th><th style="width:12%">%</th></tr></thead>
+    <tbody>
+      <tr><td><b>Number</b></td><td>Q1 to Q10 &nbsp;(10)</td><td>B1, B2, B3 &nbsp;(11)</td><td class="n">21</td><td></td><td></td></tr>
+      <tr><td><b>Shape</b></td><td>Q11 to Q14 &nbsp;(4)</td><td>B4 &nbsp;(7)</td><td class="n">11</td><td></td><td></td></tr>
+      <tr><td><b>Algebra</b></td><td>Q15 to Q17 &nbsp;(3)</td><td>B5 &nbsp;(6)</td><td class="n">9</td><td></td><td></td></tr>
+      <tr><td><b>Handling data</b></td><td>Q18 to Q20 &nbsp;(3)</td><td>B6 &nbsp;(6)</td><td class="n">9</td><td></td><td></td></tr>
+      <tr><td><b>Arithmetic sprint</b></td><td colspan="2">Separate measure, timed</td><td class="n">40</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="navybox">
+    <h4>How to read the result</h4>
+    <p><b>Sprint, out of 40 in four minutes.</b> 36 or more: fluency is secure, the drill stays as maintenance. 28 to 35: daily drill is necessary but the scheme of work runs as written. Below 28: fluency is the binding constraint. Cut two teaching topics from the scheme and give the recovered time to arithmetic until the score reaches 32.</p>
+    <p style="margin-bottom:0"><b>Any strand.</b> Below 50 per cent: teach from the beginning, allow two sessions. 50 to 79 per cent: one session to consolidate, then retrieval only. 80 per cent or above: no teaching session, retrieval questions in starters only, and use the freed session on a weaker strand.</p>
+  </div>
+</section>
+
+<!-- ============ 6b distractors ============ -->
+<section class="page">
+  <div class="kicker">Section 6, continued</div>
+  <h2>What the wrong answers mean</h2>
+  <p class="lede">In a multiple choice section the distractors are not random. Each one corresponds to a specific error, so a wrong answer names the misconception. This table is what makes the diagnostic worth more than a score.</p>
+
+  <table>
+    <thead><tr><th style="width:8%">Q</th><th style="width:20%">If they chose</th><th>The misconception, and what to do about it</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2</td><td>C, 4,900</td><td>Rounding up regardless of the digit, or looking at the wrong column. Teach the underline-the-digit-then-look-right routine explicitly.</td></tr>
+      <tr><td class="n">3</td><td>A, &minus;15</td><td>Adding the magnitudes and keeping the first sign. Number line work, Session 3.</td></tr>
+      <tr><td class="n">3</td><td>B, &minus;3</td><td>Subtracting rather than adding. Same treatment, different error, worth separating.</td></tr>
+      <tr><td class="n">5</td><td>C, 9/12 or D, 6/8</td><td>Simplified, but not fully. The child divides once and stops. Teach the highest common factor check as a habit.</td></tr>
+      <tr><td class="n">6</td><td>A, 9</td><td>Divided by 5 and stopped. The second half of the method is missing. Very common and very fixable.</td></tr>
+      <tr><td class="n">7</td><td>D, 32</td><td>Halved instead of quartered. Confusing 25% with 50%.</td></tr>
+      <tr><td class="n">9</td><td>A, 4/10</td><td>Correct but unsimplified. Losing marks to habit rather than understanding.</td></tr>
+      <tr><td class="n">9</td><td>C, 1/4</td><td>Reads 0.4 as a quarter. A place value problem, not a fractions problem. Treat it as such.</td></tr>
+      <tr><td class="n">10</td><td>A, 10</td><td>Found Ana's share and stopped reading. Technique, not method.</td></tr>
+      <tr><td class="n">11</td><td>B, 28</td><td>Calculated the area when asked for the perimeter. One of the highest-frequency errors on papers of this type.</td></tr>
+      <tr><td class="n">12</td><td>B, 60</td><td>Forgot to halve. Second highest-frequency shape error.</td></tr>
+      <tr><td class="n">14</td><td>B, 250</td><td>Multiplied by 100 instead of 1,000. Metric conversion is pure recall and needs a card, not a lesson.</td></tr>
+      <tr><td class="n">15</td><td>A, B or C</td><td>Three different errors and three different fixes, so ask which it was. A means both signs were read as positive. B means the y sign was wrongly made negative. C means x and y were swapped.</td></tr>
+      <tr><td class="n">16</td><td>B, 23</td><td>Read the difference as 4, probably from the first two digits. Teach checking the difference across three gaps, not one.</td></tr>
+      <tr><td class="n">17</td><td>A, 12</td><td>Substituted and then ignored the second operation.</td></tr>
+      <tr><td class="n">17</td><td>D, 32</td><td>Worked left to right as (3 + 5) &times; 4. An order of operations problem, treat in Session 2.</td></tr>
+      <tr><td class="n">19</td><td>C, 12</td><td>Took the middle of the unordered list. The single most common median error there is.</td></tr>
+      <tr><td class="n">20</td><td>D, 21</td><td>Gave the largest value rather than the difference.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="accent">
+    <h4>In Section B, look at the layout as well as the answer</h4>
+    <ul style="margin-bottom:0">
+      <li>Bare answers with no working, even correct ones, are a warning. They will cost method marks in January.</li>
+      <li>Missing units in B4 are worth noting separately from the arithmetic.</li>
+      <li>In B5(a)(iii), an answer of no with no reason scores one of two. Explaining is a trainable skill and should start in Session 2.</li>
+      <li>In B6(a), a median of 11 means the list was not ordered, which is the same error as Section A Q19 and should be logged once, not twice.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="page">
+  <div class="kicker">Section 7</div>
+  <h2>Scheme of work, session by session</h2>
+  <p class="lede">Sessions 2 to 12 run on the standard hour from Section 4. What changes is the teaching block and the exam-format block. Sessions 13, 14 and 15 have their own run sheets. The order below is the default and is rewritten at the end of Session 1 against the strand grid.</p>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 2</span><span class="date">w/c 28 Sep &middot; Number</span></div>
+    <div class="obj">Written methods for all four operations, rounding, and order of operations.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> column addition and subtraction including decimals of unequal length and exchanging across zeros; short multiplication; two-digit by two-digit multiplication; short division including remainders expressed as decimals; rounding to 10, 100, 1,000 and one decimal place; brackets, then multiply and divide, then add and subtract.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> decimal points not aligned; 5,002 minus 1,438 style exchanging; remainders left as r 3 when a decimal is wanted; working left to right through a mixed operation string.</p>
+    <div class="hw"><b>Home practice.</b> Sprint sheet A daily. Mon and Tue: 12 column calculations. Wed: retrieval, the six diagnostic errors. Thu: 10 rounding, plus order of operations. Fri: 6 multiple choice and 2 written, timed. <b>Explain back by Friday:</b> why you line up the decimal points.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 3</span><span class="date">w/c 5 Oct &middot; Number</span></div>
+    <div class="obj">Place value, decimals, and negative numbers.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> multiplying and dividing by 10, 100 and 1,000 as digits moving rather than the point moving; ordering decimals of unequal length; adding and subtracting negatives on a number line; temperature and difference problems; multiplying by a negative.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> 0.7 judged smaller than 0.35 because it has fewer digits; minus 6 plus 9 treated as minus 15; the difference between minus 3 and 5 given as 2.</p>
+    <div class="hw"><b>Home practice.</b> Sprint sheet B daily. Mon and Tue: place value and decimals. Wed: retrieval, Session 2 written methods. Thu: negatives, plus error-book re-test. Fri: timed exam set. <b>Explain back:</b> how to tell which of two decimals is larger.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 4</span><span class="date">w/c 12 Oct &middot; Number</span></div>
+    <div class="obj">Factors, multiples, primes, square numbers.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> listing factors in pairs so none are missed; multiples and lowest common multiple; highest common factor, which is the tool fractions will need next week; primes up to 50 and why 1 is not one; square numbers to 144 and their roots; divisibility tests for 2, 3, 4, 5, 6, 9 and 10.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> factors and multiples used interchangeably; 1 and the number itself omitted from a factor list; 51 and 91 assumed prime.</p>
+    <div class="hw"><b>Home practice.</b> Sprint sheet C daily. Mon and Tue: factors, multiples, primes. Wed: retrieval, Session 2. Thu: squares and divisibility. Fri: timed exam set. <b>Explain back:</b> the difference between a factor and a multiple, in one sentence each.</div>
+  </div>
+
+</section>
+
+<section class="page">
+  <div class="kicker">Section 7, continued</div>
+  <h2>Sessions 5 to 7</h2>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 5</span><span class="date">w/c 19 Oct &middot; Number</span></div>
+    <div class="obj">Fractions: equivalence, simplifying, of an amount, adding and subtracting.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> equivalent fractions; simplifying fully using the highest common factor from last week; improper fractions and mixed numbers both ways; fraction of an amount as divide by the bottom, multiply by the top; adding and subtracting with a common denominator; ordering fractions by converting to a common denominator.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> stopping after one simplification step; adding denominators; dividing and forgetting to multiply.</p>
+    <div class="hw"><b>Home practice.</b> Sprint sheet D daily. Mon and Tue: simplifying and fraction of an amount. Wed: retrieval, Session 3 negatives. Thu: adding and subtracting fractions. Fri: timed exam set. <b>Explain back:</b> how to find three eighths of 64 without a calculator.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 6</span><span class="date">w/c 26 Oct &middot; Number &middot; half term</span></div>
+    <div class="obj">Percentages, and moving between fractions, decimals and percentages.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> the non-calculator toolkit, 50% by halving, 25% by quartering, 10% by dividing by ten, 5% as half of 10%, 1% by dividing by a hundred, and building everything else by combining those; percentage of an amount; percentage increase and decrease including sale prices; the eight conversions to know cold, being a half, a quarter, three quarters, a fifth, two fifths, a tenth, a third and a hundredth.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> finding the reduction and giving it as the sale price; 15% found by halving 30%; a third written as 0.3.</p>
+    <div class="hw"><b>Home practice.</b> Sprint sheet E daily. Mon and Tue: percentage of an amount. Wed: retrieval, Session 4. Thu: increase, decrease and conversions. Fri: timed exam set. <b>Explain back:</b> three different ways to find 15% of a number without a calculator.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 7</span><span class="date">w/c 2 Nov &middot; Number &middot; half-paper 1</span></div>
+    <div class="obj">Ratio and proportion, then the first timed assessment.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach (25 min):</b> ratio notation; total parts, one part, then scale; sharing an amount in a ratio; scaling a recipe up and down; the unitary method; simple best value.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Half-paper 1 (25 min):</b> 10 multiple choice and 4 written, Number only, everything from Sessions 2 to 7. Marked in the last 10 minutes with the child. Record the score and, separately, how many questions were unattempted, because those are two different problems.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> treating 2:3 as two thirds; giving the wrong person's share; scaling by adding rather than multiplying.</p>
+    <div class="hw"><b>Home practice.</b> Sprint, best sheet so far. Mon and Tue: ratio and proportion. Wed and Thu: repair from half-paper 1, nothing else. Fri: timed exam set. <b>Explain back:</b> how you know which share belongs to whom.</div>
+  </div>
+
+</section>
+
+<section class="page">
+  <div class="kicker">Section 7, continued</div>
+  <h2>Sessions 8 to 10</h2>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 8</span><span class="date">w/c 9 Nov &middot; Shape</span></div>
+    <div class="obj">Perimeter and area of rectangles, triangles, parallelograms and compound shapes.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> perimeter as distance round and area as space inside, established once and returned to every time; rectangle; triangle as half base times perpendicular height, including when the height is drawn outside the triangle; parallelogram as base times perpendicular height, and why it is not the slanted side; compound shapes by splitting and by subtracting; finding a missing side when the area is given; the fact that an L-shape has the same perimeter as its bounding rectangle.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> area calculated when perimeter is asked for; the halving forgotten in a triangle; the slant side used as the height of a parallelogram; units given as cm rather than cm squared.</p>
+    <div class="hw"><b>Home practice.</b> Sprint daily. Mon and Tue: area and perimeter. Wed: retrieval, Session 5 fractions. Thu: compound shapes. Fri: timed exam set. <b>Explain back:</b> why the height of a parallelogram is not the sloping side.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 9</span><span class="date">w/c 16 Nov &middot; Shape</span></div>
+    <div class="obj">Angles, symmetry, properties of shapes, metric units.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> angles on a straight line summing to 180, at a point to 360, in a triangle to 180; isosceles and equilateral triangles; naming and describing quadrilaterals; lines of symmetry and order of rotational symmetry; metric conversion between mm, cm, m and km, between g and kg, and between ml and l; reading a scale where the divisions are not single units.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> the two base angles of an isosceles triangle not recognised as equal; 2.5 kg converted to 250 g; a scale read as though every division is one unit.</p>
+    <div class="hw"><b>Home practice.</b> Sprint daily. Mon and Tue: angles. Wed: retrieval, Session 6 percentages. Thu: symmetry and metric units. Fri: timed exam set. <b>Explain back:</b> the three angle facts, from memory, without prompting.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 10</span><span class="date">w/c 23 Nov &middot; Data &middot; half-paper 2</span></div>
+    <div class="obj">Mean, median, mode and range, then the second timed assessment.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach (25 min):</b> mean as total divided by how many; median with the list ordered first, and with an even number of values; mode including no mode and two modes; range as largest minus smallest; and working backwards, where the mean is given and a missing value has to be found.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Half-paper 2 (25 min):</b> 10 multiple choice and 4 written, Shape and Data, from Sessions 8 to 10. Marked with the child.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> median taken from the unordered list; mean and median swapped; range given as the largest value.</p>
+    <div class="hw"><b>Home practice.</b> Sprint daily. Mon and Tue: averages. Wed and Thu: repair from half-paper 2. Fri: timed exam set. <b>Explain back:</b> the first thing you do before finding a median.</div>
+  </div>
+
+</section>
+
+<section class="page">
+  <div class="kicker">Section 7, continued</div>
+  <h2>Sessions 11 and 12</h2>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 11</span><span class="date">w/c 30 Nov &middot; Data</span></div>
+    <div class="obj">Bar charts, pie charts and real-life graphs.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> reading a bar chart whose axis goes up in twos, fives or tens; dual bar charts and comparison questions; pie charts read by fraction of the circle and by degrees using 360 divided by the total; conversion graphs read in both directions; distance-time graphs, including what a flat section means; reading between gridlines.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> every gridline assumed to be one unit; a pie chart sector counted as a number of pupils rather than a proportion; a graph read in one direction only.</p>
+    <div class="hw"><b>Home practice.</b> Sprint daily. Mon and Tue: charts. Wed: retrieval, Session 8 area. Thu: real-life graphs. Fri: timed exam set. <b>Explain back:</b> how to work out how many people one sector of a pie chart represents.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 12</span><span class="date">w/c 7 Dec &middot; Algebra</span></div>
+    <div class="obj">Coordinates, sequences, formulae and inverse operations.</div>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Teach:</b> coordinates in all four quadrants, read and plotted, including completing a rectangle from three given points; sequences by term-to-term rule, continuing them, finding a later term, and deciding whether a given number appears; a simple position-to-term rule; substituting into a formula with two operations, with order of operations respected; inverse operations and function machines, used to work backwards from an answer.</p>
+    <p style="font-size:9.4pt;margin-bottom:6px"><b>Errors to pre-empt:</b> x and y transposed; a negative coordinate read with the wrong sign; a two-operation formula evaluated left to right; an inverse chain undone in the wrong order.</p>
+    <div class="hw"><b>Home practice.</b> Sprint daily. Mon and Tue: coordinates and sequences. Wed: retrieval, Session 9 angles. Thu: formulae and inverses. Fri: full Section A practice, 20 multiple choice in 17 minutes. <b>Explain back:</b> how to check a coordinate is the right way round.</div>
+  </div>
+  <div class="accent">
+    <h4>If the diagnostic reorders this</h4>
+    <p style="margin-bottom:0">The likeliest reorderings are these. A sprint score below 28 means Sessions 4 and 12 get absorbed into other weeks and the recovered time goes to arithmetic. A Number strand above 80 per cent means Sessions 2 and 3 compress into one and the spare week goes to a full extra mock in November. Shape or Data below 50 per cent means those sessions move earlier, ahead of ratio, because they are quick to secure and carry marks the child is currently giving away.</p>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">Section 7, continued</div>
+  <h2>Sessions 13 to 15, and the Christmas fortnight</h2>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 13</span><span class="date">w/c 14 Dec &middot; Mock 1</span></div>
+    <div class="obj">The first full paper under exam conditions, sat and partly marked in the session.</div>
+    <div class="runsheet">
+      <div><em>0 to 3</em><span>Set up as an exam. Desk cleared, phone away, timer visible, no questions once it starts.</span></div>
+      <div><em>3 to 53</em><span>Mock 1, 50 minutes. I watch and note where time is lost and where the child stalls, without intervening.</span></div>
+      <div><em>53 to 60</em><span>Mark Section A together. Record the score, the number unattempted, and the two questions that took the longest.</span></div>
+    </div>
+    <p style="font-size:9.4pt;margin-bottom:6px">Section B is marked after the session and returned within 24 hours with a written repair list of no more than five items. Five is the limit deliberately. A list of fifteen gets ignored.</p>
+    <div class="hw"><b>Home practice.</b> The five repair items, one a day, Monday to Friday. Sprint continues. No new topics.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Christmas</span><span class="date">21 Dec to 3 Jan &middot; no sessions</span></div>
+    <div class="obj">A short holiday pack. The aim is to stop fluency decaying, not to make progress.</div>
+    <ul style="font-size:9.4pt;margin-bottom:8px">
+      <li>Sprint sheet three times a week, four minutes each. That is twelve minutes of maths a week and it protects everything built since September.</li>
+      <li>Mock 2 sat at home on Tuesday 29 December, 50 minutes, one sitting, no calculator, no help, marked by a parent against the mark scheme and photographed to me the same day.</li>
+      <li>Nothing else. No worksheets, no apps, no revision guides. The break matters.</li>
+    </ul>
+    <p style="font-size:9.4pt;margin-bottom:0;color:var(--muted)">If one extra session can be bought in the week commencing 28 December, use it to sit and mark Mock 2 together instead. That converts the highest-value assessment of the whole plan from a home exercise into a taught one.</p>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 14</span><span class="date">w/c 4 Jan &middot; Repair and speed</span></div>
+    <div class="obj">Fix what Mock 2 exposed, then train multiple choice speed specifically.</div>
+    <div class="runsheet">
+      <div><em>0 to 6</em><span>Sprint, timed and logged. Compare against the September baseline out loud, because by now it should be a visible improvement.</span></div>
+      <div><em>6 to 30</em><span>Mock 2 repair, grouped by error category rather than by question number. Categories, not questions, are what generalise.</span></div>
+      <div><em>30 to 52</em><span>Multiple choice intensive. 30 questions in 20 minutes, using the two-pass method from Section 10. Then a review of every question that took longer than 45 seconds, whether or not it was correct.</span></div>
+      <div><em>52 to 60</em><span>Set Mock 3 for Saturday 9 January and agree the timing plan the child will use on the day.</span></div>
+    </div>
+    <div class="hw"><b>Home practice.</b> Sprint daily. Two mixed retrieval sets. Mock 3 on Saturday 9 January under full conditions, marked and sent to me that day.</div>
+  </div>
+
+  <div class="session">
+    <div class="head"><span class="no">Session 15</span><span class="date">Tue 12 or Wed 13 Jan &middot; Final session</span></div>
+    <div class="obj">Narrow the focus, rehearse the protocol, and finish on something the child gets right.</div>
+    <div class="runsheet">
+      <div><em>0 to 6</em><span>Sprint. Last one. Log it next to the September score.</span></div>
+      <div><em>6 to 25</em><span>Mock 3 repair, top three errors only. Anything beyond three is left alone at this stage.</span></div>
+      <div><em>25 to 40</em><span>The ten facts card from Appendix B, tested until all ten come back without hesitation.</span></div>
+      <div><em>40 to 52</em><span>Twenty mixed questions drawn from the error book, weighted to things previously got wrong and now got right. Ending on success is a deliberate choice, not sentiment.</span></div>
+      <div><em>52 to 60</em><span>Exam day protocol from Section 17, read through together. Equipment list. Timing plan. What to do when stuck.</span></div>
+    </div>
+    <div class="hw"><b>Thursday 14 January:</b> the ten facts card, ten minutes, nothing else. <b>Friday 15 January:</b> no maths.</div>
+  </div>
+
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="page">
+  <div class="kicker">Section 8</div>
+  <h2>Home practice: the daily twenty minutes</h2>
+  <p class="lede">Five days a week, Monday to Friday, weekends free except mock weekends. Twenty minutes, at the same time each day. The consistency matters more than the content.</p>
+
+  <table>
+    <thead><tr><th style="width:12%">Day</th><th style="width:22%">First 4 minutes</th><th>Remaining 15 minutes</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Monday</td><td>Sprint, timed, scored</td><td>12 questions on the topic taught this week. Straightforward versions.</td></tr>
+      <tr><td class="n">Tuesday</td><td>Sprint, timed, scored</td><td>12 questions on the same topic, harder, including two worded problems.</td></tr>
+      <tr><td class="n">Wednesday</td><td>Sprint, timed, scored</td><td>Retrieval. 10 questions from two weeks ago.</td></tr>
+      <tr><td class="n">Thursday</td><td>Sprint, timed, scored</td><td>Retrieval. 10 questions from five weeks ago, plus re-test of any error-book item due.</td></tr>
+      <tr><td class="n">Friday</td><td>Sprint, timed, scored</td><td>Exam format against the clock. 6 multiple choice in 5 minutes, then 2 written questions in 8 minutes.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box">
+    <h4>Why it is built this way</h4>
+    <ul style="margin-bottom:0">
+      <li><b>The sprint is every single day.</b> Four minutes, sixteen weeks, is about five hours of pure fluency work. Nothing else in the plan buys as many marks per minute on a non-calculator paper.</li>
+      <li><b>Two retrieval days a week.</b> Two weeks back and five weeks back. Without these, September and October are gone by Christmas.</li>
+      <li><b>Friday is always timed and always in exam format.</b> Sixteen Fridays means sixteen rehearsals before January. Exam conditions should be boring by then.</li>
+      <li><b>Twenty minutes is a ceiling, not a target to beat.</b> If a set is finished in twelve minutes, the day is done. Adding more is how children come to resent the subject in November, when there is still a term to go.</li>
+    </ul>
+  </div>
+
+  <h3>Marking</h3>
+  <p>A parent marks it the same day, ticks and crosses only, no explanation offered and no re-teaching attempted. A cross gets circled and goes in the error book untouched. The reason for the no-re-teaching rule is not that parents cannot teach it. It is that a method explained differently from the one taught in the lesson produces a child holding two half-methods, and that is worse than holding one.</p>
+  <p>If the child is stuck and distressed, the instruction is to stop, write the question number on a sticky note, and move on. I would rather see the stuck question than a tearful forty minutes.</p>
+
+  <h3>The weekend</h3>
+  <p>Free, except the two mock Saturdays, 9 January and any additional one agreed. Protecting the weekend is what makes five days a week sustainable for sixteen weeks.</p>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="page">
+  <div class="kicker">Section 9</div>
+  <h2>The error book</h2>
+  <p class="lede">One exercise book, used for nothing else. It is the single most important object in this plan, because it is what turns fifteen hours of tuition into a targeted fifteen hours rather than a generic fifteen.</p>
+
+  <h3>What goes in it</h3>
+  <p>Every question the child gets wrong, in a lesson, in home practice, in a half-paper or in a mock. Nothing that was got right. One entry per error, four lines:</p>
+  <div class="box">
+    <p style="margin-bottom:4px"><b>Line 1.</b> The question, copied or stuck in.</p>
+    <p style="margin-bottom:4px"><b>Line 2.</b> What I did.</p>
+    <p style="margin-bottom:4px"><b>Line 3.</b> What I should have done.</p>
+    <p style="margin-bottom:0"><b>Line 4.</b> The rule, in one sentence, in the child's own words.</p>
+  </div>
+  <p>Line 2 is the one people skip and the one that matters. The wrong working is where the misconception lives. Line 4 has to be the child's sentence, not mine, because a rule they cannot phrase is a rule they have not got.</p>
+
+  <h3>Re-testing</h3>
+  <p>Each entry is dated and re-tested twice: seven days later and twenty-one days later, on the Thursday retrieval slot. A re-test that is correct both times gets the entry ruled through. A re-test that is wrong resets the clock and, if it happens twice, the topic goes into the next lesson's teaching block regardless of what the scheme of work says.</p>
+
+  <h3>The category count</h3>
+  <p>Every four weeks, count the entries by category rather than reading them. The categories that matter for this paper are: recall speed, written method slip, misread the question, method not known, method known but misapplied, units or labelling, and ran out of time. The distribution tells you what to fix, and it changes what to fix in a way that reading individual questions does not.</p>
+  <table>
+    <thead><tr><th style="width:36%">If the biggest category is</th><th>The response is</th></tr></thead>
+    <tbody>
+      <tr><td>Recall speed</td><td>More sprint, less teaching. Cut a topic from the scheme.</td></tr>
+      <tr><td>Written method slip</td><td>Slow the working down and insist on full layout. Accuracy before speed for two weeks.</td></tr>
+      <tr><td>Misread the question</td><td>Underline the command word and the units on every question, in every set, for a fortnight.</td></tr>
+      <tr><td>Method not known</td><td>Straightforward. Teach it. This is the easiest category to fix and the least worrying.</td></tr>
+      <tr><td>Method known but misapplied</td><td>The hardest one. Practise identifying which method a question wants, using sets of mixed questions where the child only says which method applies and does not solve them.</td></tr>
+      <tr><td>Units or labelling</td><td>A checking habit, not a maths problem. Build it into the last two minutes of every timed set.</td></tr>
+      <tr><td>Ran out of time</td><td>Section 12. Pacing, not content.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="page">
+  <div class="kicker">Section 10</div>
+  <h2>Section A technique: multiple choice</h2>
+  <p class="lede">Roughly 40 per cent of the marks. It is a different skill from the written section and gets trained separately, from Session 2 onward, not saved for January.</p>
+
+  <h3>The seven rules</h3>
+  <ol>
+    <li><b>Cover the options. Solve. Then look.</b> Distractors are designed to match the specific errors a child is likely to make, so reading them first pulls you toward one. Working the answer out blind and then finding it in the list removes that pull entirely. This is the single most valuable habit in Section A.</li>
+    <li><b>If your answer is not there, you have made an error, not found a printing mistake.</b> Go back and check the last operation first.</li>
+    <li><b>Estimate before calculating on anything with decimals or large numbers.</b> An estimate usually eliminates two options in five seconds and catches place value errors that would otherwise be invisible.</li>
+    <li><b>For find-the-value questions, substitute the options back in.</b> Four substitutions are often faster and safer than one rearrangement.</li>
+    <li><b>Two passes.</b> First pass, answer everything that takes under 45 seconds and put a star beside anything that does not. Second pass, return to the starred ones with the time that is left. Never let one question eat four minutes on the first pass.</li>
+    <li><b>Nothing is left blank.</b> On the second pass, eliminate what is impossible and choose from the rest. A one in three guess is worth more than an empty box, and there is no penalty for a wrong answer on papers of this type.</li>
+    <li><b>Check the units and check it is sensible.</b> A perimeter answer in cm squared is wrong. A sale price higher than the original price is wrong. Ten seconds of sense-checking recovers more marks than ten seconds of extra calculation.</li>
+  </ol>
+
+  <div class="navybox">
+    <h4>How this gets trained</h4>
+    <p style="margin-bottom:0">Every lesson's exam-format block includes six multiple choice questions at 45 seconds each, with a visible timer. Every Friday's home practice does the same. Session 14 runs an intensive of 30 questions in 20 minutes. By January the child will have done somewhere near 400 timed multiple choice questions, and 45 seconds will feel like a normal amount of time rather than a threat.</p>
+  </div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="page">
+  <div class="kicker">Section 11</div>
+  <h2>Section B technique: written answers</h2>
+  <p class="lede">Roughly 60 per cent of the marks, and the only place method marks exist. A child who writes bare answers here is throwing away marks they have already earned.</p>
+
+  <h3>The six rules</h3>
+  <ol>
+    <li><b>Write the calculation, not just the answer.</b> Even where the answer is obvious. On a four-mark question, two of those marks are usually for method, and a wrong final answer with correct working still scores. A right answer with no working can score full marks, but a wrong one with no working scores zero.</li>
+    <li><b>Read the last line of the question first.</b> It tells you what is being asked, which tells you what to look for in the rest of it.</li>
+    <li><b>Underline the command word and the units.</b> Find, calculate, explain, and how many all want different things. Explain means a sentence, and a number alone will not score.</li>
+    <li><b>Units on every answer, every time.</b> Pounds, centimetres, centimetres squared, grams, degrees. This is free marks and it is lost constantly.</li>
+    <li><b>Lay working out downward, not across the page.</b> One step per line. It is easier to check, easier to mark, and it is where the method marks are found.</li>
+    <li><b>Answer the question that was asked.</b> If it asks for the sale price, do not stop at the discount. If it asks for Ben's share, do not give Ana's.</li>
+  </ol>
+
+  <h3>Explain questions</h3>
+  <p>Questions asking why or how you know appear on papers of this kind and are routinely half-answered. The structure to drill is: state the answer, then give the mathematical reason, in one sentence. For B5(a)(iii) in the diagnostic, no on its own is half a mark's worth of thinking. No, because the terms go 43, 48, 53 and 51 is not among them, is the full answer. This gets practised from Session 2 through the explain-back task in every week's home practice.</p>
+
+  <div class="box">
+    <h4>The two-minute check at the end</h4>
+    <p style="margin-bottom:0">If two minutes remain at the end of the paper, they are spent in this order, and not on re-doing questions. First, every blank filled in Section A. Second, units checked on every Section B answer. Third, any answer that is obviously unreasonable, a negative length, a percentage over a hundred, a sale price above the original, reconsidered. Re-working a question you already answered is almost always a worse use of two minutes than these three checks.</p>
+  </div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="page">
+  <div class="kicker">Section 12</div>
+  <h2>Owning the fifty minutes</h2>
+  <p class="lede">Pacing is a skill and it is trainable. Most marks lost at this level are lost to unfinished papers and rushed slips rather than to unknown topics.</p>
+
+  <h3>The timing plan</h3>
+  <p>The exact number of questions is not known until the specimen paper arrives, so this is provisional and gets confirmed then. Working from the published weighting of 40 per cent multiple choice and 60 per cent written:</p>
+  <table>
+    <thead><tr><th style="width:26%">Block</th><th style="width:20%">Time</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td><b>Section A, pass 1</b></td><td class="n">14 minutes</td><td>Everything that takes under 45 seconds. Star and skip the rest. Do not stop to finish a hard one.</td></tr>
+      <tr><td><b>Section A, pass 2</b></td><td class="n">4 minutes</td><td>The starred questions. Eliminate and choose. Nothing left blank when this block ends.</td></tr>
+      <tr><td><b>Section B</b></td><td class="n">29 minutes</td><td>In order. Any question that stalls for more than 90 seconds gets a star and gets left. Come back only if there is time.</td></tr>
+      <tr><td><b>Final check</b></td><td class="n">3 minutes</td><td>Blanks, then units, then anything unreasonable. In that order.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The two checkpoints</h3>
+  <p>Two glances at the clock in the whole paper, not continuous monitoring, which costs attention and raises anxiety without improving pace.</p>
+  <ul>
+    <li><b>At 18 minutes.</b> Section A should be finished and Section B started. If Section A is not finished, choose from the remaining options immediately and move on. Section B carries more marks per question.</li>
+    <li><b>At 40 minutes.</b> Should be into the last quarter of Section B. If not, skip forward to any remaining short questions and pick up the easy marks before returning.</li>
+  </ul>
+
+  <h3>What to do when stuck</h3>
+  <p>The instruction, rehearsed until it is automatic, is: read it once more, underline what it is asking, and if there is still nothing after fifteen seconds, star it and move on. The reason this needs rehearsing is that the instinct is the opposite. A child who is stuck usually stares harder, and a paper is lost three minutes at a time.</p>
+
+  <div class="accent">
+    <p style="margin-bottom:0">The one thing that must be finished is Section A. It is the fastest section and it is the one where a blank is guaranteed to score zero while a guess is not. If the paper is going badly, the correct response is to make sure every multiple choice box has a letter in it.</p>
+  </div>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="page">
+  <div class="kicker">Section 13</div>
+  <h2>The three mocks, and how to mark them</h2>
+
+  <table>
+    <thead><tr><th style="width:12%">Mock</th><th style="width:22%">When</th><th style="width:20%">Where</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Mock 1</td><td>Session 13, w/c 14 Dec</td><td>In the session</td><td>First full-length experience. Establishes a baseline mark and, more usefully, shows where the time goes. I watch rather than mark.</td></tr>
+      <tr><td class="n">Mock 2</td><td>Tue 29 Dec</td><td>At home</td><td>Tests whether performance holds after two weeks of reduced practice. Also rehearses sitting a paper in an unfamiliar setting.</td></tr>
+      <tr><td class="n">Mock 3</td><td>Sat 9 Jan</td><td>At home, 9am</td><td>Dress rehearsal. Same time of day as the real exam if that is known, same equipment, same fifty minutes.</td></tr>
+    </tbody>
+  </table>
+  <p>Add the specimen paper as a fourth, sat as soon as it arrives, whenever that is. It is the only paper of the four that is certain to match the real one in style.</p>
+
+  <h3>Conditions, every time</h3>
+  <ul>
+    <li>Fifty minutes, timer visible, one sitting, no breaks.</li>
+    <li>No calculator, no times tables square, no help of any kind.</li>
+    <li>Pen or pencil, ruler, eraser. Nothing else on the desk.</li>
+    <li>Started and finished in one go, even if it goes badly. Stopping halfway teaches the wrong thing.</li>
+  </ul>
+
+  <h3>Marking</h3>
+  <p>Three numbers get recorded each time, not one.</p>
+  <ol>
+    <li><b>The mark.</b> Useful only for the trend across three papers. A single mock score means very little.</li>
+    <li><b>Questions unattempted.</b> Recorded separately from questions wrong, because they are a pacing problem and not a knowledge problem, and they have a completely different fix.</li>
+    <li><b>Marks lost to slips.</b> Questions where the method was right and the arithmetic was not. If this number is high, the answer is sprint work and slower written layout, not more topic teaching.</li>
+  </ol>
+
+  <h3>The repair list</h3>
+  <p>Never more than five items, chosen by how many marks they are likely to be worth in January rather than by how badly they were done. A topic worth two marks that was catastrophically failed comes below a topic worth eight marks that was half right. One item per day for the following week, then the item goes into the error book re-test cycle.</p>
+
+  <div class="box">
+    <h4>On mock scores and morale</h4>
+    <p style="margin-bottom:0">Mock 1 in mid-December will very likely be the lowest of the three, because it is the first timed full paper and the child will not have finished it. Say this before the paper, not after. A child who is told in advance that the first mock is expected to be unfinished treats it as information. A child told afterwards treats it as consolation.</p>
+  </div>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="page">
+  <div class="kicker">Section 14</div>
+  <h2>When the specimen paper arrives</h2>
+  <p class="lede">The school says a specimen paper will be sent to all Year 7 applicants. It is the most valuable single document in this whole process, and the plan should bend to it. Chase it if it has not arrived by the end of October.</p>
+
+  <h3>The audit, twenty minutes, done by me before the next session</h3>
+  <ol>
+    <li><b>Count the marks by strand.</b> Number, Algebra, Shape, Handling Data. Compare against the weighting this plan assumes and adjust the remaining sessions to match. If Shape turns out to be a fifth of the paper rather than a tenth, Session 9 grows.</li>
+    <li><b>Count the questions and the marks in each section.</b> This converts the provisional timing plan in Section 12 into an exact one: minutes per question in Section A, and minutes per mark in Section B.</li>
+    <li><b>Note the question styles, not just the topics.</b> Whether the written questions are single-step or multi-step, whether context-heavy word problems appear, whether explain questions appear and how many marks they carry, whether diagrams are given or have to be drawn.</li>
+    <li><b>Note the level of the arithmetic.</b> Whether long multiplication of two two-digit numbers appears, whether division produces decimal answers, how large the numbers get. This sets the sprint sheet difficulty for the rest of the term.</li>
+    <li><b>Note the layout.</b> Answer boxes, working space, whether multiple choice answers are circled or written in a grid. Small things, but a child meeting an unfamiliar answer format for the first time in the exam loses time to it.</li>
+  </ol>
+
+  <h3>Then</h3>
+  <p>The child sits it under full conditions at the next available weekend, and the remaining scheme of work is rewritten against what the audit found. Any topic in this plan that does not appear anywhere in the specimen paper drops down the order. Any topic that appears twice moves up.</p>
+
+  <div class="accent">
+    <p style="margin-bottom:0">One caution. A specimen paper is one paper, not the syllabus. A topic listed in the school's published content but absent from the specimen still gets taught, just later. The specimen tells you about style and weighting with confidence, and about content only with caution.</p>
+  </div>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="page">
+  <div class="kicker">Section 15</div>
+  <h2>Triage: what to cut if time runs short</h2>
+  <p class="lede">Sessions get cancelled, illness happens, and the diagnostic may show more ground to cover than fifteen hours allows. Decide the cutting order now, calmly, rather than in December.</p>
+
+  <h3>Protected. Cut these last, whatever happens.</h3>
+  <table>
+    <thead><tr><th style="width:34%">Topic</th><th>Why it is protected</th></tr></thead>
+    <tbody>
+      <tr><td><b>Arithmetic fluency</b></td><td>Every question in every strand ends in arithmetic. Weakness here costs marks four times over.</td></tr>
+      <tr><td><b>Fraction, percentage and ratio of an amount</b></td><td>The heaviest single mark load in Number, and the three are one method with three faces.</td></tr>
+      <tr><td><b>Area and perimeter of rectangles and triangles</b></td><td>High frequency, low difficulty, quick to secure. The best marks-per-minute in the whole plan.</td></tr>
+      <tr><td><b>Mean, median, mode, range</b></td><td>Four definitions. An afternoon's work for a reliable handful of marks.</td></tr>
+      <tr><td><b>Angles in a triangle and on a line</b></td><td>Two facts. Appears on almost every paper of this type.</td></tr>
+      <tr><td><b>Coordinates in four quadrants</b></td><td>Named explicitly in the school's content list, and takes twenty minutes to secure.</td></tr>
+      <tr><td><b>Section A technique and pacing</b></td><td>Worth more marks than any single topic, because it applies to the whole paper.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cut first, in this order</h3>
+  <ol>
+    <li><b>Position-to-term rules for sequences.</b> Term-to-term is enough for level 5. The general rule is a stretch topic here.</li>
+    <li><b>Compound shapes of three or more parts.</b> Two-part compounds cover almost everything that appears.</li>
+    <li><b>Pie chart construction and degree calculations.</b> The school's content list says interpreting pie charts. Interpreting by simple fraction covers most of it.</li>
+    <li><b>Best value and complex unitary method.</b> Straightforward proportion is the requirement.</li>
+    <li><b>Multiplying and dividing negative numbers.</b> Adding and subtracting negatives is the level 4 and 5 requirement. Multiplying is beyond it.</li>
+    <li><b>Order of rotational symmetry.</b> Lines of symmetry are the common version.</li>
+  </ol>
+
+  <div class="navybox">
+    <h4>The rule for a lost session</h4>
+    <p style="margin-bottom:0">If a session is missed and cannot be rescheduled, do not compress two topics into the following hour. Cut one topic from the list above instead and keep the standard hour intact. A rushed double lesson teaches neither topic and costs the starter and the error review, which are the two blocks that make the rest work.</p>
+  </div>
+</section>
+
+<!-- ============ 16 ============ -->
+<section class="page">
+  <div class="kicker">Section 16</div>
+  <h2>The parent page</h2>
+  <p class="lede">This page can be printed on its own and handed over. Everything on it is a request, and every request has a reason attached, because instructions without reasons do not survive a difficult Tuesday.</p>
+
+  <h3>The six things that matter</h3>
+  <ol>
+    <li><b>A fixed twenty-minute slot, five days a week, same time each day.</b> Same place, table cleared, no screens. The consistency is doing more work than the content is. A slot that moves around gets negotiated, and a slot that gets negotiated gets skipped.</li>
+    <li><b>Mark it the same day. Ticks and crosses only.</b> Circle the crosses. Do not explain, do not correct, do not re-teach. A method explained differently from the one taught in the lesson leaves the child holding two half-methods, which is worse than one whole one. Send me a photo instead and I will deal with it in the next hour.</li>
+    <li><b>If they are stuck and upset, stop.</b> Write the question number down and move on. Twenty minutes is the ceiling. A distressed forty minutes costs more in December than the marks it might buy in January.</li>
+    <li><b>Do not add extra work.</b> No additional worksheets, no revision apps, no practice books bought in a moment of worry. The volume in this plan is set deliberately and the retrieval schedule depends on it. Extra material dilutes the spacing and adds fatigue.</li>
+    <li><b>Send me the sprint scores each week.</b> One line is enough. It is the fastest early warning signal in the whole plan, and a score that stops improving tells me something is wrong before a mock will.</li>
+    <li><b>No maths on Friday 15 January.</b> None. The evening before an exam is for sleep and for a normal evening. Nothing learned that night will be available the next morning, and anything got wrong that night will still be in their head at nine o'clock.</li>
+  </ol>
+
+  <h3>Two things worth saying out loud to the child, once</h3>
+  <ul>
+    <li>That the mock in December is expected to be unfinished, and that this is normal and planned for.</li>
+    <li>That this exam tests work they have already met at school, not new material, and the preparation is about speed and accuracy rather than about learning something hard.</li>
+  </ul>
+
+  <h3>What I will send you</h3>
+  <ul>
+    <li>A weekly home practice sheet, handed over at the end of each session.</li>
+    <li>A short note after each mock: the three numbers, and the five repair items.</li>
+    <li>A photograph or scan of the marked mock within 24 hours.</li>
+    <li>A message if the sprint score plateaus for three weeks, before it becomes a problem.</li>
+  </ul>
+
+  <div class="box">
+    <h4>How to answer "am I going to fail?"</h4>
+    <p style="margin-bottom:0">The honest and useful answer is that the exam is testing Year 5 and Year 6 work, that we are working through it in order between now and January, and that the job between now and then is twenty minutes a day. Specific, factual, and about actions rather than outcomes. Reassurance that sounds like reassurance tends to confirm the worry rather than settle it.</p>
+  </div>
+</section>
+
+<!-- ============ 17 ============ -->
+<section class="page">
+  <div class="kicker">Section 17</div>
+  <h2>Exam week and exam day</h2>
+  <p class="lede">The exam is Saturday 16 January. The last week is about arriving in good condition, not about last gains. Almost nothing learned in the final four days will be available on the day, and the attempt to learn it costs sleep, which will be.</p>
+
+  <table>
+    <thead><tr><th style="width:24%">Day</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sat 9 Jan</b></td><td>Mock 3, 50 minutes, full conditions, 9am. Marked and sent to me the same day.</td></tr>
+      <tr><td><b>Sun 10 Jan</b></td><td>Nothing.</td></tr>
+      <tr><td><b>Mon 11 Jan</b></td><td>Sprint, four minutes. Ten questions from the error book. Fifteen minutes total.</td></tr>
+      <tr><td><b>Tue 12 or Wed 13 Jan</b></td><td>Session 15. The final hour. Repair, the ten facts card, mixed practice, exam protocol.</td></tr>
+      <tr><td><b>Thu 14 Jan</b></td><td>The ten facts card, ten minutes. Nothing else. No new topics and no papers.</td></tr>
+      <tr><td><b>Fri 15 Jan</b></td><td>No maths at all. Bag packed in the evening. Normal bedtime, not an early one, because an unusually early bedtime produces an hour of lying awake.</td></tr>
+      <tr><td><b>Sat 16 Jan</b></td><td>The exam.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The bag, packed on Friday evening</h3>
+  <ul class="tick" style="column-count:2;column-gap:26px">
+    <li>Two black pens</li>
+    <li>Two sharpened pencils</li>
+    <li>Eraser and pencil sharpener</li>
+    <li>30 cm ruler</li>
+    <li>Protractor</li>
+    <li>Water in a clear bottle</li>
+    <li>Anything named in the school's own letter</li>
+    <li>No calculator, and no phone in the room</li>
+  </ul>
+
+  <h3>Saturday morning</h3>
+  <ul>
+    <li>A normal breakfast, of a normal size, containing something other than sugar.</li>
+    <li>No maths in the car and no last questions at the gate. There is nothing to gain and a wrong answer at that point does real damage.</li>
+    <li>Arrive with time to spare. Rushing raises the heart rate and the first five minutes of the paper are spent bringing it back down.</li>
+  </ul>
+
+  <h3>The first sixty seconds of the paper</h3>
+  <ol>
+    <li>Write the name. Every year, someone does not.</li>
+    <li>Turn to the end and see how long the paper is and where Section B starts. Knowing the shape stops the pacing being guesswork.</li>
+    <li>Start Section A. Cover the options, solve, then look.</li>
+  </ol>
+
+  <div class="navybox">
+    <h4>The three rules to leave them with</h4>
+    <ol style="margin-bottom:0">
+      <li>Nothing is left blank in Section A.</li>
+      <li>Every Section B answer has working above it and a unit after it.</li>
+      <li>Stuck for fifteen seconds means star it and move on. Come back at the end.</li>
+    </ol>
+  </div>
+
+  <p style="margin-top:16px">Afterwards, do not conduct a post mortem. Ask what it was like, accept whatever answer arrives, and leave it. The paper is finished and nothing said about it on Saturday afternoon changes a mark.</p>
+</section>
+
+<!-- ============ APPENDIX A ============ -->
+<section class="page">
+  <div class="kicker">Appendix A</div>
+  <h2>The arithmetic sprint sheets</h2>
+  <p class="lede">Five sheets, rotated across the week and the term. Forty items, four minutes, answers only. Sheet A is the diagnostic sheet in Section 5. Score out of 40 every time and log it in Appendix C. The target is 36 or better by half term and 40 in three minutes by January.</p>
+  <div class="box"><h4>How to run it</h4><ul style="margin-bottom:0"><li>Timer set to four minutes, started before the child looks at the sheet.</li><li>Answers only. No working, no crossing out, no going back.</li><li>Anything not reached is marked wrong, because on a 50-minute paper unreached is the same as wrong.</li><li>Marked immediately, in front of the child, and the score written at the top.</li><li>Once a sheet is scored 38 or more twice, retire it and use a harder one.</li></ul></div>
+  <h3>Sheet B</h3>
+<div class="grid40"><div><b>1</b> 7 &times; 6</div><div><b>11</b> 5 &times; 12</div><div><b>21</b> 0.3 + 0.9</div><div><b>31</b> &minus;6 &minus; 2</div><div><b>2</b> 8 &times; 8</div><div><b>12</b> 108 &divide; 12</div><div><b>22</b> 5.6 &minus; 2.9</div><div><b>32</b> &minus;10 + 4</div><div><b>3</b> 12 &times; 12</div><div><b>13</b> 4 &times; 8</div><div><b>23</b> 47 + 58</div><div><b>33</b> 3.7 &times; 10</div><div><b>4</b> 9 &times; 6</div><div><b>14</b> 64 &divide; 8</div><div><b>24</b> 300 &minus; 145</div><div><b>34</b> 250 &divide; 100</div><div><b>5</b> 48 &divide; 6</div><div><b>15</b> 3 &times; 9</div><div><b>25</b> a third of 27</div><div><b>35</b> 0.04 &times; 100</div><div><b>6</b> 81 &divide; 9</div><div><b>16</b> 77 &divide; 11</div><div><b>26</b> two fifths of 40</div><div><b>36</b> 8.1 &divide; 10</div><div><b>7</b> 121 &divide; 11</div><div><b>17</b> double 36</div><div><b>27</b> 10% of 480</div><div><b>37</b> 6&sup2;</div><div><b>8</b> 11 &times; 7</div><div><b>18</b> half of 94</div><div><b>28</b> 25% of 80</div><div><b>38</b> &radic;49</div><div><b>9</b> 12 &times; 8</div><div><b>19</b> double 250</div><div><b>29</b> &minus;4 + 7</div><div><b>39</b> 12&sup2;</div><div><b>10</b> 42 &divide; 7</div><div><b>20</b> half of 1.8</div><div><b>30</b> 2 &minus; 8</div><div><b>40</b> &radic;100</div></div>
+  <h3>Sheet C</h3>
+<div class="grid40"><div><b>1</b> 9 &times; 7</div><div><b>11</b> 0.7 + 0.8</div><div><b>21</b> 10% of 65</div><div><b>31</b> 90 &divide; 1000</div><div><b>2</b> 6 &times; 12</div><div><b>12</b> 1 &minus; 0.35</div><div><b>22</b> 20% of 45</div><div><b>32</b> 0.5 &times; 60</div><div><b>3</b> 88 &divide; 8</div><div><b>13</b> 2.5 + 2.5</div><div><b>23</b> 5% of 200</div><div><b>33</b> 0.25 &times; 80</div><div><b>4</b> 36 &divide; 4</div><div><b>14</b> 4.2 &minus; 0.7</div><div><b>24</b> 75% of 80</div><div><b>34</b> 11&sup2;</div><div><b>5</b> 7 &times; 11</div><div><b>15</b> 19 + 36</div><div><b>25</b> 1% of 700</div><div><b>35</b> &radic;64</div><div><b>6</b> 54 &divide; 9</div><div><b>16</b> 500 &minus; 268</div><div><b>26</b> &minus;7 + 3</div><div><b>36</b> 8&sup2;</div><div><b>7</b> 8 &times; 7</div><div><b>17</b> a quarter of 48</div><div><b>27</b> 5 &minus; 12</div><div><b>37</b> double 78</div><div><b>8</b> 132 &divide; 12</div><div><b>18</b> three quarters of 40</div><div><b>28</b> &minus;1 &minus; 9</div><div><b>38</b> half of 250</div><div><b>9</b> 12 &times; 9</div><div><b>19</b> two thirds of 21</div><div><b>29</b> 0 &minus; 6</div><div><b>39</b> 999 + 1</div><div><b>10</b> 35 &divide; 7</div><div><b>20</b> five sixths of 30</div><div><b>30</b> 4.6 &times; 100</div><div><b>40</b> 3&sup2; + 4&sup2;</div></div>
+</section>
+
+<section class="page">
+  <div class="kicker">Appendix A, continued</div>
+  <h2>Sheets D and E</h2>
+  <h3>Sheet D</h3>
+<div class="grid40"><div><b>1</b> 12 &times; 11</div><div><b>11</b> 234 + 199</div><div><b>21</b> 30% of 60</div><div><b>31</b> 0.06 &times; 1000</div><div><b>2</b> 7 &times; 9</div><div><b>12</b> 604 &minus; 279</div><div><b>22</b> 15% of 200</div><div><b>32</b> 12 &divide; 100</div><div><b>3</b> 96 &divide; 12</div><div><b>13</b> 25 &times; 4</div><div><b>23</b> 60% of 45</div><div><b>33</b> &radic;81</div><div><b>4</b> 63 &divide; 7</div><div><b>14</b> 125 &times; 8</div><div><b>24</b> 12.5% of 80</div><div><b>34</b> 7&sup2;</div><div><b>5</b> 6 &times; 6</div><div><b>15</b> 0.9 + 0.45</div><div><b>25</b> &minus;8 + 8</div><div><b>35</b> &radic;144</div><div><b>6</b> 8 &times; 12</div><div><b>16</b> 3 &minus; 1.25</div><div><b>26</b> &minus;5 &minus; 5</div><div><b>36</b> 10&sup2;</div><div><b>7</b> 45 &divide; 9</div><div><b>17</b> a fifth of 85</div><div><b>27</b> 3 &minus; 10</div><div><b>37</b> double 145</div><div><b>8</b> 110 &divide; 11</div><div><b>18</b> three eighths of 64</div><div><b>28</b> &minus;12 + 20</div><div><b>38</b> half of 370</div><div><b>9</b> 9 &times; 12</div><div><b>19</b> seven tenths of 90</div><div><b>29</b> 7.5 &times; 10</div><div><b>39</b> 1000 &minus; 1</div><div><b>10</b> 56 &divide; 7</div><div><b>20</b> two sevenths of 49</div><div><b>30</b> 4300 &divide; 100</div><div><b>40</b> 2 &times; 2 &times; 2</div></div>
+  <h3>Sheet E</h3>
+<div class="grid40"><div><b>1</b> 6 &times; 8</div><div><b>11</b> 348 + 152</div><div><b>21</b> 10% of 2400</div><div><b>31</b> 0.7 &divide; 10</div><div><b>2</b> 11 &times; 11</div><div><b>12</b> 1000 &minus; 362</div><div><b>22</b> 35% of 40</div><div><b>32</b> 62 &times; 10</div><div><b>3</b> 84 &divide; 12</div><div><b>13</b> 0.8 &times; 5</div><div><b>23</b> 90% of 30</div><div><b>33</b> &radic;36</div><div><b>4</b> 72 &divide; 8</div><div><b>14</b> 0.2 &times; 35</div><div><b>24</b> 1% of 850</div><div><b>34</b> 4&sup2;</div><div><b>5</b> 4 &times; 7</div><div><b>15</b> 1.5 + 2.75</div><div><b>25</b> &minus;9 + 15</div><div><b>35</b> 9&sup2;</div><div><b>6</b> 9 &times; 11</div><div><b>16</b> 6 &minus; 2.4</div><div><b>26</b> 6 &minus; 14</div><div><b>36</b> &radic;121</div><div><b>7</b> 27 &divide; 3</div><div><b>17</b> half of 168</div><div><b>27</b> &minus;4 &minus; 11</div><div><b>37</b> double 365</div><div><b>8</b> 100 &divide; 4</div><div><b>18</b> a quarter of 132</div><div><b>28</b> &minus;20 + 7</div><div><b>38</b> half of 1.6</div><div><b>9</b> 5 &times; 9</div><div><b>19</b> two ninths of 45</div><div><b>29</b> 5.03 &times; 100</div><div><b>39</b> 499 + 501</div><div><b>10</b> 144 &divide; 12</div><div><b>20</b> five eighths of 48</div><div><b>30</b> 780 &divide; 10</div><div><b>40</b> 6&sup2; &minus; 5&sup2;</div></div>
+</section>
+
+<section class="page">
+  <div class="kicker">Appendix A, continued</div>
+  <h2>Answers, sheets B and C</h2>
+  <h3>Sheet B answers</h3>
+<div class="grid40"><div><b>1</b> 42</div><div><b>11</b> 60</div><div><b>21</b> 1.2</div><div><b>31</b> &minus;8</div><div><b>2</b> 64</div><div><b>12</b> 9</div><div><b>22</b> 2.7</div><div><b>32</b> &minus;6</div><div><b>3</b> 144</div><div><b>13</b> 32</div><div><b>23</b> 105</div><div><b>33</b> 37</div><div><b>4</b> 54</div><div><b>14</b> 8</div><div><b>24</b> 155</div><div><b>34</b> 2.5</div><div><b>5</b> 8</div><div><b>15</b> 27</div><div><b>25</b> 9</div><div><b>35</b> 4</div><div><b>6</b> 9</div><div><b>16</b> 7</div><div><b>26</b> 16</div><div><b>36</b> 0.81</div><div><b>7</b> 11</div><div><b>17</b> 72</div><div><b>27</b> 48</div><div><b>37</b> 36</div><div><b>8</b> 77</div><div><b>18</b> 47</div><div><b>28</b> 20</div><div><b>38</b> 7</div><div><b>9</b> 96</div><div><b>19</b> 500</div><div><b>29</b> 3</div><div><b>39</b> 144</div><div><b>10</b> 6</div><div><b>20</b> 0.9</div><div><b>30</b> &minus;6</div><div><b>40</b> 10</div></div>
+  <h3>Sheet C answers</h3>
+<div class="grid40"><div><b>1</b> 63</div><div><b>11</b> 1.5</div><div><b>21</b> 6.5</div><div><b>31</b> 0.09</div><div><b>2</b> 72</div><div><b>12</b> 0.65</div><div><b>22</b> 9</div><div><b>32</b> 30</div><div><b>3</b> 11</div><div><b>13</b> 5</div><div><b>23</b> 10</div><div><b>33</b> 20</div><div><b>4</b> 9</div><div><b>14</b> 3.5</div><div><b>24</b> 60</div><div><b>34</b> 121</div><div><b>5</b> 77</div><div><b>15</b> 55</div><div><b>25</b> 7</div><div><b>35</b> 8</div><div><b>6</b> 6</div><div><b>16</b> 232</div><div><b>26</b> &minus;4</div><div><b>36</b> 64</div><div><b>7</b> 56</div><div><b>17</b> 12</div><div><b>27</b> &minus;7</div><div><b>37</b> 156</div><div><b>8</b> 11</div><div><b>18</b> 30</div><div><b>28</b> &minus;10</div><div><b>38</b> 125</div><div><b>9</b> 108</div><div><b>19</b> 14</div><div><b>29</b> &minus;6</div><div><b>39</b> 1000</div><div><b>10</b> 5</div><div><b>20</b> 25</div><div><b>30</b> 460</div><div><b>40</b> 25</div></div>
+</section>
+
+<section class="page">
+  <div class="kicker">Appendix A, continued</div>
+  <h2>Answers, sheets D and E</h2>
+  <h3>Sheet D answers</h3>
+<div class="grid40"><div><b>1</b> 132</div><div><b>11</b> 433</div><div><b>21</b> 18</div><div><b>31</b> 60</div><div><b>2</b> 63</div><div><b>12</b> 325</div><div><b>22</b> 30</div><div><b>32</b> 0.12</div><div><b>3</b> 8</div><div><b>13</b> 100</div><div><b>23</b> 27</div><div><b>33</b> 9</div><div><b>4</b> 9</div><div><b>14</b> 1000</div><div><b>24</b> 10</div><div><b>34</b> 49</div><div><b>5</b> 36</div><div><b>15</b> 1.35</div><div><b>25</b> 0</div><div><b>35</b> 12</div><div><b>6</b> 96</div><div><b>16</b> 1.75</div><div><b>26</b> &minus;10</div><div><b>36</b> 100</div><div><b>7</b> 5</div><div><b>17</b> 17</div><div><b>27</b> &minus;7</div><div><b>37</b> 290</div><div><b>8</b> 10</div><div><b>18</b> 24</div><div><b>28</b> 8</div><div><b>38</b> 185</div><div><b>9</b> 108</div><div><b>19</b> 63</div><div><b>29</b> 75</div><div><b>39</b> 999</div><div><b>10</b> 8</div><div><b>20</b> 14</div><div><b>30</b> 43</div><div><b>40</b> 8</div></div>
+  <h3>Sheet E answers</h3>
+<div class="grid40"><div><b>1</b> 48</div><div><b>11</b> 500</div><div><b>21</b> 240</div><div><b>31</b> 0.07</div><div><b>2</b> 121</div><div><b>12</b> 638</div><div><b>22</b> 14</div><div><b>32</b> 620</div><div><b>3</b> 7</div><div><b>13</b> 4</div><div><b>23</b> 27</div><div><b>33</b> 6</div><div><b>4</b> 9</div><div><b>14</b> 7</div><div><b>24</b> 8.5</div><div><b>34</b> 16</div><div><b>5</b> 28</div><div><b>15</b> 4.25</div><div><b>25</b> 6</div><div><b>35</b> 81</div><div><b>6</b> 99</div><div><b>16</b> 3.6</div><div><b>26</b> &minus;8</div><div><b>36</b> 11</div><div><b>7</b> 9</div><div><b>17</b> 84</div><div><b>27</b> &minus;15</div><div><b>37</b> 730</div><div><b>8</b> 25</div><div><b>18</b> 33</div><div><b>28</b> &minus;13</div><div><b>38</b> 0.8</div><div><b>9</b> 45</div><div><b>19</b> 10</div><div><b>29</b> 503</div><div><b>39</b> 1000</div><div><b>10</b> 12</div><div><b>20</b> 30</div><div><b>30</b> 78</div><div><b>40</b> 11</div></div>
+</section>
+
+<!-- ============ APPENDIX B ============ -->
+<section class="page">
+  <div class="kicker">Appendix B</div>
+  <h2>Methods card: the things to know cold</h2>
+  <p class="lede">These are recall, not understanding. Each one should come back without hesitation, because a child working these out from first principles in a 50-minute non-calculator paper will not finish. Tested in starters throughout the term.</p>
+
+  <h3>Number</h3>
+  <ol style="font-size:9.6pt">
+    <li>Times tables to 12 &times; 12, and the matching division facts.</li>
+    <li>Square numbers to 144, and their square roots.</li>
+    <li>Prime numbers up to 50. And that 1 is not prime.</li>
+    <li>Divisibility tests for 2, 3, 4, 5, 6, 9 and 10.</li>
+    <li>Rounding: underline the digit, look at the one to its right, 5 or more rounds up.</li>
+    <li>Order of operations: brackets, then multiply and divide, then add and subtract.</li>
+    <li>Negatives: adding moves right along the number line, subtracting moves left.</li>
+    <li>Multiplying by 10, 100, 1,000 moves the digits one, two, three places left.</li>
+    <li>Fraction of an amount: divide by the bottom, multiply by the top.</li>
+    <li>Simplifying: divide top and bottom by the highest common factor, then check again.</li>
+    <li>Adding fractions: same denominator first, then add the tops only.</li>
+    <li>Percentages without a calculator: 50% halve, 25% quarter, 10% divide by ten, 5% half of ten per cent, 1% divide by a hundred. Build everything else from these.</li>
+    <li>Percentage decrease: find the percentage, then subtract it from the original.</li>
+    <li>The conversions: a half is 0.5 and 50%, a quarter 0.25 and 25%, three quarters 0.75 and 75%, a fifth 0.2 and 20%, a tenth 0.1 and 10%, a third about 0.33 and 33.3%.</li>
+    <li>Ratio: add the parts, divide the total by that number, multiply by each share.</li>
+    <li>Proportion: find the value for one, then scale it.</li>
+  </ol>
+
+  <h3>Shape</h3>
+  <ol start="17" style="font-size:9.6pt">
+    <li>Perimeter is the distance round the outside. Area is the space inside.</li>
+    <li>Rectangle area = length &times; width.</li>
+    <li>Triangle area = half &times; base &times; perpendicular height.</li>
+    <li>Parallelogram area = base &times; perpendicular height. Never the slanted side.</li>
+    <li>Compound area: split it into rectangles, or subtract from the bounding rectangle.</li>
+    <li>Angles on a straight line add to 180 degrees.</li>
+    <li>Angles at a point add to 360 degrees.</li>
+    <li>Angles in a triangle add to 180 degrees.</li>
+    <li>An isosceles triangle has two equal sides and two equal base angles.</li>
+    <li>Metric: 10 mm in a cm, 100 cm in a m, 1,000 m in a km, 1,000 g in a kg, 1,000 ml in a litre.</li>
+    <li>Area is measured in squared units. Perimeter is not.</li>
+  </ol>
+
+</section>
+
+<section class="page">
+  <div class="kicker">Appendix B, continued</div>
+  <h2>Algebra, data and technique</h2>
+  <h3>Algebra</h3>
+  <ol start="28" style="font-size:9.6pt">
+    <li>Coordinates are (x, y): along first, then up or down.</li>
+    <li>Quadrant signs: upper right both positive, upper left x negative, lower left both negative, lower right y negative.</li>
+    <li>Sequence rule: find the difference between consecutive terms, and check it across three gaps, not one.</li>
+    <li>Substituting: replace the letter with the number, then obey the order of operations.</li>
+    <li>Inverse operations: undo the operations in reverse order.</li>
+  </ol>
+
+  <h3>Handling data</h3>
+  <ol start="33" style="font-size:9.6pt">
+    <li>Mean = total divided by how many there are.</li>
+    <li>Median = order the list first, then take the middle.</li>
+    <li>With an even number of values, the median is the mean of the middle two.</li>
+    <li>Mode = the most common value. There may be none, and there may be two.</li>
+    <li>Range = largest minus smallest. It is a difference, not a value from the list.</li>
+    <li>Pie chart: the fraction of the circle multiplied by the total. Or 360 divided by the total gives the degrees for one item.</li>
+  </ol>
+
+  <h3>Technique</h3>
+  <ol start="39" style="font-size:9.6pt">
+    <li>In Section A: cover the options, solve, then look.</li>
+    <li>Nothing is left blank in Section A.</li>
+    <li>In Section B: working above the answer, unit after it.</li>
+    <li>Stuck for fifteen seconds: star it and move on.</li>
+  </ol>
+
+  <div class="accent">
+    <p style="margin-bottom:0"><b>The ten facts card.</b> In Session 14, pick the ten items from this list that are still not automatic and write them on a single index card. That card, and nothing else, is what gets reviewed on Monday 11 January and Thursday 14 January. Ten is the limit. A revision list of forty-two items in the final week is a list that gets read rather than learned.</p>
+  </div>
+</section>
+
+<!-- ============ APPENDIX C ============ -->
+<section class="page">
+  <div class="kicker">Appendix C</div>
+  <h2>Progress tracker</h2>
+  <p class="lede">One line a week, filled in at the end of each session. The sprint column is the important one. It is the earliest signal of whether the plan is working, and it moves weeks before mock scores do.</p>
+
+  <table style="font-size:8.8pt">
+    <thead><tr>
+      <th style="width:6%">Wk</th><th style="width:13%">Date</th><th style="width:11%">Sprint /40</th>
+      <th style="width:11%">Time taken</th><th style="width:22%">Topic taught</th>
+      <th style="width:12%">Practice days /5</th><th style="width:11%">New errors</th><th>Notes</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>21 Sep</td><td></td><td></td><td>Diagnostic</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">2</td><td>28 Sep</td><td></td><td></td><td>Written methods</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">3</td><td>5 Oct</td><td></td><td></td><td>Place value, negatives</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">4</td><td>12 Oct</td><td></td><td></td><td>Factors, primes, squares</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">5</td><td>19 Oct</td><td></td><td></td><td>Fractions</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">6</td><td>26 Oct</td><td></td><td></td><td>Percentages</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">7</td><td>2 Nov</td><td></td><td></td><td>Ratio &middot; half-paper 1</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">8</td><td>9 Nov</td><td></td><td></td><td>Area and perimeter</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">9</td><td>16 Nov</td><td></td><td></td><td>Angles, symmetry, units</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">10</td><td>23 Nov</td><td></td><td></td><td>Averages &middot; half-paper 2</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">11</td><td>30 Nov</td><td></td><td></td><td>Charts and graphs</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">12</td><td>7 Dec</td><td></td><td></td><td>Algebra</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">13</td><td>14 Dec</td><td></td><td></td><td>Mock 1</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">&middot;</td><td>29 Dec</td><td></td><td></td><td>Mock 2 at home</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">14</td><td>4 Jan</td><td></td><td></td><td>Repair and MCQ speed</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">&middot;</td><td>9 Jan</td><td></td><td></td><td>Mock 3 at home</td><td></td><td></td><td></td></tr>
+      <tr><td class="n">15</td><td>12 Jan</td><td></td><td></td><td>Final session</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Mock record</h3>
+  <table>
+    <thead><tr><th style="width:18%">Mock</th><th style="width:16%">Mark</th><th style="width:22%">Unattempted</th><th style="width:22%">Marks lost to slips</th><th>Top repair item</th></tr></thead>
+    <tbody>
+      <tr><td><b>Specimen</b></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td><b>Mock 1</b>, 14 Dec</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td><b>Mock 2</b>, 29 Dec</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td><b>Mock 3</b>, 9 Jan</td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="box">
+    <h4>Three signals worth watching</h4>
+    <ul style="margin-bottom:0">
+      <li><b>Sprint flat for three weeks.</b> Either the sheet is too hard, or the drill is not actually happening daily. Check the second before assuming the first.</li>
+      <li><b>Practice days below four, twice running.</b> The slot is not working. Change the time of day rather than asking for more effort.</li>
+      <li><b>Unattempted questions not falling between mocks.</b> Pacing is not improving. Move to timed single questions rather than timed sets.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ APPENDIX D ============ -->
+<section class="page">
+  <div class="kicker">Appendix D</div>
+  <h2>What I need before Session 1</h2>
+
+  <h3>Documents</h3>
+  <ul class="tick">
+    <li>The most recent school report, the maths section, including any teacher comment and any level or band given.</li>
+    <li>The child's current maths exercise book, or clear photographs of two recent pages, including one with corrections on it. The corrections are more informative than the ticks.</li>
+    <li>The specimen paper, the moment it arrives. If it has not arrived by the end of October, ask the school for it.</li>
+    <li>The school's own letter confirming the exam date, start time and location.</li>
+    <li>Confirmation of whether extra time or any other access arrangement has been applied for or granted. If the child has a diagnosis or a school plan, this needs applying for now rather than in December.</li>
+    <li>Dates of any other entrance exams the child is sitting, so the schedule can account for them.</li>
+    <li>Details of any other tutoring or extra maths already happening, and with whom. Two tutors teaching two methods is worse than one.</li>
+  </ul>
+
+  <h3>Questions for the parent, answered before or at Session 1</h3>
+  <ol>
+    <li>What does the child say about maths when nobody is trying to encourage them?</li>
+    <li>Has anything gone wrong in maths recently? A test, a change of set, a change of teacher, a comment from someone. Recent history explains a lot of what a diagnostic shows.</li>
+    <li>Which topics or question types does the child avoid, put off or get upset by?</li>
+    <li>How do they respond to being timed? Some children speed up and some freeze, and the plan is paced differently for each.</li>
+    <li>What has the child actually been told about this exam and why it matters? I need to know what they are carrying before I add anything to it.</li>
+    <li>What time of day can the twenty minutes reliably happen, five days a week, from next week until January?</li>
+  </ol>
+
+  <h3>What you get back</h3>
+  <p>Within 48 hours of Session 1: the strand grid filled in, the sprint baseline, the revised order of Sessions 2 to 12 with any reasons for the changes, and the first week's home practice. If the diagnostic shows anything that materially changes the picture, such as a fluency score low enough to reshape the term, I will say so plainly rather than absorb it quietly into the schedule.</p>
+
+  <div class="navybox">
+    <h4>The honest position, as of today</h4>
+    <p style="margin-bottom:0">Sixteen weeks, fifteen hours of tuition and roughly twenty-six hours of home practice is a substantial amount of preparation for a paper pitched at levels 4 and 5. The content is not the difficulty. What decides the outcome is arithmetic fluency without a calculator, finishing within fifty minutes, and whether the twenty minutes a day actually happens. The first of those the lessons can build. The second the mocks can train. The third is the one thing in this plan that is outside my control, and it is the one that matters most.</p>
+  </div>
+
+  <p class="footnote">Prepared by Ali Aljawabra, Ali Tutors. Plan dated 21 September 2026, for an examination on Saturday 16 January 2027. Sections 5 and 6, the diagnostic, are original material written for this plan and are not a past paper from the school.</p>
+</section>
+
+</body>
+</html>

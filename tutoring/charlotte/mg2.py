@@ -7,6 +7,7 @@ ws=wb["RAG tracker"]; last=ws.max_row
 NAVY="FF162947"; TINT="FFEFEBE1"; RED="FFF4CCCC"; AMB="FFFCE5CD"; GRN="FFD9EAD3"
 hdrF=Font(name="Arial",size=10,bold=True,color="FFF6F4EF"); hdrFill=PatternFill("solid",fgColor=NAVY)
 bodyF=Font(name="Arial",size=10); thin=Side(style="thin",color="FFD8D3C6"); bd=Border(bottom=thin)
+vrule=Side(style="medium",color=NAVY); bdv=Border(bottom=thin,right=vrule)
 wrap=Alignment(wrap_text=True,vertical="top")
 
 s3=wb.create_sheet("Summary",0)
@@ -15,6 +16,7 @@ s3["A2"]="Fills in automatically once the RAG tracker is completed."
 s3["A2"].font=Font(name="Arial",size=10,italic=True,color="FF5D6471")
 s3.append([]); s3.append(["Rating","Topics at grades 1 to 6","Rough workload","Questions each","Questions total"])
 for c in s3[4]: c.font=hdrF; c.fill=hdrFill
+s3.cell(4,1).border=Border(right=vrule)
 rr=4
 for val,act,q in [("R","Full worksheet, taught first",13),("A","Work until 3 right in a row",6),("G","2 question spot check",2)]:
     rr+=1
@@ -22,6 +24,7 @@ for val,act,q in [("R","Full worksheet, taught first",13),("A","Work until 3 rig
     s3.cell(rr,3,act); s3.cell(rr,4,q); s3.cell(rr,5,f"=$B{rr}*$D{rr}")
     for c in range(1,6): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
     s3.cell(rr,1).fill=PatternFill("solid",fgColor={"R":RED,"A":AMB,"G":GRN}[val])
+    s3.cell(rr,1).border=bdv
 rr+=1
 s3.cell(rr,1,"Not yet rated"); s3.cell(rr,2,f"=COUNTIFS('RAG tracker'!$C$2:$C${last},\"\",'RAG tracker'!$A$2:$A${last},\">0\")")
 s3.cell(rr,3,"Counts every row, all grades")
@@ -36,6 +39,7 @@ for r2 in (rr-1,rr):
 rr+=2
 s3.cell(rr,1,"By grade").font=Font(name="Arial",size=11,bold=True,color=NAVY); rr+=1
 for c,h in enumerate(["Grade","Topics","","Red","Amber","Green"],1): s3.cell(rr,c,h).font=hdrF; s3.cell(rr,c).fill=hdrFill
+s3.cell(rr,1).border=Border(right=vrule)
 gstart=rr+1
 for g in range(1,9):
     rr+=1
@@ -44,6 +48,7 @@ for g in range(1,9):
     for c,val in ((4,"R"),(5,"A"),(6,"G")):
         s3.cell(rr,c,f"=COUNTIFS('RAG tracker'!$A$2:$A${last},$A{rr},'RAG tracker'!$C$2:$C${last},\"{val}\")")
     for c in range(1,7): s3.cell(rr,c).font=bodyF; s3.cell(rr,c).border=bd
+    s3.cell(rr,1).border=bdv
 rr+=1
 s3.cell(rr,1,"Total"); s3.cell(rr,2,f"=SUM(B{gstart}:B{rr-1})")
 for c in (4,5,6): s3.cell(rr,c,f"=SUM({get_column_letter(c)}{gstart}:{get_column_letter(c)}{rr-1})")

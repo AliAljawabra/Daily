@@ -91,7 +91,8 @@ NAVY="FF162947"; GOLD="FFC3A965"; TINT="FFEFEBE1"
 RED="FFF4CCCC"; AMB="FFFCE5CD"; GRN="FFD9EAD3"; INP="FFFFF2CC"
 hdrF=Font(name="Arial",size=10,bold=True,color="FFF6F4EF"); hdrFill=PatternFill("solid",fgColor=NAVY)
 bodyF=Font(name="Arial",size=10); linkF=Font(name="Arial",size=10,color="FF0563C1",underline="single")
-thin=Side(style="thin",color="FFD8D3C6"); bd=Border(bottom=thin)
+thin=Side(style="thin",color="FFD8D3C6")
+vrule=Side(style="medium",color=NAVY); bd=Border(bottom=thin)
 wrap=Alignment(wrap_text=True,vertical="top"); top=Alignment(vertical="top")
 GBAND={1:"FFF2F2F2",2:"FFF2F2F2",3:"FFF2F2F2",4:"FFFFFFFF",5:"FFFFFFFF",6:TINT,7:"FFEDEDED",8:"FFEDEDED"}
 
@@ -128,6 +129,7 @@ ws=wb.create_sheet("RAG tracker")
 cols=["Grade","Topic","Your rating","Notes","Maths Genie","PMT worksheet","QP","MS","Ans"]
 ws.append(cols)
 for c in ws[1]: c.font=hdrF; c.fill=hdrFill; c.alignment=Alignment(vertical="center",wrap_text=True)
+ws.cell(1,1).border=Border(right=vrule)
 ws.row_dimensions[1].height=30; ws.freeze_panes="C2"
 import collections
 bygrade=collections.OrderedDict()
@@ -142,6 +144,7 @@ for g,items in bygrade.items():
     for col in range(1,10):
         cell=ws.cell(i,col); cell.fill=bandFill; cell.font=bandF
         cell.alignment=Alignment(vertical="center")
+    ws.cell(i,1).border=Border(right=vrule)
     ws.row_dimensions[i].height=22
     start=i+1
     for t in items:
@@ -162,6 +165,7 @@ for g,items in bygrade.items():
         ws.cell(i,1).fill=PatternFill("solid",fgColor=GBAND[t['grade']])
         ws.cell(i,1).alignment=Alignment(horizontal="center",vertical="top")
         ws.cell(i,1).font=Font(name="Arial",size=10,color="FF5D6471")
+        ws.cell(i,1).border=Border(bottom=thin,right=vrule)
         ws.cell(i,2).fill=PatternFill("solid",fgColor=GBAND[t['grade']])
         ws.cell(i,3).fill=PatternFill("solid",fgColor=INP); ws.cell(i,4).fill=PatternFill("solid",fgColor=INP)
         ws.cell(i,3).alignment=Alignment(horizontal="center",vertical="center")

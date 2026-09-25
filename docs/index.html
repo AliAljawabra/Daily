@@ -251,6 +251,11 @@
   .price-card {
     background: #FFFFFF; border: 1px solid var(--line); border-radius: 6px;
     padding: 26px 24px;
+    display: flex; flex-direction: column;
+  }
+  .price-card .spacer { flex: 1 1 18px; min-height: 18px; }
+  .price-card .proof {
+    font-size: 13px; color: var(--gold); margin: 9px 0 0;
   }
   .price-card h3 {
     font-family: var(--serif); font-weight: 400; font-size: 19px;
@@ -267,7 +272,7 @@
     margin-top: 22px; padding: 18px 20px; border-left: 3px solid var(--gold-soft);
     background: #FFFFFF; border-radius: 0 4px 4px 0; font-size: 14.5px; color: var(--ink);
   }
-  .price-book { margin-top: 18px; padding: 10px 18px; font-size: 14px; }
+  .price-book { margin-top: 0; padding: 10px 18px; font-size: 14px; align-self: flex-start; }
 
   /* ---- How it works ---- */
   .steps {
@@ -436,36 +441,43 @@
         <h3>A-level Maths</h3>
         <div class="rate">£35 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £175</p>
+        <div class="spacer"></div>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/6oU00j6Oq3tb0mP0uFgMw01" target="_blank" rel="noopener">Book this block</a>
       </div>
       <div class="price-card">
         <h3>A-level Economics</h3>
         <div class="rate">£35 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £175</p>
+        <p class="proof">96% in Paper 3 &middot; Edexcel A</p>
+        <div class="spacer"></div>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/6oU00j6Oq3tb0mP0uFgMw01" target="_blank" rel="noopener">Book this block</a>
       </div>
       <div class="price-card">
         <h3>A-level Philosophy</h3>
         <div class="rate">£35 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £175</p>
+        <div class="spacer"></div>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/6oU00j6Oq3tb0mP0uFgMw01" target="_blank" rel="noopener">Book this block</a>
       </div>
       <div class="price-card">
         <h3>GCSE Maths</h3>
         <div class="rate">£32 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £160</p>
+        <div class="spacer"></div>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>
       </div>
       <div class="price-card">
         <h3>GCSE Combined &amp; Triple Science</h3>
         <div class="rate">£32 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £160</p>
+        <div class="spacer"></div>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>
       </div>
       <div class="price-card">
         <h3>GCSE Business Studies</h3>
         <div class="rate">£32 <span>/ hour</span></div>
         <p class="block-rate">Block of five: £160</p>
+        <div class="spacer"></div>
         <a class="btn btn-ghost price-book" href="https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02" target="_blank" rel="noopener">Book this block</a>
       </div>
     </div>
@@ -515,6 +527,10 @@
       <details class="faq-item">
         <summary>Which exam boards do you cover?</summary>
         <p>Content is tailored to whichever exam board the student's school uses (AQA, Edexcel, OCR and others) for GCSE Maths, Combined Science, Triple Science, Business Studies, and A-level Maths, Economics and Philosophy.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What grades did you get?</summary>
+        <p>A* in Economics and A* in Philosophy, and an A in Maths &mdash; including 196/200 across the AQA Philosophy papers and 96% in Paper 3 of Edexcel A Economics. At GCSE, grades 8 and 9 across 10 subjects. I sat all of these recently, so the specs and mark schemes I teach from are the current ones.</p>
       </details>
       <details class="faq-item">
         <summary>Do you tutor students younger than GCSE?</summary>

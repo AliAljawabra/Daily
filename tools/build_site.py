@@ -13,6 +13,7 @@ Facts that live in one place:
 """
 import html
 import json
+import subprocess
 from datetime import date
 from urllib.parse import quote
 from pathlib import Path
@@ -27,6 +28,10 @@ STRIPE_G = "https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02"   # GCSE (and KS3) b
 PHONE_TEL = "+447397270583"
 PHONE = "07397 270583"
 EMAIL = "alitutoring@outlook.com"
+# Fill these in later and re-run the build. Blank = not emitted.
+SAME_AS = []              # public profile URLs (Google Business Profile, directory listings, ...)
+GSC_VERIFICATION = ""     # content="" of Google Search Console's google-site-verification meta tag
+BING_VERIFICATION = ""    # content="" of Bing Webmaster Tools' msvalidate.01 meta tag
 WA_NUMBER = "447397270583"   # WhatsApp wants the international format, no "+"
 
 TIERS = {
@@ -305,6 +310,12 @@ def wa_url(text="Hi Ali, I'd like to ask about tutoring."):
     return f"https://wa.me/{WA_NUMBER}?text={quote(text)}"
 
 
+def photo(sizes, extra=""):
+    return ('<img src="assets/ali-aljawabra.jpg" '
+            'srcset="assets/ali-160.webp 160w, assets/ali-330.webp 330w, assets/ali-660.webp 660w" '
+            f'sizes="{sizes}" alt="Ali Aljawabra, GCSE and A-level tutor in Bath" width="640" height="640"{extra}>')
+
+
 def price_text(tier):
     t = TIERS[tier]
     return f"&pound;{t['rate']}"
@@ -423,11 +434,18 @@ def footer_html():
 def head(title, desc, path, jsonld=None, noindex=False):
     url = SITE + "/" if path == "index.html" else f"{SITE}/{path}"
     t, d = esc(title), esc(desc)
-    robots = '<meta name="robots" content="noindex">\n' if noindex else ""
+    robots = ('<meta name="robots" content="noindex">\n' if noindex else
+              '<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">\n')
+    if path == "index.html" and not noindex:
+        if GSC_VERIFICATION:
+            robots += f'<meta name="google-site-verification" content="{esc(GSC_VERIFICATION)}">\n'
+        if BING_VERIFICATION:
+            robots += f'<meta name="msvalidate.01" content="{esc(BING_VERIFICATION)}">\n'
     meta_social = "" if noindex else f'''<link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{url}">
 <meta property="og:site_name" content="Ali Tutors">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="{t}">
 <meta property="og:description" content="{d}">
 <meta property="og:image" content="{SITE}/assets/og-card.jpg">
@@ -448,7 +466,8 @@ def head(title, desc, path, jsonld=None, noindex=False):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{d}">
 <meta name="theme-color" content="#0F2A4A">
-{robots}{meta_social}<link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+{robots}{meta_social}<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
 <link rel="stylesheet" href="assets/site.css">
@@ -505,7 +524,7 @@ def build_home():
       <div class="cta-row">{call_btn()}{a("#subjects", "See subjects &amp; rates", "btn btn-ghost")}</div>
       <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Unused sessions refunded</li></ul>
     </div>
-    <div class="hero-photo"><div class="photo-frame"><img src="assets/ali-aljawabra.jpg" alt="Portrait of Ali Aljawabra" width="640" height="640" fetchpriority="high"></div></div>
+    <div class="hero-photo"><div class="photo-frame">{photo("(max-width: 780px) 76px, 330px", ' fetchpriority="high"')}</div></div>
   </div>
 </section>
 
@@ -589,15 +608,21 @@ def build_home():
     offers = [{"@type": "Offer", "url": f"{SITE}/{s['slug']}.html",
                "itemOffered": {"@type": "Service", "name": s["name"].replace("&amp;", "&") + " Tutoring"},
                "price": str(TIERS[s["tier"]]["rate"]), "priceCurrency": "GBP"} for s in SUBJECTS]
-    ld = [{
-        "@context": "https://schema.org", "@type": "LocalBusiness", "name": "Ali Tutors",
-        "image": f"{SITE}/assets/ali-aljawabra.jpg", "url": f"{SITE}/",
+    business = {
+        "@context": "https://schema.org", "@type": "LocalBusiness", "@id": f"{SITE}/#business", "name": "Ali Tutors",
+        "description": "One-to-one GCSE and A-level tutoring in Maths, Science, Business Studies, Economics and Philosophy, held online via Google Meet from Bath.",
+        "image": f"{SITE}/assets/ali-aljawabra.jpg", "logo": f"{SITE}/assets/icon-512.png", "url": f"{SITE}/",
         "telephone": PHONE_TEL, "email": EMAIL,
+        "knowsAbout": [s["name"].replace("&amp;", "&") for s in SUBJECTS],
         "areaServed": [{"@type": "City", "name": "Bath"}, {"@type": "Country", "name": "United Kingdom"}],
         "address": {"@type": "PostalAddress", "addressLocality": "Bath", "addressCountry": "GB"},
         "priceRange": "£32-£35", "makesOffer": offers,
-    }]
-    page("index.html", "Ali Aljawabra · GCSE & A-level Tutor, Bath",
+    }
+    if SAME_AS:
+        business["sameAs"] = SAME_AS
+    ld = [business, {"@context": "https://schema.org", "@type": "WebSite", "@id": f"{SITE}/#website", "url": f"{SITE}/",
+                     "name": "Ali Tutors", "inLanguage": "en-GB", "publisher": {"@id": f"{SITE}/#business"}}]
+    page("index.html", "GCSE & A-level Tutor in Bath, Online · Ali Tutors",
          "Online GCSE and A-level tutoring from Bath: Maths, Science, Business Studies, Economics and Philosophy. 8s and 9s in 10 GCSEs, A*A*A at A-level.",
          body, jsonld=ld)
 
@@ -779,7 +804,7 @@ def build_about():
       <p class="lede">I'm a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
       <div class="cta-row">{call_btn()}{a("pricing.html", "See pricing", "btn btn-ghost")}</div>
     </div>
-    <div class="photo-frame"><img src="assets/ali-aljawabra.jpg" alt="Portrait of Ali Aljawabra" width="640" height="640"></div>
+    <div class="photo-frame">{photo("(max-width: 860px) 240px, 320px")}</div>
   </div>
 </section>
 
@@ -828,9 +853,15 @@ def build_about():
 </section>
 
 {cta_band("Want to see if we're a good fit?")}'''
-    page("about.html", "About Ali · GCSE & A-level Tutor, Bath · Ali Tutors",
+    page("about.html", "About Ali Aljawabra · GCSE & A-level Tutor in Bath",
          "Meet Ali Aljawabra: Bath-based GCSE and A-level tutor with 8s and 9s in 10 GCSEs and A*A*A at A-level. DBS checked, tutoring online across the UK.",
-         body, current="about")
+         body, current="about", jsonld=[
+             {"@context": "https://schema.org", "@type": "Person", "@id": f"{SITE}/about.html#ali", "name": "Ali Aljawabra",
+              "jobTitle": "Private tutor", "url": f"{SITE}/about.html", "image": f"{SITE}/assets/ali-aljawabra.jpg",
+              "worksFor": {"@id": f"{SITE}/#business"},
+              "knowsAbout": ["GCSE Maths", "GCSE Science", "GCSE Business Studies", "A-level Maths", "A-level Economics", "A-level Philosophy"],
+              **({"sameAs": SAME_AS} if SAME_AS else {})},
+             breadcrumb_ld([("Home", SITE + "/"), ("About", f"{SITE}/about.html")])])
 
 
 def build_thanks():
@@ -915,10 +946,23 @@ def build_404():
     page("404.html", "Page not found · Ali Tutors", "Page not found.", body, noindex=True)
 
 
+def lastmod(page):
+    """Date the file last actually changed: today if it has uncommitted changes, else its last commit date."""
+    f = "docs/" + (page or "index.html")
+    try:
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", f], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+        if dirty:
+            return TODAY
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", f], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+        return out or TODAY
+    except Exception:
+        return TODAY
+
+
 def build_sitemap():
     pages = ["", "pricing.html", "about.html"] + [s["slug"] + ".html" for s in SUBJECTS]
     urls = "".join(
-        f"  <url>\n    <loc>{SITE}/{p}</loc>\n    <lastmod>{TODAY}</lastmod>\n"
+        f"  <url>\n    <loc>{SITE}/{p}</loc>\n    <lastmod>{lastmod(p)}</lastmod>\n"
         f"    <priority>{'1.0' if p == '' else '0.8'}</priority>\n  </url>\n" for p in pages)
     (OUT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n",

@@ -6,9 +6,9 @@ Private working notes. This folder is **not** published: GitHub Pages only serve
 
 | Area | Done |
 |---|---|
-| Pages Google can rank | One page per subject (7), plus Pricing and About, each with its own title, description, canonical URL and H1 |
+| Pages Google can rank | One page per subject (8, including 11+ and 13+ entrance Maths), plus Pricing and About, each with its own title, description, canonical URL and H1 |
 | Structured data | `LocalBusiness` + `WebSite` on the home page, `Person` on About, `Service` + breadcrumbs on every subject page. The self-published review/rating markup was removed because Google doesn't reward it and it can be treated as spam |
-| Crawling | `sitemap.xml` lists all 10 public pages with real "last changed" dates; `robots.txt` points to it; `max-image-preview:large` allowed; thank-you, privacy and 404 pages are `noindex` |
+| Crawling | `sitemap.xml` lists all 11 public pages with real "last changed" dates; `robots.txt` points to it; `max-image-preview:large` allowed; thank-you, privacy and 404 pages are `noindex` |
 | Speed | Lighthouse (local test) scores 100 for Performance, Accessibility, Best Practices and SEO on mobile and desktop. Phones now load a 3 KB headshot instead of 55 KB |
 | Sharing | Redrawn share card, `og:locale`, `favicon.ico` (it was returning a 404) |
 | Hooks | `tools/build_site.py` has blank `GSC_VERIFICATION`, `BING_VERIFICATION` and `SAME_AS` settings. Send me the values below and I'll wire them in |
@@ -56,9 +56,9 @@ Nothing above helps until the branch is merged and deployed.
 | Website | `https://alitutors.com/` |
 | Appointment link | `https://calendar.app.google/m9L2FUsJ7jZ5LGun6` |
 | Hours | Only the hours you really answer. I don't know them, so I haven't guessed |
-| Description (550 of 750 characters, no links) | See below |
+| Description (about 600 of 750 characters, no links) | See below |
 
-> Ali Tutors offers one-to-one GCSE and A-level tutoring from Bath. Subjects: GCSE Maths, Combined and Triple Science and Business Studies; KS3 Maths and Science (Years 7 to 9); A-level Maths, Economics and Philosophy. Ali got grade 8s and 9s in 10 GCSEs and A*A*A at A-level, so sessions follow the current specifications and what examiners reward, tailored to each student's exam board and target grade. DBS checked. Sessions are one-to-one and booked in blocks of five, with any unused sessions refunded. Start with a free intro call, no obligation.
+> Ali Tutors offers one-to-one GCSE and A-level tutoring from Bath. Subjects: GCSE Maths, Combined and Triple Science and Business Studies; KS3 Maths and Science (Years 7 to 9); Maths for 11+ and 13+ entrance exams; A-level Maths, Economics and Philosophy. Ali got grade 8s and 9s in 10 GCSEs and A*A*A at A-level, so sessions follow the current specifications and what examiners reward, tailored to each student's exam board and target grade. DBS checked. Sessions are one-to-one and booked in blocks of five, with any unused sessions refunded. Start with a free intro call, no obligation.
 
 (On Route A, add a sentence saying where in-person lessons happen.)
 
@@ -73,6 +73,7 @@ Nothing above helps until the branch is merged and deployed.
 | GCSE Combined & Triple Science tutoring | £32/hour | Biology, Chemistry and Physics |
 | GCSE Business Studies tutoring | £32/hour | Marketing, finance, operations and exam technique |
 | KS3 Maths & Science tutoring | £32/hour | Years 7 to 9 |
+| 11+ & 13+ entrance exam Maths tutoring | £32/hour | Maths for private school 11+, the ISEB Pre-Test, grammar school 11+ and 13+ entrance (Years 5 and 6) |
 
 **Photos:** logo = `docs/assets/icon-512.png`, cover = `docs/assets/og-card.jpg`, plus the headshot `docs/assets/ali-aljawabra.jpg`. Add 5 to 10 real photos (your set-up, whiteboard, a materials shot). Avoid stock images.
 

@@ -14,6 +14,7 @@ Facts that live in one place:
 import html
 import json
 from datetime import date
+from urllib.parse import quote
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -26,6 +27,7 @@ STRIPE_G = "https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02"   # GCSE (and KS3) b
 PHONE_TEL = "+447397270583"
 PHONE = "07397 270583"
 EMAIL = "alitutoring@outlook.com"
+WA_NUMBER = "447397270583"   # WhatsApp wants the international format, no "+"
 
 TIERS = {
     "A": dict(label="A-level", rate=35, block=175, stripe=STRIPE_A),
@@ -299,6 +301,10 @@ REVIEWS = {
 }
 
 
+def wa_url(text="Hi Ali, I'd like to ask about tutoring."):
+    return f"https://wa.me/{WA_NUMBER}?text={quote(text)}"
+
+
 def price_text(tier):
     t = TIERS[tier]
     return f"&pound;{t['rate']}"
@@ -355,10 +361,11 @@ def tier_html(key):
             f'{a(CALL, "Not sure yet? Book a free intro call", "text-link", ext=True)}</div></div>')
 
 
-def cta_band(h="Ready to talk it through?", p="A free intro call, no obligation. We'll look at what's needed and whether I can help."):
+def cta_band(h="Ready to talk it through?", p="A free intro call, no obligation. We'll look at what's needed and whether I can help.", wa_text=None):
     return (f'<section class="cta-band on-dark"><div class="wrap"><div><h2>{h}</h2><p>{p}</p></div>'
             f'<div class="cta-row">{call_btn("Book a free intro call", "btn btn-light")}'
-            f'{a("tel:" + PHONE_TEL, "Call " + PHONE, "btn btn-outline-light")}</div></div></section>')
+            f'{a("tel:" + PHONE_TEL, "Call " + PHONE, "btn btn-outline-light")}'
+            f'{a(wa_url(wa_text) if wa_text else wa_url(), "WhatsApp", "btn btn-outline-light", ext=True)}</div></div></section>')
 
 
 NAV = [("Subjects", "index.html#subjects", None), ("Pricing", "pricing.html", "pricing"),
@@ -397,7 +404,7 @@ def footer_html():
       <div>
         <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28">Ali Tutors</a>
         <p>One-to-one GCSE and A-level tutoring, online, from Bath. DBS checked.</p>
-        <p>{a("tel:" + PHONE_TEL, PHONE)}<br>{a("mailto:" + EMAIL, EMAIL)}</p>
+        <p>{a("tel:" + PHONE_TEL, PHONE)}<br>{a(wa_url(), "WhatsApp", ext=True)}<br>{a("mailto:" + EMAIL, EMAIL)}</p>
       </div>
       <div><h2>A-level</h2><ul>{col(("A-level",))}</ul></div>
       <div><h2>GCSE &amp; KS3</h2><ul>{col(("GCSE", "KS3"))}</ul></div>
@@ -571,6 +578,7 @@ def build_home():
     <div class="contact-card">
       <div class="contact-links">
         <a href="tel:{PHONE_TEL}"><span class="lab">Phone</span>{PHONE}</a>
+        <a href="{wa_url()}" target="_blank" rel="noopener"><span class="lab">WhatsApp</span>Message me</a>
         <a href="mailto:{EMAIL}"><span class="lab">Email</span>{EMAIL}</a>
       </div>
       {call_btn("Book your free intro call")}
@@ -625,6 +633,7 @@ def build_subject(s):
     glance = "".join(f'<div class="row"><dt>{k}</dt><dd>{v}</dd></div>' for k, v in glance_rows)
     others_all = "".join(subject_card(o) for o in SUBJECTS if o["slug"] != s["slug"])
 
+    wa_msg = f"Hi Ali, I'd like to ask about {s['name']} tutoring."
     body = f'''
 <div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="index.html#subjects">Subjects</a><span aria-hidden="true">/</span>{name_h}</nav></div>
 
@@ -684,7 +693,7 @@ def build_subject(s):
   </div>
 </section>
 
-{cta_band()}'''
+{cta_band(wa_text=wa_msg)}'''
 
     plain_name = s["name"].replace("&amp;", "&")
     ld = [
@@ -753,7 +762,7 @@ def build_pricing():
   </div>
 </section>
 
-{cta_band("Questions before you book?", "Book a free intro call, or phone or email any time.")}'''
+{cta_band("Questions before you book?", "Book a free intro call, or call, message on WhatsApp or email any time.")}'''
     page("pricing.html", "Pricing: Blocks of Five from £160 · Ali Tutors",
          "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE and KS3, booked in blocks of five. Unused sessions are always refunded.",
          body, current="pricing")
@@ -838,7 +847,7 @@ def build_thanks():
     </ol>
     <p>{call_btn("Book a session time")}</p>
     <div class="note">
-      <b>Prefer not to book five times?</b> If you already know your preferred time, or the calendar doesn't have a slot that works, just reply to your payment confirmation email or call {a("tel:" + PHONE_TEL, PHONE, "text-link")} directly.
+      Already know your preferred time, or the calendar doesn't have a slot that works? Just reply to your payment confirmation email or call {a("tel:" + PHONE_TEL, PHONE, "text-link")} directly.
     </div>
     <p style="margin-top:24px;color:var(--muted);font-size:15px">Any questions before then, email {a("mailto:" + EMAIL, EMAIL)}.</p>
     <p><a href="index.html">&larr; Back to the homepage</a></p>
@@ -852,7 +861,7 @@ def build_privacy():
 <section class="page-simple">
   <div class="narrow">
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: September 2026</p>
+    <p class="updated">Last updated: November 2026</p>
 
     <p>This page explains what personal information is collected through alitutors.com, why, and what your rights are. This site is run by Ali Aljawabra, trading as Ali Tutors, a Bath-based private tutor.</p>
 
@@ -860,7 +869,7 @@ def build_privacy():
     <ul>
       <li><strong>Booking a free intro call:</strong> your name and email address, via Google Calendar's appointment booking system.</li>
       <li><strong>Booking a block of sessions:</strong> your name, email, and payment details, handled entirely by Stripe (payment details are never seen or stored by Ali Tutors directly).</li>
-      <li><strong>Contacting by phone or email:</strong> whatever you choose to share (name, contact details, your child's subject/exam board).</li>
+      <li><strong>Contacting by phone, email or WhatsApp:</strong> whatever you choose to share (name, contact details, your child's subject/exam board).</li>
     </ul>
 
     <h2>Why it's collected</h2>
@@ -870,6 +879,7 @@ def build_privacy():
     <ul>
       <li><strong>Stripe</strong> (payment processing): see <a href="https://stripe.com/gb/privacy" target="_blank" rel="noopener">Stripe's privacy policy</a>.</li>
       <li><strong>Google Calendar</strong> (appointment scheduling): see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.</li>
+      <li><strong>WhatsApp</strong> (messaging, only if you choose to contact me that way): see <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">WhatsApp's privacy policy</a>.</li>
     </ul>
     <p>No other third parties receive your information. This site does not use tracking cookies or analytics.</p>
 

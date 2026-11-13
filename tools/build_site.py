@@ -350,10 +350,10 @@ BY_SLUG = {s["slug"]: s for s in SUBJECTS}
 REVIEWS = {
     "sarah": dict(
         quote="My daughter was sitting at a grade 3 in Business Studies when we came to Ali. She finished with a grade 8 and she is absolutely over the moon, and honestly so are we. Ali took a subject she had written herself off in and gave her the confidence to actually enjoy it. We can't recommend him highly enough.",
-        who="Sarah, parent", ctx="GCSE Business Studies, grade 3 to 8"),
+        who="Sarah, parent", ctx="GCSE Business Studies, grade 3 to 8", hl="She finished with a grade 8"),
     "claire": dict(
         quote="Ali tutored my son in Maths and Chemistry during Year 11 and was a huge help. He was very organised, kind and supportive, and really helped my son to get to grips with what he was finding difficult. We were delighted with the exam results and I would highly recommend him.",
-        who="Claire, parent", ctx="GCSE Maths &amp; Chemistry, Year 11"),
+        who="Claire, parent", ctx="GCSE Maths &amp; Chemistry, Year 11", hl="We were delighted with the exam results"),
 }
 
 
@@ -388,9 +388,14 @@ def call_btn(text="Book a free intro call", cls="btn btn-primary"):
 
 def review_html(key, light=False):
     r = REVIEWS[key]
-    cls = "review review-light" if light else "review"
-    return (f'<figure class="{cls}"><blockquote><p>{esc(r["quote"], quote=False)}</p></blockquote>'
-            f'<figcaption><b>{r["who"]}</b>{r["ctx"]}</figcaption></figure>')
+    q = esc(r["quote"], quote=False)
+    if r.get("hl"):
+        phrase = esc(r["hl"], quote=False)
+        q = q.replace(phrase, f"<mark>{phrase}</mark>", 1)
+    cls = "quote quote-card" if light else "quote"
+    return (f'<figure class="{cls}"><blockquote><p>{q}</p></blockquote>'
+            f'<figcaption><span class="avatar" aria-hidden="true">{r["who"][0]}</span>'
+            f'<span><b>{r["who"]}</b><span>{r["ctx"]}</span></span></figcaption></figure>')
 
 
 def faq_item(q, answer_html):
@@ -398,37 +403,69 @@ def faq_item(q, answer_html):
             f'<div class="answer">{answer_html}</div></details>')
 
 
-def subject_card(s):
-    t = TIERS[s["tier"]]
-    return (f'<article class="card"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;"))}</h3>'
-            f'<p>{s["card"]}</p>'
-            f'<div class="foot"><span class="price">&pound;{t["rate"]} / hour</span><span class="go">Explore</span></div></article>')
+LEVEL_GROUPS = [("A-level", "A-level", "A"), ("GCSE", "GCSE", "G"), ("KS3", "Key Stage 3", "G"), ("Entrance", "Entrance exams", "G")]
 
 
-def subject_card_wide(s):
-    t = TIERS[s["tier"]]
-    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + s.get("suffix", ""))}</h3>'
-            f'<p>{s["card"]}</p></div>'
-            f'<div class="foot"><span class="price">&pound;{t["rate"]} / hour</span><span class="go">Explore</span></div></article>')
+def subject_row(s):
+    return (f'<li><a class="row-link" href="{s["slug"]}.html"><span class="row-name">{s["name"].replace("&", "&amp;")}</span>'
+            f'<span class="row-desc">{s["card"]}</span><span class="row-go" aria-hidden="true"></span></a></li>')
+
+
+def subject_index(exclude=None, compact=False):
+    groups = []
+    for level, label, tier in LEVEL_GROUPS:
+        subs = [s for s in SUBJECTS if s["level"] == level and s["slug"] != exclude]
+        if subs:
+            groups.append(f'<div class="index-group"><div class="index-label"><h3>{label}</h3>'
+                          f'<p>&pound;{TIERS[tier]["rate"]} an hour</p></div>'
+                          f'<ul class="index-list">{"".join(subject_row(s) for s in subs)}</ul></div>')
+    return f'<div class="index{" index-compact" if compact else ""}">{"".join(groups)}</div>'
+
+
+
 
 
 def tier_html(key):
     t = TIERS[key]
     subs = [s for s in SUBJECTS if s["tier"] == key]
     items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + s.get("suffix", ""))}</li>' for s in subs)
-    return (f'<div class="tier"><div class="kicker">{t["label"].replace("&", "&amp;")}</div>'
-            f'<div class="big">&pound;{t["block"]}<span>for 5 sessions</span></div>'
-            f'<p class="per">&pound;{t["rate"]} per hour &middot; paid upfront</p>'
-            f'<ul class="check-list">{items}<li>Unused sessions refunded</li></ul>'
-            f'<div class="actions">{a(t["stripe"], "Book a block of five", "btn btn-primary", ext=True)}'
-            f'{a(CALL, "Not sure yet? Book a free intro call", "text-link", ext=True)}</div></div>')
+    return (f'<div class="tier"><h3 class="tier-label">{t["label"].replace("&", "&amp;")}</h3>'
+            f'<p class="tier-price"><span class="amount">&pound;{t["block"]}</span><span class="unit">for five sessions</span></p>'
+            f'<p class="tier-per">&pound;{t["rate"]} an hour, paid upfront</p>'
+            f'<ul class="check-list">{items}</ul>'
+            f'<div class="tier-actions">{a(t["stripe"], "Book a block of five", "btn btn-ghost", ext=True)}'
+            f'{a(CALL, "or start with a free intro call", "text-link", ext=True)}</div></div>')
 
 
-def cta_band(h="Ready to talk it through?", p="A free intro call, no obligation. We'll look at what's needed and whether I can help.", wa_text=None):
-    return (f'<section class="cta-band on-dark"><div class="wrap"><div><h2>{h}</h2><p>{p}</p></div>'
-            f'<div class="cta-row">{call_btn("Book a free intro call", "btn btn-light")}'
-            f'{a("tel:" + PHONE_TEL, "Call " + PHONE, "btn btn-outline-light")}'
-            f'{a(wa_url(wa_text) if wa_text else wa_url(), "WhatsApp", "btn btn-outline-light", ext=True)}</div></div></section>')
+def slip_html(rows, note=None, simple=False):
+    """A printed-results-slip table. rows: (subject, board, grade, detail, circled).
+    simple=True: two columns, label and result, for the short slips on subject pages."""
+    trs = ""
+    for subj, board, grade, detail, circled in rows:
+        det = f'<span class="circled">{detail}</span>' if circled else detail
+        sub = f"<small>{board}</small>" if board else ""
+        detail_cell = "" if simple else f'<td class="detail">{det}</td>'
+        trs += f'<tr><th scope="row">{subj}{sub}</th><td class="grade">{grade}</td>{detail_cell}</tr>'
+    n = f'<p class="slip-note" aria-hidden="true">{note}</p>' if note else ""
+    return (f'<div class="slip{" slip-simple" if simple else ""}"><div class="slip-head" aria-hidden="true"><span>Results</span><span>Ali Aljawabra</span></div>'
+            f'<table><caption class="sr-only">Exam results</caption><tbody>{trs}</tbody></table>{n}</div>')
+
+
+MY_RESULTS = [
+    ("A-level Philosophy", "AQA", "A*", "196/200", True),
+    ("A-level Economics", "Edexcel A", "A*", "96% in Paper 3", False),
+    ("A-level Maths", "", "A", "", False),
+    ("GCSEs", "10 subjects", "8s &amp; 9s", "", False),
+]
+
+
+def cta_band(h="Let's see if I can help", p="Book a free intro call. We'll talk through what's needed, and whether I'm the right tutor.", wa_text=None, id_=None):
+    wa = wa_url(wa_text) if wa_text else wa_url()
+    sid = f' id="{id_}"' if id_ else ""
+    return (f'<section class="cta-band"{sid}><div class="wrap cta-grid"><div><h2>{h}</h2><p>{p}</p></div>'
+            f'<div class="cta-actions">{call_btn("Book a free intro call", "btn btn-light")}'
+            f'<ul class="cta-contacts"><li>{a("tel:" + PHONE_TEL, "Call " + PHONE)}</li>'
+            f'<li>{a(wa, "WhatsApp me", ext=True)}</li><li>{a("mailto:" + EMAIL, "Email me")}</li></ul></div></div></section>')
 
 
 NAV = [("Subjects", "index.html#subjects", None), ("Pricing", "pricing.html", "pricing"),
@@ -448,7 +485,7 @@ def nav_html(current, nav_cta=True):
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap nav-bar">
-    <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28">Ali Tutors</a>
+    <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="34" height="34">Ali Tutors</a>
     <nav class="nav-links" aria-label="Main"><ul>{links()}</ul></nav>
     {a(CALL, "Free intro call", "btn btn-primary btn-sm nav-cta", ext=True) if nav_cta else '<span class="nav-cta"></span>'}
     <details class="menu"><summary aria-label="Menu"><span class="bars"></span></summary>
@@ -465,8 +502,8 @@ def footer_html():
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28">Ali Tutors</a>
-        <p>One-to-one GCSE and A-level tutoring, online, from Bath. DBS checked.</p>
+        <a class="brand" href="index.html"><img src="assets/mark-light.svg" alt="" width="34" height="34">Ali Tutors</a>
+        <p>One-to-one GCSE, A-level and 11+ tutoring, online, from Bath. DBS checked.</p>
         <p>{a("tel:" + PHONE_TEL, PHONE)}<br>{a(wa_url(), "WhatsApp", ext=True)}<br>{a("mailto:" + EMAIL, EMAIL)}</p>
       </div>
       <div><h2>A-level</h2><ul>{col(("A-level",))}</ul></div>
@@ -526,6 +563,8 @@ def head(title, desc, path, jsonld=None, noindex=False):
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+<link rel="preload" href="assets/fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 {analytics}{ld}</head>'''
 
@@ -603,24 +642,15 @@ def season_text(month):
 SEASON_JS = """<script>
 /* Keeps the hero badge in season even if the site isn't rebuilt (same rule as season_text). */
 (function () {
-  var b = document.querySelector('[data-season]'); if (!b) return;
   var m = new Date().getMonth() + 1;
-  b.textContent = (m >= 2 && m <= 5) ? 'Now booking for the summer exams'
+  var text = (m >= 2 && m <= 5) ? 'Now booking for the summer exams'
     : (m >= 6 && m <= 8) ? 'Now booking for the new school year' : 'Now booking ahead of mocks';
+  document.querySelectorAll('[data-season]').forEach(function (b) { b.textContent = text; });
 })();
 </script>"""
 
 
 def build_home():
-    def stat(num, lbl):
-        return f'<div class="stat"><div class="num">{num}</div><div class="lbl">{lbl}</div></div>'
-
-    group = lambda label: f'<h3 class="group-label">{label}</h3>'
-    a_cards = "".join(subject_card(s) for s in SUBJECTS if s["level"] == "A-level")
-    g_cards = "".join(subject_card(s) for s in SUBJECTS if s["level"] == "GCSE")
-    k_card = "".join(subject_card_wide(s) for s in SUBJECTS if s["level"] == "KS3")
-    e_card = "".join(subject_card_wide(s) for s in SUBJECTS if s["level"] == "Entrance")
-
     faqs = [
         ("Which exam boards do you cover?",
          "<p>Content is tailored to whichever exam board the student's school uses (AQA, Edexcel, OCR and others) for GCSE Maths, Combined Science, Triple Science, Business Studies, and A-level Maths, Economics and Philosophy. Each subject page lists what's covered.</p>"),
@@ -639,95 +669,87 @@ def build_home():
     body = f'''
 <section class="hero" id="top">
   <div class="wrap hero-grid">
-    <div class="hero-text">
-      <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE &amp; A-level tutor &middot; Bath &amp; online</span></div>
-      <span class="badge" data-season>{season_text(date.today().month)}</span>
-      <h1>GCSE &amp; A-level tutoring from someone who sat these exams recently</h1>
-      <p class="hero-lede">I'm Ali, a tutor in Bath. I got <b>grade 8s and 9s in 10 GCSEs</b>, then <b>A*A*A at A-level</b> in Economics, Philosophy and Maths. I teach from the current specs and mark schemes, and I know what examiners actually reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
-      <div class="cta-row">{call_btn()}{a("#subjects", "See subjects &amp; rates", "btn btn-ghost")}</div>
-      <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Unused sessions refunded</li></ul>
+    <div class="hero-copy">
+      <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE, A-level &amp; 11+ tutor</span></div>
+      <p class="season-pill" data-season>{season_text(date.today().month)}</p>
+      <p class="eyebrow">GCSE, A-level &amp; 11+ tutor &middot; Bath and online</p>
+      <h1>GCSE &amp; A-level tutoring from someone who&rsquo;s <mark>just been through&nbsp;it</mark>.</h1>
+      <p class="lede">I'm Ali, a tutor in Bath. I got <strong>8s and 9s in 10 GCSEs</strong> and <strong>A*A*A at A&#8209;level</strong>, so I know what today's examiners reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
+      <div class="cta-row">{call_btn()}<a class="link-arrow" href="#subjects">See subjects and prices</a></div>
+      <ul class="ticks"><li>DBS checked</li><li>Online via Google Meet</li><li>Unused sessions refunded</li></ul>
     </div>
-    <div class="hero-photo"><div class="photo-frame">{photo("(max-width: 780px) 76px, 330px", ' fetchpriority="high"')}</div></div>
-  </div>
-</section>
-
-<section class="strip on-dark" aria-label="Results and rates at a glance">
-  <div class="wrap strip-grid">
-    {stat("196/200", "A-level Philosophy, AQA")}
-    {stat("96%", "A-level Economics Paper 3, Edexcel A")}
-    {stat('<span aria-hidden="true">3 &rarr; 8</span><span class="sr-only">Grade 3 to grade 8</span>', "A student's GCSE Business Studies grade")}
-    {stat("&pound;32/hr", "GCSE, KS3 &amp; 11+ &middot; A-level &pound;35/hr")}
-  </div>
-</section>
-
-<section class="section" id="reviews">
-  <div class="wrap">
-    <div class="section-head"><div class="kicker">Reviews</div><h2>What parents say</h2></div>
-    <div class="reviews">{review_html("sarah")}{review_html("claire")}</div>
-  </div>
-</section>
-
-<section class="section alt" id="subjects">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Subjects</div>
-      <h2>What I teach</h2>
-      <p class="section-sub">One-to-one, tailored to the student's exam board and target grade. Pick a subject for the topics covered, how the exams work and the rates.</p>
+    <div class="hero-visual">
+      <figure class="portrait">{photo("(max-width: 860px) 72px, 380px", ' fetchpriority="high"')}</figure>
+      <p class="sticky" data-season>{season_text(date.today().month)}</p>
+      <p class="hand-note" aria-hidden="true">that's me<svg viewBox="0 0 64 52" width="64" height="52"><path d="M56 5C42 9 24 18 15 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M8 29l7 12 11-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     </div>
-    {group("A-level")}<div class="cards">{a_cards}</div>
-    {group("GCSE")}<div class="cards">{g_cards}</div>
-    {group("Key Stage 3")}<div class="cards">{k_card}</div>
-    {group("Entrance exams")}<div class="cards">{e_card}</div>
   </div>
 </section>
 
-<section class="section" id="pricing">
+<section class="section proof" id="results">
+  <div class="wrap proof-grid">
+    <div class="proof-copy">
+      <p class="kicker">my own results</p>
+      <h2>Recent results, not distant memories</h2>
+      <p class="section-sub">I sat these exams recently. The specifications and mark schemes I teach from are the current ones, and I know first-hand what a top answer looks like.</p>
+      <p><a class="link-arrow" href="about.html">More about me</a></p>
+    </div>
+    {slip_html(MY_RESULTS, "that's 98%")}
+  </div>
+</section>
+
+<section class="section alt" id="reviews">
   <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Rates</div>
-      <h2>Simple pricing, in blocks of five</h2>
-      <p class="section-sub">Sessions are booked in blocks of five for steadier weekly progress, rather than one-off lessons.</p>
+    <div class="section-head"><p class="kicker">from parents</p><h2>What parents say</h2></div>
+    <div class="quotes">{review_html("sarah")}{review_html("claire")}</div>
+  </div>
+</section>
+
+<section class="section" id="subjects">
+  <div class="wrap">
+    <div class="section-head split">
+      <div><p class="kicker">pick a subject</p><h2>What I teach</h2></div>
+      <p class="section-sub">One-to-one, tailored to the student's exam board and target grade. Each subject page covers the topics, how the exams work and the price.</p>
+    </div>
+    {subject_index()}
+  </div>
+</section>
+
+<section class="section alt" id="pricing">
+  <div class="wrap">
+    <div class="section-head split">
+      <div><p class="kicker">clear prices</p><h2>Prices, in blocks of five</h2></div>
+      <p class="section-sub">Weekly sessions, booked five at a time so progress stays steady. <strong>Any session you don't use is refunded.</strong></p>
     </div>
     <div class="tiers">{tier_html("A")}{tier_html("G")}</div>
-    <div class="note"><b>Any sessions you don't take are always refunded</b>, and you can cancel before a block starts for a full refund. {a("pricing.html", "How blocks, payment and refunds work", "text-link")}</div>
+    <p class="fine">Cancel before a block starts for a full refund. {a("pricing.html", "How blocks, payment and refunds work", "link-arrow")}</p>
   </div>
 </section>
 
-<section class="section alt" id="how">
+<section class="section" id="how">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">How it works</div><h2>Three steps to your first session</h2></div>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Free intro call</h3><p>A free call to talk through what's needed: the subject, the exam board and the target grade. Parents or A-level students can book it. No obligation to continue.</p></div>
-      <div class="step"><div class="n">2</div><h3>Book a block of five</h3><p>Five weekly sessions, booked in advance and paid upfront.</p></div>
-      <div class="step"><div class="n">3</div><h3>Sessions on Google Meet</h3><p>Held online, so there's no travel time and it's easy to fit around school and other commitments.</p></div>
+    <div class="section-head"><p class="kicker">three steps</p><h2>How it works</h2></div>
+    <ol class="steps">
+      <li class="step"><span class="n" aria-hidden="true">1</span><h3>Free intro call</h3><p>We talk through what's needed: the subject, the exam board and the target grade. Parents or A-level students can book it. No obligation.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">2</span><h3>Book a block of five</h3><p>Five weekly sessions, booked in advance and paid upfront. Any you don't use are refunded.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">3</span><h3>Sessions on Google Meet</h3><p>Online, so there's no travel and it fits around school and everything else.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section alt" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-aside">
+      <p class="kicker">good questions</p>
+      <h2>Questions parents ask</h2>
+      <p class="section-sub">Not answered here? Send me a message and I'll get back to you.</p>
+      <p>{a(wa_url(), "WhatsApp me", "btn btn-ghost", ext=True)}</p>
     </div>
-  </div>
-</section>
-
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-head"><div class="kicker">FAQ</div><h2>Common questions</h2></div>
     <div class="faq-list">{"".join(faq_item(q, ans) for q, ans in faqs)}</div>
   </div>
 </section>
 
-<section class="section alt" id="contact">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Get in touch</div>
-      <h2>Ready to talk it through?</h2>
-      <p class="section-sub">Bath-based and DBS checked, tutoring online across the UK. Free intro call, no obligation.</p>
-    </div>
-    <div class="contact-card">
-      <div class="contact-links">
-        <a href="tel:{PHONE_TEL}"><span class="lab">Phone</span>{PHONE}</a>
-        <a href="{wa_url()}" target="_blank" rel="noopener"><span class="lab">WhatsApp</span>Message me<span class="sr-only"> (opens in a new tab)</span></a>
-        <a href="mailto:{EMAIL}"><span class="lab">Email</span>{EMAIL}</a>
-      </div>
-      {call_btn("Book your free intro call")}
-    </div>
-  </div>
-</section>
+{cta_band(id_="contact")}
 {SEASON_JS}'''
 
     offers = [{"@type": "Offer", "url": f"{SITE}/{s['slug']}.html",
@@ -756,23 +778,22 @@ def build_subject(s):
     t = TIERS[s["tier"]]
     name_h = s["name"].replace("&", "&amp;")
     kicker = s.get("kicker") or {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7 to 9"}[s["level"]]
-    topics = "".join(f'<div class="topic"><h3>{h}</h3><ul>{"".join(f"<li>{i}</li>" for i in items)}</ul></div>' for h, items in s["topics"])
+    topics = "".join(f'<div class="topic"><h3>{h}</h3><ul class="check-list">{"".join(f"<li>{i}</li>" for i in items)}</ul></div>' for h, items in s["topics"])
     topics_note = f'<p class="section-sub" style="margin-top:18px;font-size:14.5px;color:var(--muted)">{s["topics_note"]}</p>' if s.get("topics_note") else ""
     structure = "".join(f"<p>{p}</p>" for p in s["structure"])
     lose = "".join(f"<li>{x}</li>" for x in s["lose"])
     lose_h = s.get("lose_h", "Where marks are usually lost")
-    results = "".join(f'<div><div class="num">{n}</div><div class="lbl">{l}</div></div>' for n, l in s["results"])
-    results_box = f'<div class="results-box on-dark"><h3>My results</h3><div class="stat-row">{results}</div></div>'
+    results_box = slip_html([(lbl, "", num, "", False) for num, lbl in s["results"]], simple=True)
     results_h = s.get("results_h", "Taught by someone who sat the papers")
     results_p = s.get("results_p", HONEST_RECENT)
     if s["review"]:
         results_section = (f'<section class="section alt"><div class="wrap"><div class="two-col">'
-                           f'<div><div class="kicker">Results</div><h2>{results_h}</h2>'
-                           f'<div class="prose"><p>{results_p}</p></div><div style="margin-top:22px">{results_box}</div></div>'
+                           f'<div><p class="kicker">Results</p><h2>{results_h}</h2>'
+                           f'<div class="prose"><p>{results_p}</p></div><div class="slip-wrap">{results_box}</div></div>'
                            f'<div>{review_html(s["review"], light=True)}</div></div></div></section>')
     else:
         results_section = (f'<section class="section alt"><div class="wrap"><div class="two-col">'
-                           f'<div><div class="kicker">Results</div><h2>{results_h}</h2>'
+                           f'<div><p class="kicker">Results</p><h2>{results_h}</h2>'
                            f'<div class="prose"><p>{results_p}</p></div></div>'
                            f'<div>{results_box}</div></div></div></section>')
     glance_rows = [
@@ -783,7 +804,7 @@ def build_subject(s):
         ("Block of five", f"&pound;{t['block']}"),
     ]
     glance = "".join(f'<div class="row"><dt>{k}</dt><dd>{v}</dd></div>' for k, v in glance_rows)
-    others_all = "".join(subject_card(o) for o in SUBJECTS if o["slug"] != s["slug"])
+    others_all = subject_index(exclude=s["slug"], compact=True)
 
     wa_msg = f"Hi Ali, I'd like to ask about {s['name']} tutoring."
     body = f'''
@@ -792,10 +813,10 @@ def build_subject(s):
 <section class="page-hero">
   <div class="wrap page-hero-grid">
     <div>
-      <div class="kicker">{kicker}</div>
+      <p class="kicker">{kicker}</p>
       <h1>{s["h1"]}</h1>
       <p class="lede">{s["lede"]}</p>
-      <div class="cta-row">{call_btn()}{a("#rates", f"See the rate: &pound;{t['rate']}/hour", "btn btn-ghost")}</div>
+      <div class="cta-row">{call_btn()}<a class="link-arrow" href="#rates">See the price: &pound;{t['rate']} an hour</a></div>
       <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Unused sessions refunded</li></ul>
     </div>
     <aside class="glance" aria-labelledby="glance-h"><h2 id="glance-h">At a glance</h2><dl>{glance}</dl></aside>
@@ -804,15 +825,15 @@ def build_subject(s):
 
 <section class="section alt" id="topics">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">Topics</div><h2>What we'll cover</h2><p class="section-sub">{s.get("topics_intro", "Sessions follow your exam board's specification and your target grade. These are the main areas.")}</p></div>
+    <div class="section-head"><p class="kicker">Topics</p><h2>What we'll cover</h2><p class="section-sub">{s.get("topics_intro", "Sessions follow your exam board's specification and your target grade. These are the main areas.")}</p></div>
     <div class="topics{' n4' if len(s['topics']) == 4 else ''}">{topics}</div>{topics_note}
   </div>
 </section>
 
 <section class="section">
   <div class="wrap two-col">
-    <div><div class="kicker">{s.get("structure_kicker", "The exams")}</div><h2>{s["structure_h"]}</h2><div class="prose">{structure}</div></div>
-    <div><div class="kicker">{s.get("lose_kicker", "Exam technique")}</div><h2>{lose_h}</h2><ul class="lose-list">{lose}</ul></div>
+    <div><p class="kicker">{s.get("structure_kicker", "The exams")}</p><h2>{s["structure_h"]}</h2><div class="prose">{structure}</div></div>
+    <div><p class="kicker">{s.get("lose_kicker", "Exam technique")}</p><h2>{lose_h}</h2><ul class="lose-list">{lose}</ul></div>
   </div>
 </section>
 
@@ -822,26 +843,26 @@ def build_subject(s):
   <div class="wrap">
     <div class="pricebar">
       <div>
-        <div class="kicker">Rates</div>
-        <div class="big">&pound;{t["block"]}<span>for 5 sessions</span></div>
-        <p>&pound;{t["rate"]} per hour &middot; paid upfront &middot; unused sessions refunded. {a("pricing.html", "How blocks and refunds work", "text-link")}</p>
+        <p class="kicker">Rates</p>
+        <p class="tier-price"><span class="amount">&pound;{t["block"]}</span><span class="unit">for five sessions</span></p>
+        <p class="pricebar-sub">&pound;{t["rate"]} an hour, paid upfront. Any session you don't use is refunded. {a("pricing.html", "How blocks and refunds work", "text-link")}</p>
       </div>
-      <div class="actions">{a(t["stripe"], "Book a block of five", "btn btn-primary", ext=True)}{call_btn("Free intro call first", "btn btn-ghost")}</div>
+      <div class="actions">{call_btn()}{a(t["stripe"], "Book a block of five", "btn btn-ghost", ext=True)}</div>
     </div>
   </div>
 </section>
 
 <section class="section alt" id="faq">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">FAQ</div><h2>{name_h}: common questions</h2></div>
+    <div class="section-head"><p class="kicker">FAQ</p><h2>{name_h}: common questions</h2></div>
     <div class="faq-list">{"".join(faq_item(q, ans) for q, ans in s["faq"])}</div>
   </div>
 </section>
 
 <section class="section more-subjects">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">More subjects</div><h2>Also tutoring</h2></div>
-    <div class="cards">{others_all}</div>
+    <div class="section-head"><p class="kicker">More subjects</p><h2>Also tutoring</h2></div>
+    {others_all}
   </div>
 </section>
 
@@ -861,14 +882,14 @@ def build_subject(s):
 
 def build_pricing():
     rows = "".join(
-        f'<tr><td>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;"))}</td><td>{s["level"]}</td>'
+        f'<tr><td>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;"))}</td><td>{ {"Entrance": "11+ and 13+"}.get(s["level"], s["level"])}</td>'
         f'<td class="num">&pound;{TIERS[s["tier"]]["rate"]}</td><td class="num">&pound;{TIERS[s["tier"]]["block"]}</td></tr>'
         for s in SUBJECTS)
     body = f'''
 <div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Pricing</span></nav></div>
 <section class="page-hero">
   <div class="wrap">
-    <div class="kicker">Rates</div>
+    <p class="kicker">Rates</p>
     <h1>Pricing, in blocks of five</h1>
     <p class="lede">Sessions are booked in blocks of five for steadier weekly progress, rather than one-off lessons. Any sessions you don't take are always refunded.</p>
   </div>
@@ -876,13 +897,14 @@ def build_pricing():
 
 <section class="section alt">
   <div class="wrap">
+    <h2 class="sr-only">Prices by level</h2>
     <div class="tiers">{tier_html("A")}{tier_html("G")}</div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">Every subject</div><h2>All rates at a glance</h2></div>
+    <div class="section-head"><p class="kicker">Every subject</p><h2>All rates at a glance</h2></div>
     <div class="table-wrap"><table class="rates">
       <thead><tr><th scope="col">Subject</th><th scope="col">Level</th><th scope="col">Per hour</th><th scope="col">Block of five</th></tr></thead>
       <tbody>{rows}</tbody>
@@ -892,18 +914,18 @@ def build_pricing():
 
 <section class="section alt" id="how">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">How it works</div><h2>From first call to first session</h2></div>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Free intro call</h3><p>A free call to talk through what's needed. If it's a good fit, you book a block. There's no obligation to continue after the call.</p></div>
-      <div class="step"><div class="n">2</div><h3>Pay for a block of five</h3><p>Blocks of five are paid upfront, before the sessions begin.</p></div>
-      <div class="step"><div class="n">3</div><h3>Book your session times</h3><p>After paying, you book all five sessions, ideally the same day and time each week. You get a Google Meet link before the first session.</p></div>
-    </div>
+    <div class="section-head"><p class="kicker">How it works</p><h2>From first call to first session</h2></div>
+    <ol class="steps">
+      <li class="step"><span class="n" aria-hidden="true">1</span><h3>Free intro call</h3><p>A free call to talk through what's needed. If it's a good fit, you book a block. There's no obligation to continue after the call.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">2</span><h3>Pay for a block of five</h3><p>Blocks of five are paid upfront, before the sessions begin.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">3</span><h3>Book your session times</h3><p>After paying, you book all five sessions, ideally the same day and time each week. You get a Google Meet link before the first session.</p></li>
+    </ol>
   </div>
 </section>
 
 <section class="section" id="policy">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">Policies</div><h2>Payment, rescheduling and refunds</h2></div>
+    <div class="section-head"><p class="kicker">Policies</p><h2>Payment, rescheduling and refunds</h2></div>
     <dl class="policy">
       <div class="row"><dt>Payment</dt><dd>Blocks of five are paid upfront, before the sessions begin.</dd></div>
       <div class="row"><dt>Rescheduling</dt><dd>Let me know as early as possible and we'll find another time within the same block.</dd></div>
@@ -927,19 +949,19 @@ def build_about():
 <section class="page-hero">
   <div class="wrap about-grid">
     <div>
-      <div class="kicker">About</div>
+      <p class="kicker">About</p>
       <h1>Hi, I'm Ali</h1>
       <p class="lede">I'm Ali Aljawabra, a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
-      <div class="cta-row">{call_btn()}{a("pricing.html", "See pricing", "btn btn-ghost")}</div>
+      <div class="cta-row">{call_btn()}<a class="link-arrow" href="pricing.html">See pricing</a></div>
     </div>
-    <div class="photo-frame">{photo("(max-width: 860px) 240px, 320px")}</div>
+    <figure class="portrait about-portrait">{photo("(max-width: 860px) 240px, 360px", ' fetchpriority="high"')}</figure>
   </div>
 </section>
 
 <section class="section alt">
   <div class="wrap two-col">
     <div>
-      <div class="kicker">Why me</div>
+      <p class="kicker">Why me</p>
       <h2>A tutor who sat these exams recently</h2>
     </div>
     <div class="prose">
@@ -951,23 +973,17 @@ def build_about():
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">Results</div><h2>My own grades</h2></div>
-    <div class="table-wrap"><table class="rates">
-      <thead><tr><th scope="col">Qualification</th><th scope="col">Result</th></tr></thead>
-      <tbody>
-        <tr><td>GCSE</td><td>Grades 8 and 9 across 10 subjects</td></tr>
-        <tr><td>{a("a-level-economics.html", "A-level Economics")}</td><td>A*, including 96% in Paper 3 of Edexcel A</td></tr>
-        <tr><td>{a("a-level-philosophy.html", "A-level Philosophy")}</td><td>A*, including 196/200 across the AQA papers</td></tr>
-        <tr><td>{a("a-level-maths.html", "A-level Maths")}</td><td>A</td></tr>
-      </tbody>
-    </table></div>
+    <div class="proof-grid">
+      <div><p class="kicker">Results</p><h2>My own grades</h2><p class="section-sub">Sat recently, so the specifications and mark schemes I teach from are the current ones.</p></div>
+      {slip_html(MY_RESULTS, "that's 98%")}
+    </div>
   </div>
 </section>
 
 <section class="section alt">
   <div class="wrap two-col">
     <div>
-      <div class="kicker">Working together</div>
+      <p class="kicker">Working together</p>
       <h2>What to expect</h2>
     </div>
     <ul class="check-list">
@@ -1103,7 +1119,7 @@ def build_404():
     body = f'''
 <section class="page-simple">
   <div class="narrow">
-    <div class="kicker">404</div>
+    <p class="kicker">404</p>
     <h1>That page doesn't exist</h1>
     <p>The link may be out of date. Try one of these instead:</p>
     <ul>

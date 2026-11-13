@@ -13,6 +13,7 @@ Facts that live in one place:
 """
 import html
 import json
+import re
 import subprocess
 from datetime import date
 from urllib.parse import quote
@@ -282,6 +283,10 @@ SUBJECTS = [
             "Science vocabulary that gets muddled as topics pile up",
         ],
         lose_h="Where gaps usually start",
+        topics_intro="Sessions follow what the student is covering in school. These are the main areas.",
+        structure_kicker="Why KS3", lose_kicker="Common gaps",
+        results_h="A tutor who knows where KS3 leads",
+        results_p="I sat my GCSEs recently, so I know which KS3 foundations the GCSE papers build on.",
         results=[("8s &amp; 9s", "across 10 GCSEs")],
         review=None,
         faq=[
@@ -327,7 +332,8 @@ def price_text(tier):
 def a(href, text, cls="", ext=False):
     extra = ' target="_blank" rel="noopener"' if ext else ""
     c = f' class="{cls}"' if cls else ""
-    return f'<a{c} href="{href}"{extra}>{text}</a>'
+    sr = '<span class="sr-only"> (opens in a new tab)</span>' if ext else ""
+    return f'<a{c} href="{href}"{extra}>{text}{sr}</a>'
 
 
 def call_btn(text="Book a free intro call", cls="btn btn-primary"):
@@ -355,7 +361,7 @@ def subject_card(s):
 
 def subject_card_wide(s):
     t = TIERS[s["tier"]]
-    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + " (Years 7&ndash;9)")}</h3>'
+    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + " (Years 7 to 9)")}</h3>'
             f'<p>{s["card"]}</p></div>'
             f'<div class="foot"><span class="price">&pound;{t["rate"]} / hour</span><span class="go">Explore</span></div></article>')
 
@@ -363,7 +369,7 @@ def subject_card_wide(s):
 def tier_html(key):
     t = TIERS[key]
     subs = [s for s in SUBJECTS if s["tier"] == key]
-    items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + (" (Years 7&ndash;9)" if s["level"] == "KS3" else ""))}</li>' for s in subs)
+    items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + (" (Years 7 to 9)" if s["level"] == "KS3" else ""))}</li>' for s in subs)
     return (f'<div class="tier"><div class="kicker">{t["label"].replace("&", "&amp;")}</div>'
             f'<div class="big">&pound;{t["block"]}<span>for 5 sessions</span></div>'
             f'<p class="per">&pound;{t["rate"]} per hour &middot; paid upfront</p>'
@@ -383,7 +389,7 @@ NAV = [("Subjects", "index.html#subjects", None), ("Pricing", "pricing.html", "p
        ("About", "about.html", "about"), ("FAQ", "index.html#faq", None)]
 
 
-def nav_html(current):
+def nav_html(current, nav_cta=True):
     def links(cls_a=""):
         out = []
         for label, href, key in NAV:
@@ -398,7 +404,7 @@ def nav_html(current):
   <div class="wrap nav-bar">
     <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28">Ali Tutors</a>
     <nav class="nav-links" aria-label="Main"><ul>{links()}</ul></nav>
-    {a(CALL, "Free intro call", "btn btn-primary btn-sm nav-cta", ext=True)}
+    {a(CALL, "Free intro call", "btn btn-primary btn-sm nav-cta", ext=True) if nav_cta else '<span class="nav-cta"></span>'}
     <details class="menu"><summary aria-label="Menu"><span class="bars"></span></summary>
       <nav class="menu-panel" aria-label="Menu">{panel}</nav>
     </details>
@@ -451,6 +457,7 @@ def head(title, desc, path, jsonld=None, noindex=False):
 <meta property="og:image" content="{SITE}/assets/og-card.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ali Aljawabra, GCSE and A-level tutor, Bath and online">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{t}">
 <meta name="twitter:description" content="{d}">
@@ -474,9 +481,39 @@ def head(title, desc, path, jsonld=None, noindex=False):
 {ld}</head>'''
 
 
-def page(path, title, desc, body, current=None, jsonld=None, noindex=False):
-    doc = (head(title, desc, path, jsonld, noindex) + "\n<body>\n" + nav_html(current)
-           + '\n<main id="main">\n' + body + "\n</main>\n" + footer_html() + "\n</body>\n</html>\n")
+MENU_JS = """<script>
+/* Close the phone menu after a link is tapped, on Escape, or on a tap outside it. */
+document.addEventListener('click', function (e) {
+  var m = document.querySelector('.menu[open]');
+  if (m && (!m.contains(e.target) || e.target.closest('.menu-panel a'))) m.open = false;
+});
+document.addEventListener('keydown', function (e) {
+  var m = document.querySelector('.menu[open]');
+  if (e.key === 'Escape' && m) { m.open = false; m.querySelector('summary').focus(); }
+});
+</script>"""
+
+
+def absolutize(doc):
+    """Make every internal link root-relative, so pages work from any path (the 404 page is
+    served at whatever URL was mistyped) and nothing links to /index.html instead of /."""
+    def fix(url):
+        if re.match(r"(https?:|mailto:|tel:|#|/|data:)", url):
+            return url
+        if url == "index.html" or url.startswith("index.html#"):
+            return "/" + url[len("index.html"):]
+        return "/" + url
+    doc = re.sub(r'(href|src)="([^"]*)"', lambda m: f'{m.group(1)}="{fix(m.group(2))}"', doc)
+    doc = re.sub(r'srcset="([^"]*)"',
+                 lambda m: 'srcset="' + ", ".join(fix(p.strip().split(" ")[0]) + " " + p.strip().split(" ")[1]
+                                                    for p in m.group(1).split(",")) + '"', doc)
+    return doc
+
+
+def page(path, title, desc, body, current=None, jsonld=None, noindex=False, nav_cta=True):
+    doc = (head(title, desc, path, jsonld, noindex) + "\n<body>\n" + nav_html(current, nav_cta)
+           + '\n<main id="main">\n' + body + "\n</main>\n" + footer_html() + "\n" + MENU_JS + "\n</body>\n</html>\n")
+    doc = absolutize(doc)
     (OUT / path).write_text(doc, encoding="utf-8")
     print("wrote", path)
 
@@ -504,7 +541,7 @@ def build_home():
         ("What grades did you get?",
          "<p>A* in Economics and A* in Philosophy, and an A in Maths, including 196/200 across the AQA Philosophy papers and 96% in Paper 3 of Edexcel A Economics. At GCSE, grades 8 and 9 across 10 subjects. I sat all of these recently, so the specs and mark schemes I teach from are the current ones.</p>"),
         ("Do you tutor students younger than GCSE?",
-         "<p>Yes, <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> (Years 7&ndash;9), at the same rates as GCSE, tailored to what the student's covering in school.</p>"),
+         "<p>Yes, <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> (Years 7 to 9), at the same rates as GCSE, tailored to what the student's covering in school.</p>"),
         ("Are sessions online or in person?",
          "<p>Online only, held via Google Meet. No travel time, and easy to fit around school and other commitments.</p>"),
         ("What happens after the free intro call?",
@@ -520,7 +557,7 @@ def build_home():
       <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE &amp; A-level tutor &middot; Bath &amp; online</span></div>
       <span class="badge">Now booking ahead of mocks</span>
       <h1>GCSE &amp; A-level tutoring from someone who sat these exams recently</h1>
-      <p class="hero-lede">I'm Ali, a tutor in Bath. <b>Grade 8s and 9s in 10 GCSEs</b>, then <b>A*A*A at A-level</b> in Economics, Philosophy and Maths, so I know the current specs and what examiners actually reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
+      <p class="hero-lede">I'm Ali, a tutor in Bath. I got <b>grade 8s and 9s in 10 GCSEs</b>, then <b>A*A*A at A-level</b> in Economics, Philosophy and Maths. I teach from the current specs and mark schemes, and I know what examiners actually reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
       <div class="cta-row">{call_btn()}{a("#subjects", "See subjects &amp; rates", "btn btn-ghost")}</div>
       <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Unused sessions refunded</li></ul>
     </div>
@@ -528,14 +565,14 @@ def build_home():
   </div>
 </section>
 
-<div class="strip on-dark" aria-label="Results at a glance">
+<section class="strip on-dark" aria-label="Results and rates at a glance">
   <div class="wrap strip-grid">
     {stat("196/200", "A-level Philosophy, AQA")}
     {stat("96%", "A-level Economics Paper 3, Edexcel A")}
-    {stat("3 &rarr; 8", "A student's GCSE Business Studies grade")}
-    {stat("DBS", "Checked")}
+    {stat('<span aria-hidden="true">3 &rarr; 8</span><span class="sr-only">Grade 3 to grade 8</span>', "A student's GCSE Business Studies grade")}
+    {stat("&pound;32/hr", "GCSE &amp; KS3 &middot; A-level &pound;35/hr")}
   </div>
-</div>
+</section>
 
 <section class="section" id="reviews">
   <div class="wrap">
@@ -597,7 +634,7 @@ def build_home():
     <div class="contact-card">
       <div class="contact-links">
         <a href="tel:{PHONE_TEL}"><span class="lab">Phone</span>{PHONE}</a>
-        <a href="{wa_url()}" target="_blank" rel="noopener"><span class="lab">WhatsApp</span>Message me</a>
+        <a href="{wa_url()}" target="_blank" rel="noopener"><span class="lab">WhatsApp</span>Message me<span class="sr-only"> (opens in a new tab)</span></a>
         <a href="mailto:{EMAIL}"><span class="lab">Email</span>{EMAIL}</a>
       </div>
       {call_btn("Book your free intro call")}
@@ -630,7 +667,7 @@ def build_home():
 def build_subject(s):
     t = TIERS[s["tier"]]
     name_h = s["name"].replace("&", "&amp;")
-    kicker = {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7&ndash;9"}[s["level"]]
+    kicker = {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7 to 9"}[s["level"]]
     topics = "".join(f'<div class="topic"><h3>{h}</h3><ul>{"".join(f"<li>{i}</li>" for i in items)}</ul></div>' for h, items in s["topics"])
     topics_note = f'<p class="section-sub" style="margin-top:18px;font-size:14.5px;color:var(--muted)">{s["topics_note"]}</p>' if s.get("topics_note") else ""
     structure = "".join(f"<p>{p}</p>" for p in s["structure"])
@@ -638,18 +675,20 @@ def build_subject(s):
     lose_h = s.get("lose_h", "Where marks are usually lost")
     results = "".join(f'<div><div class="num">{n}</div><div class="lbl">{l}</div></div>' for n, l in s["results"])
     results_box = f'<div class="results-box on-dark"><h3>My results</h3><div class="stat-row">{results}</div></div>'
+    results_h = s.get("results_h", "Taught by someone who sat the papers")
+    results_p = s.get("results_p", HONEST_RECENT)
     if s["review"]:
         results_section = (f'<section class="section alt"><div class="wrap"><div class="two-col">'
-                           f'<div><div class="kicker">Results</div><h2>Taught by someone who sat the papers</h2>'
-                           f'<div class="prose"><p>{HONEST_RECENT}</p></div><div style="margin-top:22px">{results_box}</div></div>'
+                           f'<div><div class="kicker">Results</div><h2>{results_h}</h2>'
+                           f'<div class="prose"><p>{results_p}</p></div><div style="margin-top:22px">{results_box}</div></div>'
                            f'<div>{review_html(s["review"], light=True)}</div></div></div></section>')
     else:
         results_section = (f'<section class="section alt"><div class="wrap"><div class="two-col">'
-                           f'<div><div class="kicker">Results</div><h2>Taught by someone who sat the papers</h2>'
-                           f'<div class="prose"><p>{HONEST_RECENT}</p></div></div>'
+                           f'<div><div class="kicker">Results</div><h2>{results_h}</h2>'
+                           f'<div class="prose"><p>{results_p}</p></div></div>'
                            f'<div>{results_box}</div></div></div></section>')
     glance_rows = [
-        ("Level", {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7&ndash;9"}[s["level"]]),
+        ("Level", {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7 to 9"}[s["level"]]),
         (s.get("boards_label", "Exam boards"), s["boards"]),
         ("Format", "Online, one-to-one"),
         ("Rate", f"&pound;{t['rate']} / hour"),
@@ -660,7 +699,7 @@ def build_subject(s):
 
     wa_msg = f"Hi Ali, I'd like to ask about {s['name']} tutoring."
     body = f'''
-<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="index.html#subjects">Subjects</a><span aria-hidden="true">/</span>{name_h}</nav></div>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">{name_h}</span></nav></div>
 
 <section class="page-hero">
   <div class="wrap page-hero-grid">
@@ -677,15 +716,15 @@ def build_subject(s):
 
 <section class="section alt" id="topics">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">Topics</div><h2>What we'll cover</h2><p class="section-sub">Sessions follow your exam board's specification and your target grade. These are the main areas.</p></div>
+    <div class="section-head"><div class="kicker">Topics</div><h2>What we'll cover</h2><p class="section-sub">{s.get("topics_intro", "Sessions follow your exam board's specification and your target grade. These are the main areas.")}</p></div>
     <div class="topics{' n4' if len(s['topics']) == 4 else ''}">{topics}</div>{topics_note}
   </div>
 </section>
 
 <section class="section">
   <div class="wrap two-col">
-    <div><div class="kicker">The exams</div><h2>{s["structure_h"]}</h2><div class="prose">{structure}</div></div>
-    <div><div class="kicker">Exam technique</div><h2>{lose_h}</h2><ul class="lose-list">{lose}</ul></div>
+    <div><div class="kicker">{s.get("structure_kicker", "The exams")}</div><h2>{s["structure_h"]}</h2><div class="prose">{structure}</div></div>
+    <div><div class="kicker">{s.get("lose_kicker", "Exam technique")}</div><h2>{lose_h}</h2><ul class="lose-list">{lose}</ul></div>
   </div>
 </section>
 
@@ -724,10 +763,10 @@ def build_subject(s):
     ld = [
         {"@context": "https://schema.org", "@type": "Service", "name": plain_name + " Tutoring", "serviceType": "Private tutoring",
          "description": s["desc"],
-         "provider": {"@type": "LocalBusiness", "name": "Ali Tutors", "url": SITE + "/"},
+         "provider": {"@type": "LocalBusiness", "@id": f"{SITE}/#business", "name": "Ali Tutors", "url": SITE + "/"},
          "areaServed": [{"@type": "City", "name": "Bath"}, {"@type": "Country", "name": "United Kingdom"}],
          "offers": {"@type": "Offer", "price": str(t["rate"]), "priceCurrency": "GBP", "url": f"{SITE}/{s['slug']}.html"}},
-        breadcrumb_ld([("Home", SITE + "/"), ("Subjects", SITE + "/#subjects"), (plain_name, f"{SITE}/{s['slug']}.html")]),
+        breadcrumb_ld([("Home", SITE + "/"), (plain_name, f"{SITE}/{s['slug']}.html")]),
     ]
     page(s["slug"] + ".html", s["title"] + " · Ali Tutors", s["desc"], body, jsonld=ld)
 
@@ -738,7 +777,7 @@ def build_pricing():
         f'<td class="num">&pound;{TIERS[s["tier"]]["rate"]}</td><td class="num">&pound;{TIERS[s["tier"]]["block"]}</td></tr>'
         for s in SUBJECTS)
     body = f'''
-<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span>Pricing</nav></div>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Pricing</span></nav></div>
 <section class="page-hero">
   <div class="wrap">
     <div class="kicker">Rates</div>
@@ -790,18 +829,18 @@ def build_pricing():
 {cta_band("Questions before you book?", "Book a free intro call, or call, message on WhatsApp or email any time.")}'''
     page("pricing.html", "Pricing: Blocks of Five from £160 · Ali Tutors",
          "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE and KS3, booked in blocks of five. Unused sessions are always refunded.",
-         body, current="pricing")
+         body, current="pricing", jsonld=[breadcrumb_ld([("Home", SITE + "/"), ("Pricing", f"{SITE}/pricing.html")])])
 
 
 def build_about():
     body = f'''
-<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span>About</nav></div>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">About</span></nav></div>
 <section class="page-hero">
   <div class="wrap about-grid">
     <div>
       <div class="kicker">About</div>
       <h1>Hi, I'm Ali</h1>
-      <p class="lede">I'm a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
+      <p class="lede">I'm Ali Aljawabra, a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
       <div class="cta-row">{call_btn()}{a("pricing.html", "See pricing", "btn btn-ghost")}</div>
     </div>
     <div class="photo-frame">{photo("(max-width: 860px) 240px, 320px")}</div>
@@ -884,7 +923,7 @@ def build_thanks():
     <p><a href="index.html">&larr; Back to the homepage</a></p>
   </div>
 </section>'''
-    page("thank-you.html", "Thank You · Ali Tutors", "Thank you for your booking.", body, noindex=True)
+    page("thank-you.html", "Thank You · Ali Tutors", "Thank you for your booking.", body, noindex=True, nav_cta=False)
 
 
 def build_privacy():

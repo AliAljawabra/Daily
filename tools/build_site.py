@@ -28,7 +28,7 @@ SITE = "https://alitutors.com"
 
 CALL = "https://calendar.app.google/m9L2FUsJ7jZ5LGun6"
 STRIPE_A = "https://buy.stripe.com/6oU00j6Oq3tb0mP0uFgMw01"   # A-level block of five
-STRIPE_G = "https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02"   # GCSE (and KS3) block of five
+STRIPE_G = "https://buy.stripe.com/8x2aEX0q28Nv5H95OZgMw02"   # GCSE, KS3 and 11+ block of five
 PHONE_TEL = "+447397270583"
 PHONE = "07397 270583"
 EMAIL = "alitutoring@outlook.com"
@@ -41,7 +41,7 @@ WA_NUMBER = "447397270583"   # WhatsApp wants the international format, no "+"
 
 TIERS = {
     "A": dict(label="A-level", rate=35, block=175, stripe=STRIPE_A),
-    "G": dict(label="GCSE & KS3", rate=32, block=160, stripe=STRIPE_G),
+    "G": dict(label="GCSE, KS3 & 11+", rate=32, block=160, stripe=STRIPE_G),
 }
 
 esc = html.escape
@@ -265,7 +265,7 @@ SUBJECTS = [
         ],
     ),
     dict(
-        slug="ks3-maths-science", name="KS3 Maths & Science", level="KS3", tier="G",
+        slug="ks3-maths-science", name="KS3 Maths & Science", level="KS3", tier="G", suffix=" (Years 7 to 9)",
         title="KS3 Maths & Science Tutor, Years 7-9",
         desc="One-to-one KS3 Maths and Science tutoring online for Years 7 to 9, tailored to what's covered in school. £32/hour, from Bath.",
         h1="KS3 Maths &amp; Science tutoring",
@@ -295,11 +295,53 @@ SUBJECTS = [
         review=None,
         faq=[
             ("Which years does KS3 cover?",
-             "<p>Years 7 to 9, so students aged roughly 11 to 14.</p>"),
+             "<p>Years 7 to 9, so students aged roughly 11 to 14. For younger students sitting entrance exams, see <a href=\"11-plus-maths.html\">11+ and 13+ entrance Maths</a>.</p>"),
             ("Is it the same price as GCSE?",
              "<p>Yes: &pound;32 per hour, or &pound;160 for a block of five sessions.</p>"),
             ("Do you follow the school curriculum?",
              "<p>Sessions are tailored to what the student is covering in school.</p>"),
+        ],
+    ),
+    dict(
+        slug="11-plus-maths", name="11+ & 13+ Entrance Maths", level="Entrance", tier="G",
+        level_label="Years 5 and 6, plus 13+", kicker="Entrance exams",
+        title="11+ & 13+ Maths Tutor, Online from Bath",
+        desc="One-to-one Maths tutoring online for 11+ and 13+ entrance exams: private school papers, the ISEB Pre-Test and grammar school 11+. Years 5 and 6, £32/hour.",
+        h1="11+ &amp; 13+ entrance exam Maths tutoring",
+        lede="One-to-one Maths preparation for private school 11+ papers, the ISEB Pre&#8209;Test, grammar school 11+ and 13+ entrance. We make the core arithmetic secure, then build the problem solving and speed these papers reward.",
+        card="Maths for private school 11+, the ISEB Pre&#8209;Test, grammar school 11+ and 13+ entrance. Years 5 and 6.",
+        boards="Private &amp; grammar 11+, 13+, ISEB&nbsp;Pre&#8209;Test",
+        boards_label="Exams",
+        topics=[
+            ("Number and arithmetic", ["Place value, rounding and negative numbers", "Written and mental methods for all four operations", "Fractions, decimals and percentages", "Factors, multiples, primes, squares and cubes"]),
+            ("Problem solving and algebra", ["Multi-step word problems", "Ratio and proportion", "Sequences, simple equations and formulae", "Reasoning and logic questions"]),
+            ("Geometry, measures and data", ["Area, perimeter and volume", "Angles, shapes and coordinates", "Units, time and money", "Tables, charts and averages"]),
+        ],
+        topics_intro="Sessions follow the exams your child is sitting and the dates they're sitting them. These are the main areas of entrance exam Maths.",
+        structure_kicker="The exams", structure_h="How entrance exams work",
+        structure=[
+            "Formats vary from school to school. Many independent schools set their own papers, some use the <b>ISEB Common Pre&#8209;Test</b> (taken online, and it adapts to the student's answers), and grammar school 11+ tests are set by providers such as GL Assessment. <b>13+ entrance</b> has its own papers, sat later.",
+            "Most entrance tests include English and reasoning as well as Maths. My sessions cover the Maths, planned around the dates and formats of the schools you're applying to.",
+        ],
+        lose=[
+            "Rushing, and arithmetic slips under time pressure",
+            "Word problems where the maths is hidden in the wording",
+            "Topics a little beyond what's been covered in school so far",
+            "Not checking answers, or spending too long on one question",
+        ],
+        results=[("8s &amp; 9s", "across 10 GCSEs"), ("A*A*A", "at A-level")],
+        results_h="A tutor with top grades of my own",
+        results_p="Sessions are one-to-one and paced to your child, planned around the exams they're sitting.",
+        review=None,
+        faq=[
+            ("Do you cover English and reasoning too?",
+             "<p>No, I teach the Maths. Most entrance tests also include English and verbal or non-verbal reasoning, so plan for those separately.</p>"),
+            ("When should we start?",
+             "<p>Many families start in Year 5, a year before the 11+. I take students in Years 5 and 6, and for 13+ entrance.</p>"),
+            ("Which exams do you prepare for?",
+             "<p>Private school 11+ papers, the ISEB Common Pre&#8209;Test, grammar school 11+ tests and 13+ entrance. Tell me which schools you're applying to on the free intro call and we'll plan around their exams.</p>"),
+            ("Is it the same price as GCSE?",
+             "<p>Yes: &pound;32 per hour, or &pound;160 for a block of five sessions.</p>"),
         ],
     ),
 ]
@@ -365,7 +407,7 @@ def subject_card(s):
 
 def subject_card_wide(s):
     t = TIERS[s["tier"]]
-    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + " (Years 7 to 9)")}</h3>'
+    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + s.get("suffix", ""))}</h3>'
             f'<p>{s["card"]}</p></div>'
             f'<div class="foot"><span class="price">&pound;{t["rate"]} / hour</span><span class="go">Explore</span></div></article>')
 
@@ -373,7 +415,7 @@ def subject_card_wide(s):
 def tier_html(key):
     t = TIERS[key]
     subs = [s for s in SUBJECTS if s["tier"] == key]
-    items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + (" (Years 7 to 9)" if s["level"] == "KS3" else ""))}</li>' for s in subs)
+    items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + s.get("suffix", ""))}</li>' for s in subs)
     return (f'<div class="tier"><div class="kicker">{t["label"].replace("&", "&amp;")}</div>'
             f'<div class="big">&pound;{t["block"]}<span>for 5 sessions</span></div>'
             f'<p class="per">&pound;{t["rate"]} per hour &middot; paid upfront</p>'
@@ -428,7 +470,7 @@ def footer_html():
         <p>{a("tel:" + PHONE_TEL, PHONE)}<br>{a(wa_url(), "WhatsApp", ext=True)}<br>{a("mailto:" + EMAIL, EMAIL)}</p>
       </div>
       <div><h2>A-level</h2><ul>{col(("A-level",))}</ul></div>
-      <div><h2>GCSE &amp; KS3</h2><ul>{col(("GCSE", "KS3"))}</ul></div>
+      <div><h2>GCSE, KS3 &amp; 11+</h2><ul>{col(("GCSE", "KS3", "Entrance"))}</ul></div>
       <div><h2>Site</h2><ul>
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="about.html">About Ali</a></li>
@@ -577,6 +619,7 @@ def build_home():
     a_cards = "".join(subject_card(s) for s in SUBJECTS if s["level"] == "A-level")
     g_cards = "".join(subject_card(s) for s in SUBJECTS if s["level"] == "GCSE")
     k_card = "".join(subject_card_wide(s) for s in SUBJECTS if s["level"] == "KS3")
+    e_card = "".join(subject_card_wide(s) for s in SUBJECTS if s["level"] == "Entrance")
 
     faqs = [
         ("Which exam boards do you cover?",
@@ -584,7 +627,7 @@ def build_home():
         ("What grades did you get?",
          "<p>A* in Economics and A* in Philosophy, and an A in Maths, including 196/200 across the AQA Philosophy papers and 96% in Paper 3 of Edexcel A Economics. At GCSE, grades 8 and 9 across 10 subjects. I sat all of these recently, so the specs and mark schemes I teach from are the current ones.</p>"),
         ("Do you tutor students younger than GCSE?",
-         "<p>Yes, <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> (Years 7 to 9), at the same rates as GCSE, tailored to what the student's covering in school.</p>"),
+         "<p>Yes. <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> for Years 7 to 9, tailored to what the student's covering in school, and <a href=\"11-plus-maths.html\">Maths for 11+ and 13+ entrance exams</a>, from Year 5. Both are at the same rates as GCSE.</p>"),
         ("Are sessions online or in person?",
          "<p>Online only, held via Google Meet. No travel time, and easy to fit around school and other commitments.</p>"),
         ("What happens after the free intro call?",
@@ -613,7 +656,7 @@ def build_home():
     {stat("196/200", "A-level Philosophy, AQA")}
     {stat("96%", "A-level Economics Paper 3, Edexcel A")}
     {stat('<span aria-hidden="true">3 &rarr; 8</span><span class="sr-only">Grade 3 to grade 8</span>', "A student's GCSE Business Studies grade")}
-    {stat("&pound;32/hr", "GCSE &amp; KS3 &middot; A-level &pound;35/hr")}
+    {stat("&pound;32/hr", "GCSE, KS3 &amp; 11+ &middot; A-level &pound;35/hr")}
   </div>
 </section>
 
@@ -634,6 +677,7 @@ def build_home():
     {group("A-level")}<div class="cards">{a_cards}</div>
     {group("GCSE")}<div class="cards">{g_cards}</div>
     {group("Key Stage 3")}<div class="cards">{k_card}</div>
+    {group("Entrance exams")}<div class="cards">{e_card}</div>
   </div>
 </section>
 
@@ -704,14 +748,14 @@ def build_home():
     ld = [business, {"@context": "https://schema.org", "@type": "WebSite", "@id": f"{SITE}/#website", "url": f"{SITE}/",
                      "name": "Ali Tutors", "inLanguage": "en-GB", "publisher": {"@id": f"{SITE}/#business"}}]
     page("index.html", "GCSE & A-level Tutor in Bath, Online · Ali Tutors",
-         "Online GCSE and A-level tutoring from Bath: Maths, Science, Business Studies, Economics and Philosophy. 8s and 9s in 10 GCSEs, A*A*A at A-level.",
+         "Online GCSE, A-level and 11+ tutoring from Bath: Maths, Science, Business Studies, Economics and Philosophy. 8s and 9s in 10 GCSEs, A*A*A at A-level.",
          body, jsonld=ld)
 
 
 def build_subject(s):
     t = TIERS[s["tier"]]
     name_h = s["name"].replace("&", "&amp;")
-    kicker = {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7 to 9"}[s["level"]]
+    kicker = s.get("kicker") or {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7 to 9"}[s["level"]]
     topics = "".join(f'<div class="topic"><h3>{h}</h3><ul>{"".join(f"<li>{i}</li>" for i in items)}</ul></div>' for h, items in s["topics"])
     topics_note = f'<p class="section-sub" style="margin-top:18px;font-size:14.5px;color:var(--muted)">{s["topics_note"]}</p>' if s.get("topics_note") else ""
     structure = "".join(f"<p>{p}</p>" for p in s["structure"])
@@ -732,7 +776,7 @@ def build_subject(s):
                            f'<div class="prose"><p>{results_p}</p></div></div>'
                            f'<div>{results_box}</div></div></div></section>')
     glance_rows = [
-        ("Level", {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7 to 9"}[s["level"]]),
+        ("Level", s.get("level_label") or {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7 to 9"}[s["level"]]),
         (s.get("boards_label", "Exam boards"), s["boards"]),
         ("Format", "Online, one-to-one"),
         ("Rate", f"&pound;{t['rate']} / hour"),
@@ -873,7 +917,7 @@ def build_pricing():
 
 {cta_band("Questions before you book?", "Book a free intro call, or call, message on WhatsApp or email any time.")}'''
     page("pricing.html", "Pricing: Blocks of Five from £160 · Ali Tutors",
-         "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE and KS3, booked in blocks of five. Unused sessions are always refunded.",
+         "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE, KS3 and 11+, booked in blocks of five. Unused sessions are always refunded.",
          body, current="pricing", jsonld=[breadcrumb_ld([("Home", SITE + "/"), ("Pricing", f"{SITE}/pricing.html")])])
 
 
@@ -943,7 +987,7 @@ def build_about():
              {"@context": "https://schema.org", "@type": "Person", "@id": f"{SITE}/about.html#ali", "name": "Ali Aljawabra",
               "jobTitle": "Private tutor", "url": f"{SITE}/about.html", "image": f"{SITE}/assets/ali-aljawabra.jpg",
               "worksFor": {"@id": f"{SITE}/#business"},
-              "knowsAbout": ["GCSE Maths", "GCSE Science", "GCSE Business Studies", "A-level Maths", "A-level Economics", "A-level Philosophy"],
+              "knowsAbout": ["GCSE Maths", "GCSE Science", "GCSE Business Studies", "A-level Maths", "A-level Economics", "A-level Philosophy", "11+ Maths"],
               **({"sameAs": SAME_AS} if SAME_AS else {})},
              breadcrumb_ld([("Home", SITE + "/"), ("About", f"{SITE}/about.html")])])
 
@@ -1024,7 +1068,7 @@ def build_terms():
     <p>These terms cover tutoring from Ali Aljawabra, trading as Ali Tutors, a Bath-based private tutor. Questions about them: {a("mailto:" + EMAIL, EMAIL)} or {a("tel:" + PHONE_TEL, PHONE)}.</p>
 
     <h2>The service</h2>
-    <p>One-to-one tutoring in GCSE, A-level and KS3 subjects, held online via Google Meet. Sessions are charged at the hourly rates on the {a("pricing.html", "pricing page")}.</p>
+    <p>One-to-one tutoring in GCSE, A-level and KS3 subjects, and Maths for 11+ and 13+ entrance exams, held online via Google Meet. Sessions are charged at the hourly rates on the {a("pricing.html", "pricing page")}.</p>
 
     <h2>Booking and payment</h2>
     <ul>

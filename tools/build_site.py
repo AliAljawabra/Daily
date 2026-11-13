@@ -10,9 +10,13 @@ editing the generated docs/*.html files by hand (they are overwritten).
 Facts that live in one place:
   * RATES / links / contact details: the constants just below.
   * Subject pages: the SUBJECTS list.
+  * Analytics: set UMAMI_WEBSITE_ID (blank = off). Clicks on the intro-call,
+    WhatsApp, phone, email and Stripe links are then counted automatically,
+    and the privacy policy updates itself to say so.
 """
 import html
 import json
+import re
 import subprocess
 from datetime import date
 from urllib.parse import quote
@@ -32,6 +36,7 @@ EMAIL = "alitutoring@outlook.com"
 SAME_AS = []              # public profile URLs (Google Business Profile, directory listings, ...)
 GSC_VERIFICATION = ""     # content="" of Google Search Console's google-site-verification meta tag
 BING_VERIFICATION = ""    # content="" of Bing Webmaster Tools' msvalidate.01 meta tag
+UMAMI_WEBSITE_ID = ""     # Umami Cloud "Website ID". Blank = no analytics script at all.
 WA_NUMBER = "447397270583"   # WhatsApp wants the international format, no "+"
 
 TIERS = {
@@ -282,6 +287,10 @@ SUBJECTS = [
             "Science vocabulary that gets muddled as topics pile up",
         ],
         lose_h="Where gaps usually start",
+        topics_intro="Sessions follow what the student is covering in school. These are the main areas.",
+        structure_kicker="Why KS3", lose_kicker="Common gaps",
+        results_h="A tutor who knows where KS3 leads",
+        results_p="I sat my GCSEs recently, so I know which KS3 foundations the GCSE papers build on.",
         results=[("8s &amp; 9s", "across 10 GCSEs")],
         review=None,
         faq=[
@@ -327,7 +336,8 @@ def price_text(tier):
 def a(href, text, cls="", ext=False):
     extra = ' target="_blank" rel="noopener"' if ext else ""
     c = f' class="{cls}"' if cls else ""
-    return f'<a{c} href="{href}"{extra}>{text}</a>'
+    sr = '<span class="sr-only"> (opens in a new tab)</span>' if ext else ""
+    return f'<a{c} href="{href}"{extra}>{text}{sr}</a>'
 
 
 def call_btn(text="Book a free intro call", cls="btn btn-primary"):
@@ -355,7 +365,7 @@ def subject_card(s):
 
 def subject_card_wide(s):
     t = TIERS[s["tier"]]
-    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + " (Years 7&ndash;9)")}</h3>'
+    return (f'<article class="card card-wide"><div class="card-main"><h3>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + " (Years 7 to 9)")}</h3>'
             f'<p>{s["card"]}</p></div>'
             f'<div class="foot"><span class="price">&pound;{t["rate"]} / hour</span><span class="go">Explore</span></div></article>')
 
@@ -363,7 +373,7 @@ def subject_card_wide(s):
 def tier_html(key):
     t = TIERS[key]
     subs = [s for s in SUBJECTS if s["tier"] == key]
-    items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + (" (Years 7&ndash;9)" if s["level"] == "KS3" else ""))}</li>' for s in subs)
+    items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + (" (Years 7 to 9)" if s["level"] == "KS3" else ""))}</li>' for s in subs)
     return (f'<div class="tier"><div class="kicker">{t["label"].replace("&", "&amp;")}</div>'
             f'<div class="big">&pound;{t["block"]}<span>for 5 sessions</span></div>'
             f'<p class="per">&pound;{t["rate"]} per hour &middot; paid upfront</p>'
@@ -383,7 +393,7 @@ NAV = [("Subjects", "index.html#subjects", None), ("Pricing", "pricing.html", "p
        ("About", "about.html", "about"), ("FAQ", "index.html#faq", None)]
 
 
-def nav_html(current):
+def nav_html(current, nav_cta=True):
     def links(cls_a=""):
         out = []
         for label, href, key in NAV:
@@ -398,7 +408,7 @@ def nav_html(current):
   <div class="wrap nav-bar">
     <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28">Ali Tutors</a>
     <nav class="nav-links" aria-label="Main"><ul>{links()}</ul></nav>
-    {a(CALL, "Free intro call", "btn btn-primary btn-sm nav-cta", ext=True)}
+    {a(CALL, "Free intro call", "btn btn-primary btn-sm nav-cta", ext=True) if nav_cta else '<span class="nav-cta"></span>'}
     <details class="menu"><summary aria-label="Menu"><span class="bars"></span></summary>
       <nav class="menu-panel" aria-label="Menu">{panel}</nav>
     </details>
@@ -423,6 +433,7 @@ def footer_html():
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="about.html">About Ali</a></li>
         <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="terms.html">Terms</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
       </ul></div>
     </div>
@@ -451,11 +462,14 @@ def head(title, desc, path, jsonld=None, noindex=False):
 <meta property="og:image" content="{SITE}/assets/og-card.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ali Aljawabra, GCSE and A-level tutor, Bath and online">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{t}">
 <meta name="twitter:description" content="{d}">
 <meta name="twitter:image" content="{SITE}/assets/og-card.jpg">
 '''
+    analytics = (f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{esc(UMAMI_WEBSITE_ID)}"></script>\n'
+                 if UMAMI_WEBSITE_ID else "")
     ld = "".join(f'<script type="application/ld+json">\n{json.dumps(j, indent=2, ensure_ascii=False)}\n</script>\n' for j in (jsonld or []))
     return f'''<!DOCTYPE html>
 <!-- Generated by tools/build_site.py. Edit that file and re-run it; changes made directly here will be overwritten. -->
@@ -471,12 +485,58 @@ def head(title, desc, path, jsonld=None, noindex=False):
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
 <link rel="stylesheet" href="assets/site.css">
-{ld}</head>'''
+{analytics}{ld}</head>'''
 
 
-def page(path, title, desc, body, current=None, jsonld=None, noindex=False):
-    doc = (head(title, desc, path, jsonld, noindex) + "\n<body>\n" + nav_html(current)
-           + '\n<main id="main">\n' + body + "\n</main>\n" + footer_html() + "\n</body>\n</html>\n")
+MENU_JS = """<script>
+/* Close the phone menu after a link is tapped, on Escape, or on a tap outside it. */
+document.addEventListener('click', function (e) {
+  var m = document.querySelector('.menu[open]');
+  if (m && (!m.contains(e.target) || e.target.closest('.menu-panel a'))) m.open = false;
+});
+document.addEventListener('keydown', function (e) {
+  var m = document.querySelector('.menu[open]');
+  if (e.key === 'Escape' && m) { m.open = false; m.querySelector('summary').focus(); }
+});
+</script>"""
+
+
+EVENTS = [(CALL, "intro-call"), ("https://wa.me/", "whatsapp"), ("tel:", "phone"),
+          ("mailto:", "email"), ("https://buy.stripe.com/", "book-block")]
+
+
+def tag_events(doc):
+    """With analytics on, name the clicks that matter so they show up as events."""
+    if not UMAMI_WEBSITE_ID:
+        return doc
+    def add(m):
+        for prefix, name in EVENTS:
+            if m.group(1).startswith(prefix):
+                return m.group(0).replace("<a ", f'<a data-umami-event="{name}" ', 1)
+        return m.group(0)
+    return re.sub(r'<a [^>]*href="([^"]*)"[^>]*>', add, doc)
+
+
+def absolutize(doc):
+    """Make every internal link root-relative, so pages work from any path (the 404 page is
+    served at whatever URL was mistyped) and nothing links to /index.html instead of /."""
+    def fix(url):
+        if re.match(r"(https?:|mailto:|tel:|#|/|data:)", url):
+            return url
+        if url == "index.html" or url.startswith("index.html#"):
+            return "/" + url[len("index.html"):]
+        return "/" + url
+    doc = re.sub(r'(href|src)="([^"]*)"', lambda m: f'{m.group(1)}="{fix(m.group(2))}"', doc)
+    doc = re.sub(r'srcset="([^"]*)"',
+                 lambda m: 'srcset="' + ", ".join(fix(p.strip().split(" ")[0]) + " " + p.strip().split(" ")[1]
+                                                    for p in m.group(1).split(",")) + '"', doc)
+    return doc
+
+
+def page(path, title, desc, body, current=None, jsonld=None, noindex=False, nav_cta=True):
+    doc = (head(title, desc, path, jsonld, noindex) + "\n<body>\n" + nav_html(current, nav_cta)
+           + '\n<main id="main">\n' + body + "\n</main>\n" + footer_html() + "\n" + MENU_JS + "\n</body>\n</html>\n")
+    doc = tag_events(absolutize(doc))
     (OUT / path).write_text(doc, encoding="utf-8")
     print("wrote", path)
 
@@ -489,6 +549,26 @@ def breadcrumb_ld(trail):
 # --------------------------------------------------------------------------
 # Pages
 # --------------------------------------------------------------------------
+def season_text(month):
+    """Sep to Jan: mocks. Feb to May: summer exams. Jun to Aug: next school year."""
+    if 2 <= month <= 5:
+        return "Now booking for the summer exams"
+    if 6 <= month <= 8:
+        return "Now booking for the new school year"
+    return "Now booking ahead of mocks"
+
+
+SEASON_JS = """<script>
+/* Keeps the hero badge in season even if the site isn't rebuilt (same rule as season_text). */
+(function () {
+  var b = document.querySelector('[data-season]'); if (!b) return;
+  var m = new Date().getMonth() + 1;
+  b.textContent = (m >= 2 && m <= 5) ? 'Now booking for the summer exams'
+    : (m >= 6 && m <= 8) ? 'Now booking for the new school year' : 'Now booking ahead of mocks';
+})();
+</script>"""
+
+
 def build_home():
     def stat(num, lbl):
         return f'<div class="stat"><div class="num">{num}</div><div class="lbl">{lbl}</div></div>'
@@ -504,7 +584,7 @@ def build_home():
         ("What grades did you get?",
          "<p>A* in Economics and A* in Philosophy, and an A in Maths, including 196/200 across the AQA Philosophy papers and 96% in Paper 3 of Edexcel A Economics. At GCSE, grades 8 and 9 across 10 subjects. I sat all of these recently, so the specs and mark schemes I teach from are the current ones.</p>"),
         ("Do you tutor students younger than GCSE?",
-         "<p>Yes, <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> (Years 7&ndash;9), at the same rates as GCSE, tailored to what the student's covering in school.</p>"),
+         "<p>Yes, <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> (Years 7 to 9), at the same rates as GCSE, tailored to what the student's covering in school.</p>"),
         ("Are sessions online or in person?",
          "<p>Online only, held via Google Meet. No travel time, and easy to fit around school and other commitments.</p>"),
         ("What happens after the free intro call?",
@@ -518,9 +598,9 @@ def build_home():
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE &amp; A-level tutor &middot; Bath &amp; online</span></div>
-      <span class="badge">Now booking ahead of mocks</span>
+      <span class="badge" data-season>{season_text(date.today().month)}</span>
       <h1>GCSE &amp; A-level tutoring from someone who sat these exams recently</h1>
-      <p class="hero-lede">I'm Ali, a tutor in Bath. <b>Grade 8s and 9s in 10 GCSEs</b>, then <b>A*A*A at A-level</b> in Economics, Philosophy and Maths, so I know the current specs and what examiners actually reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
+      <p class="hero-lede">I'm Ali, a tutor in Bath. I got <b>grade 8s and 9s in 10 GCSEs</b>, then <b>A*A*A at A-level</b> in Economics, Philosophy and Maths. I teach from the current specs and mark schemes, and I know what examiners actually reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
       <div class="cta-row">{call_btn()}{a("#subjects", "See subjects &amp; rates", "btn btn-ghost")}</div>
       <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Unused sessions refunded</li></ul>
     </div>
@@ -528,14 +608,14 @@ def build_home():
   </div>
 </section>
 
-<div class="strip on-dark" aria-label="Results at a glance">
+<section class="strip on-dark" aria-label="Results and rates at a glance">
   <div class="wrap strip-grid">
     {stat("196/200", "A-level Philosophy, AQA")}
     {stat("96%", "A-level Economics Paper 3, Edexcel A")}
-    {stat("3 &rarr; 8", "A student's GCSE Business Studies grade")}
-    {stat("DBS", "Checked")}
+    {stat('<span aria-hidden="true">3 &rarr; 8</span><span class="sr-only">Grade 3 to grade 8</span>', "A student's GCSE Business Studies grade")}
+    {stat("&pound;32/hr", "GCSE &amp; KS3 &middot; A-level &pound;35/hr")}
   </div>
-</div>
+</section>
 
 <section class="section" id="reviews">
   <div class="wrap">
@@ -573,7 +653,7 @@ def build_home():
   <div class="wrap">
     <div class="section-head"><div class="kicker">How it works</div><h2>Three steps to your first session</h2></div>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Free intro call</h3><p>A free call to talk through what's needed: the subject, the exam board and the target grade. No obligation to continue.</p></div>
+      <div class="step"><div class="n">1</div><h3>Free intro call</h3><p>A free call to talk through what's needed: the subject, the exam board and the target grade. Parents or A-level students can book it. No obligation to continue.</p></div>
       <div class="step"><div class="n">2</div><h3>Book a block of five</h3><p>Five weekly sessions, booked in advance and paid upfront.</p></div>
       <div class="step"><div class="n">3</div><h3>Sessions on Google Meet</h3><p>Held online, so there's no travel time and it's easy to fit around school and other commitments.</p></div>
     </div>
@@ -597,13 +677,14 @@ def build_home():
     <div class="contact-card">
       <div class="contact-links">
         <a href="tel:{PHONE_TEL}"><span class="lab">Phone</span>{PHONE}</a>
-        <a href="{wa_url()}" target="_blank" rel="noopener"><span class="lab">WhatsApp</span>Message me</a>
+        <a href="{wa_url()}" target="_blank" rel="noopener"><span class="lab">WhatsApp</span>Message me<span class="sr-only"> (opens in a new tab)</span></a>
         <a href="mailto:{EMAIL}"><span class="lab">Email</span>{EMAIL}</a>
       </div>
       {call_btn("Book your free intro call")}
     </div>
   </div>
-</section>'''
+</section>
+{SEASON_JS}'''
 
     offers = [{"@type": "Offer", "url": f"{SITE}/{s['slug']}.html",
                "itemOffered": {"@type": "Service", "name": s["name"].replace("&amp;", "&") + " Tutoring"},
@@ -630,7 +711,7 @@ def build_home():
 def build_subject(s):
     t = TIERS[s["tier"]]
     name_h = s["name"].replace("&", "&amp;")
-    kicker = {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7&ndash;9"}[s["level"]]
+    kicker = {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Key Stage 3 &middot; Years 7 to 9"}[s["level"]]
     topics = "".join(f'<div class="topic"><h3>{h}</h3><ul>{"".join(f"<li>{i}</li>" for i in items)}</ul></div>' for h, items in s["topics"])
     topics_note = f'<p class="section-sub" style="margin-top:18px;font-size:14.5px;color:var(--muted)">{s["topics_note"]}</p>' if s.get("topics_note") else ""
     structure = "".join(f"<p>{p}</p>" for p in s["structure"])
@@ -638,18 +719,20 @@ def build_subject(s):
     lose_h = s.get("lose_h", "Where marks are usually lost")
     results = "".join(f'<div><div class="num">{n}</div><div class="lbl">{l}</div></div>' for n, l in s["results"])
     results_box = f'<div class="results-box on-dark"><h3>My results</h3><div class="stat-row">{results}</div></div>'
+    results_h = s.get("results_h", "Taught by someone who sat the papers")
+    results_p = s.get("results_p", HONEST_RECENT)
     if s["review"]:
         results_section = (f'<section class="section alt"><div class="wrap"><div class="two-col">'
-                           f'<div><div class="kicker">Results</div><h2>Taught by someone who sat the papers</h2>'
-                           f'<div class="prose"><p>{HONEST_RECENT}</p></div><div style="margin-top:22px">{results_box}</div></div>'
+                           f'<div><div class="kicker">Results</div><h2>{results_h}</h2>'
+                           f'<div class="prose"><p>{results_p}</p></div><div style="margin-top:22px">{results_box}</div></div>'
                            f'<div>{review_html(s["review"], light=True)}</div></div></div></section>')
     else:
         results_section = (f'<section class="section alt"><div class="wrap"><div class="two-col">'
-                           f'<div><div class="kicker">Results</div><h2>Taught by someone who sat the papers</h2>'
-                           f'<div class="prose"><p>{HONEST_RECENT}</p></div></div>'
+                           f'<div><div class="kicker">Results</div><h2>{results_h}</h2>'
+                           f'<div class="prose"><p>{results_p}</p></div></div>'
                            f'<div>{results_box}</div></div></div></section>')
     glance_rows = [
-        ("Level", {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7&ndash;9"}[s["level"]]),
+        ("Level", {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7 to 9"}[s["level"]]),
         (s.get("boards_label", "Exam boards"), s["boards"]),
         ("Format", "Online, one-to-one"),
         ("Rate", f"&pound;{t['rate']} / hour"),
@@ -660,7 +743,7 @@ def build_subject(s):
 
     wa_msg = f"Hi Ali, I'd like to ask about {s['name']} tutoring."
     body = f'''
-<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="index.html#subjects">Subjects</a><span aria-hidden="true">/</span>{name_h}</nav></div>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">{name_h}</span></nav></div>
 
 <section class="page-hero">
   <div class="wrap page-hero-grid">
@@ -677,15 +760,15 @@ def build_subject(s):
 
 <section class="section alt" id="topics">
   <div class="wrap">
-    <div class="section-head"><div class="kicker">Topics</div><h2>What we'll cover</h2><p class="section-sub">Sessions follow your exam board's specification and your target grade. These are the main areas.</p></div>
+    <div class="section-head"><div class="kicker">Topics</div><h2>What we'll cover</h2><p class="section-sub">{s.get("topics_intro", "Sessions follow your exam board's specification and your target grade. These are the main areas.")}</p></div>
     <div class="topics{' n4' if len(s['topics']) == 4 else ''}">{topics}</div>{topics_note}
   </div>
 </section>
 
 <section class="section">
   <div class="wrap two-col">
-    <div><div class="kicker">The exams</div><h2>{s["structure_h"]}</h2><div class="prose">{structure}</div></div>
-    <div><div class="kicker">Exam technique</div><h2>{lose_h}</h2><ul class="lose-list">{lose}</ul></div>
+    <div><div class="kicker">{s.get("structure_kicker", "The exams")}</div><h2>{s["structure_h"]}</h2><div class="prose">{structure}</div></div>
+    <div><div class="kicker">{s.get("lose_kicker", "Exam technique")}</div><h2>{lose_h}</h2><ul class="lose-list">{lose}</ul></div>
   </div>
 </section>
 
@@ -724,10 +807,10 @@ def build_subject(s):
     ld = [
         {"@context": "https://schema.org", "@type": "Service", "name": plain_name + " Tutoring", "serviceType": "Private tutoring",
          "description": s["desc"],
-         "provider": {"@type": "LocalBusiness", "name": "Ali Tutors", "url": SITE + "/"},
+         "provider": {"@type": "LocalBusiness", "@id": f"{SITE}/#business", "name": "Ali Tutors", "url": SITE + "/"},
          "areaServed": [{"@type": "City", "name": "Bath"}, {"@type": "Country", "name": "United Kingdom"}],
          "offers": {"@type": "Offer", "price": str(t["rate"]), "priceCurrency": "GBP", "url": f"{SITE}/{s['slug']}.html"}},
-        breadcrumb_ld([("Home", SITE + "/"), ("Subjects", SITE + "/#subjects"), (plain_name, f"{SITE}/{s['slug']}.html")]),
+        breadcrumb_ld([("Home", SITE + "/"), (plain_name, f"{SITE}/{s['slug']}.html")]),
     ]
     page(s["slug"] + ".html", s["title"] + " · Ali Tutors", s["desc"], body, jsonld=ld)
 
@@ -738,7 +821,7 @@ def build_pricing():
         f'<td class="num">&pound;{TIERS[s["tier"]]["rate"]}</td><td class="num">&pound;{TIERS[s["tier"]]["block"]}</td></tr>'
         for s in SUBJECTS)
     body = f'''
-<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span>Pricing</nav></div>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Pricing</span></nav></div>
 <section class="page-hero">
   <div class="wrap">
     <div class="kicker">Rates</div>
@@ -784,24 +867,25 @@ def build_pricing():
       <div class="row"><dt>Once a block is underway</dt><dd>Any sessions not yet taken are refunded. Sessions already delivered are not.</dd></div>
       <div class="row"><dt>After the free intro call</dt><dd>No obligation. You only book a block if it's a good fit.</dd></div>
     </dl>
+    <p style="margin-top:20px">{a("terms.html", "Read the full terms", "text-link")}</p>
   </div>
 </section>
 
 {cta_band("Questions before you book?", "Book a free intro call, or call, message on WhatsApp or email any time.")}'''
     page("pricing.html", "Pricing: Blocks of Five from £160 · Ali Tutors",
          "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE and KS3, booked in blocks of five. Unused sessions are always refunded.",
-         body, current="pricing")
+         body, current="pricing", jsonld=[breadcrumb_ld([("Home", SITE + "/"), ("Pricing", f"{SITE}/pricing.html")])])
 
 
 def build_about():
     body = f'''
-<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span>About</nav></div>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">About</span></nav></div>
 <section class="page-hero">
   <div class="wrap about-grid">
     <div>
       <div class="kicker">About</div>
       <h1>Hi, I'm Ali</h1>
-      <p class="lede">I'm a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
+      <p class="lede">I'm Ali Aljawabra, a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
       <div class="cta-row">{call_btn()}{a("pricing.html", "See pricing", "btn btn-ghost")}</div>
     </div>
     <div class="photo-frame">{photo("(max-width: 860px) 240px, 320px")}</div>
@@ -881,13 +965,17 @@ def build_thanks():
       Already know your preferred time, or the calendar doesn't have a slot that works? Just reply to your payment confirmation email or call {a("tel:" + PHONE_TEL, PHONE, "text-link")} directly.
     </div>
     <p style="margin-top:24px;color:var(--muted);font-size:15px">Any questions before then, email {a("mailto:" + EMAIL, EMAIL)}.</p>
-    <p><a href="index.html">&larr; Back to the homepage</a></p>
+    <p><a href="index.html">Back to the homepage</a></p>
   </div>
 </section>'''
-    page("thank-you.html", "Thank You · Ali Tutors", "Thank you for your booking.", body, noindex=True)
+    page("thank-you.html", "Thank You · Ali Tutors", "Thank you for your booking.", body, noindex=True, nav_cta=False)
 
 
 def build_privacy():
+    global ANALYTICS_LINE
+    ANALYTICS_LINE = ("This site uses Umami, a privacy-friendly analytics service, to count page visits and button clicks. "
+                      "It doesn't use cookies or collect personal information." if UMAMI_WEBSITE_ID
+                      else "This site does not use tracking cookies or analytics.")
     body = f'''
 <section class="page-simple">
   <div class="narrow">
@@ -912,7 +1000,7 @@ def build_privacy():
       <li><strong>Google Calendar</strong> (appointment scheduling): see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.</li>
       <li><strong>WhatsApp</strong> (messaging, only if you choose to contact me that way): see <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">WhatsApp's privacy policy</a>.</li>
     </ul>
-    <p>No other third parties receive your information. This site does not use tracking cookies or analytics.</p>
+    <p>No other third parties receive your information. {ANALYTICS_LINE}</p>
 
     <h2>How long it's kept</h2>
     <p>Contact and booking details are kept only as long as needed to deliver tutoring and meet basic accounting/tax record-keeping obligations, then deleted.</p>
@@ -920,10 +1008,50 @@ def build_privacy():
     <h2>Your rights</h2>
     <p>Under UK GDPR, you can ask to see, correct, or delete the personal data held about you at any time. To do so, or with any other privacy question, email {a("mailto:" + EMAIL, EMAIL)}.</p>
 
-    <p style="margin-top:36px"><a href="index.html">&larr; Back to the homepage</a></p>
+    <p style="margin-top:36px"><a href="index.html">Back to the homepage</a></p>
   </div>
 </section>'''
     page("privacy.html", "Privacy Policy · Ali Tutors", "Privacy policy for alitutors.com.", body, noindex=True)
+
+
+def build_terms():
+    body = f'''
+<section class="page-simple">
+  <div class="narrow">
+    <h1>Terms</h1>
+    <p class="updated">Last updated: November 2026</p>
+
+    <p>These terms cover tutoring from Ali Aljawabra, trading as Ali Tutors, a Bath-based private tutor. Questions about them: {a("mailto:" + EMAIL, EMAIL)} or {a("tel:" + PHONE_TEL, PHONE)}.</p>
+
+    <h2>The service</h2>
+    <p>One-to-one tutoring in GCSE, A-level and KS3 subjects, held online via Google Meet. Sessions are charged at the hourly rates on the {a("pricing.html", "pricing page")}.</p>
+
+    <h2>Booking and payment</h2>
+    <ul>
+      <li>You can start with a free intro call. There's no obligation to continue after it.</li>
+      <li>Sessions are booked in blocks of five, paid upfront through Stripe before the sessions begin.</li>
+      <li>After paying, you book your session times through the online calendar, ideally the same day and time each week.</li>
+    </ul>
+
+    <h2>Rescheduling</h2>
+    <p>Let me know as early as possible and we'll find another time within the same block.</p>
+
+    <h2>Cancellations and refunds</h2>
+    <ul>
+      <li>Cancel before a block starts for a full refund.</li>
+      <li>Once a block is underway, any sessions not yet taken are refunded. Sessions already delivered are not.</li>
+    </ul>
+
+    <h2>Your rights</h2>
+    <p>Nothing in these terms affects your legal rights as a consumer.</p>
+
+    <h2>Your information</h2>
+    <p>How your personal information is handled is explained in the {a("privacy.html", "privacy policy")}.</p>
+
+    <p style="margin-top:36px"><a href="index.html">Back to the homepage</a></p>
+  </div>
+</section>'''
+    page("terms.html", "Terms · Ali Tutors", "Terms for tutoring with Ali Tutors.", body, noindex=True)
 
 
 def build_404():
@@ -978,6 +1106,7 @@ def main():
     build_about()
     build_thanks()
     build_privacy()
+    build_terms()
     build_404()
     build_sitemap()
 

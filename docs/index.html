@@ -171,7 +171,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE &amp; A-level tutor &middot; Bath &amp; online</span></div>
-      <span class="badge">Now booking ahead of mocks</span>
+      <span class="badge" data-season>Now booking ahead of mocks</span>
       <h1>GCSE &amp; A-level tutoring from someone who sat these exams recently</h1>
       <p class="hero-lede">I'm Ali, a tutor in Bath. I got <b>grade 8s and 9s in 10 GCSEs</b>, then <b>A*A*A at A-level</b> in Economics, Philosophy and Maths. I teach from the current specs and mark schemes, and I know what examiners actually reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
       <div class="cta-row"><a class="btn btn-primary" href="https://calendar.app.google/m9L2FUsJ7jZ5LGun6" target="_blank" rel="noopener">Book a free intro call<span class="sr-only"> (opens in a new tab)</span></a><a class="btn btn-ghost" href="#subjects">See subjects &amp; rates</a></div>
@@ -226,7 +226,7 @@
   <div class="wrap">
     <div class="section-head"><div class="kicker">How it works</div><h2>Three steps to your first session</h2></div>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Free intro call</h3><p>A free call to talk through what's needed: the subject, the exam board and the target grade. No obligation to continue.</p></div>
+      <div class="step"><div class="n">1</div><h3>Free intro call</h3><p>A free call to talk through what's needed: the subject, the exam board and the target grade. Parents or A-level students can book it. No obligation to continue.</p></div>
       <div class="step"><div class="n">2</div><h3>Book a block of five</h3><p>Five weekly sessions, booked in advance and paid upfront.</p></div>
       <div class="step"><div class="n">3</div><h3>Sessions on Google Meet</h3><p>Held online, so there's no travel time and it's easy to fit around school and other commitments.</p></div>
     </div>
@@ -257,6 +257,15 @@
     </div>
   </div>
 </section>
+<script>
+/* Keeps the hero badge in season even if the site isn't rebuilt (same rule as season_text). */
+(function () {
+  var b = document.querySelector('[data-season]'); if (!b) return;
+  var m = new Date().getMonth() + 1;
+  b.textContent = (m >= 2 && m <= 5) ? 'Now booking for the summer exams'
+    : (m >= 6 && m <= 8) ? 'Now booking for the new school year' : 'Now booking ahead of mocks';
+})();
+</script>
 </main>
 <footer class="footer">
   <div class="wrap">
@@ -272,6 +281,7 @@
         <li><a href="/pricing.html">Pricing</a></li>
         <li><a href="/about.html">About Ali</a></li>
         <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/terms.html">Terms</a></li>
         <li><a href="/privacy.html">Privacy Policy</a></li>
       </ul></div>
     </div>

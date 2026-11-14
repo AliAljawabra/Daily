@@ -60,7 +60,7 @@ SUBJECTS = [
         title="A-level Maths Tutor, Online from Bath",
         desc="One-to-one A-level Maths tutoring online for AQA, Edexcel and OCR. Pure, Statistics and Mechanics, tailored to your target grade. £35/hour, from Bath.",
         h1="A-level Maths tutoring",
-        lede="Pure, Statistics and Mechanics, taught to your exam board's specification and your target grade. I sat A-level Maths recently (grade A), so I know how the three papers are set and where marks are won and lost.",
+        lede="Pure, Statistics and Mechanics, taught to your exam board's specification and your target grade. I sat A-level Maths recently and got an A, so the papers are still fresh in my mind.",
         card="Pure, Statistics and Mechanics for AQA, Edexcel and OCR.",
         boards="AQA, Edexcel, OCR",
         topics=[
@@ -94,8 +94,8 @@ SUBJECTS = [
         title="A-level Economics Tutor, Online from Bath",
         desc="One-to-one A-level Economics tutoring online, tailored to your exam board. A* in Economics, 96% in Edexcel A Paper 3. £35/hour, from Bath.",
         h1="A-level Economics tutoring",
-        lede="Micro, macro and the synoptic paper, taught to your exam board and target grade. I got an A* in Economics, including 96% in Paper 3 of Edexcel A, so I know what a top-mark answer looks like.",
-        card="Micro, macro and the synoptic paper. 96% in Paper 3, Edexcel A.",
+        lede="Micro, macro and the synoptic paper, taught to your exam board and target grade. I took Edexcel A myself and got an A*, including 96% in Paper 3.",
+        card="Micro, macro and the synoptic paper, for Edexcel, AQA and OCR.",
         boards="Edexcel A, AQA, OCR",
         topics=[
             ("Theme 1: Markets and market failure", ["How markets work: supply, demand and elasticity", "Market failure", "Government intervention"]),
@@ -121,9 +121,9 @@ SUBJECTS = [
             ("I'm on AQA or OCR, not Edexcel. Can you still help?",
              "<p>Yes. Sessions are tailored to whichever board your school sits. Edexcel A is the specification I sat myself.</p>"),
             ("What is Paper 3?",
-             "<p>On Edexcel A, Paper 3 is the synoptic paper, bringing together micro and macro across all four themes. I scored 96% in it.</p>"),
+             "<p>On Edexcel A, Paper 3 is the synoptic paper, bringing together micro and macro across all four themes.</p>"),
             ("Do I need to be good at maths for Economics?",
-             "<p>Some quantitative skills are examined (elasticity, the multiplier, real versus nominal figures), but they're a small part of the course. We cover them as they come up.</p>"),
+             "<p>Some. Quantitative skills such as elasticity, the multiplier and real versus nominal figures are assessed across the papers, so we practise them as they come up.</p>"),
         ],
     ),
     dict(
@@ -131,8 +131,8 @@ SUBJECTS = [
         title="A-level Philosophy Tutor, Online from Bath",
         desc="One-to-one A-level Philosophy tutoring online for AQA. A* with 196/200 across both papers. Epistemology, ethics and metaphysics. £35/hour, from Bath.",
         h1="A-level Philosophy tutoring",
-        lede="Epistemology, moral philosophy, and the metaphysics of God and of mind. I got an A* in AQA Philosophy, scoring 196/200 across the two papers, so I know how the exam rewards a well-built argument.",
-        card="Epistemology, ethics and metaphysics for AQA. 196/200 across the papers.",
+        lede="Epistemology, moral philosophy, and the metaphysics of God and of mind. I took AQA Philosophy myself and got an A*, with 196/200 across the two papers.",
+        card="Epistemology, ethics and metaphysics, for AQA.",
         boards="AQA",
         topics=[
             ("Paper 1: Epistemology", ["What knowledge is", "Perception", "Reason as a source of knowledge", "The limits of knowledge and scepticism"]),
@@ -143,7 +143,7 @@ SUBJECTS = [
         structure_h="How the exams work",
         structure=[
             "AQA A-level Philosophy is examined in two papers, each 3 hours and worth 100 marks. Paper 1 covers Epistemology and Moral philosophy; Paper 2 covers the Metaphysics of God and the Metaphysics of mind.",
-            "With that much writing time, the skill that separates grades is building a clear, sustained argument and weighing it, not listing everything you know.",
+            "With that much writing time, a big part of doing well is building a clear argument and weighing it up, rather than listing everything you know.",
         ],
         lose=[
             "Listing arguments instead of evaluating them",
@@ -155,9 +155,9 @@ SUBJECTS = [
         review=None,
         faq=[
             ("Which specification do you teach?",
-             "<p>AQA A-level Philosophy, the one I sat, scoring 196/200 across the two papers.</p>"),
-            ("What does a top-mark essay look like?",
-             "<p>A clear line of argument, precise use of the arguments and key terms, genuine engagement with objections, and a reasoned judgement at the end.</p>"),
+             "<p>AQA A-level Philosophy, the specification I sat myself.</p>"),
+            ("What makes a strong Philosophy essay?",
+             "<p>Broadly: a clear line of argument, precise use of the arguments and key terms, real engagement with objections, and a reasoned judgement at the end.</p>"),
             ("Do I need to have studied Philosophy before?",
              "<p>No. If you're at A-level, we start from what you've covered in school and build from there.</p>"),
         ],
@@ -167,7 +167,7 @@ SUBJECTS = [
         title="GCSE Maths Tutor, Online from Bath",
         desc="One-to-one GCSE Maths tutoring online, Foundation and Higher, for AQA, Edexcel and OCR. Tailored to your target grade. £32/hour, from Bath.",
         h1="GCSE Maths tutoring",
-        lede="Foundation and Higher tier, taught to your exam board and target grade, from number and algebra to geometry and statistics. I sat my GCSEs recently, with 8s and 9s in 10 subjects, so I know what the current papers ask for.",
+        lede="Foundation and Higher tier, taught to your exam board and target grade, from number and algebra to geometry and statistics. I sat my GCSEs recently, with 8s and 9s in 10 subjects, so the current papers are familiar to me.",
         card="Foundation and Higher tier: number, algebra, geometry and statistics.",
         boards="AQA, Edexcel, OCR",
         topics=[
@@ -201,7 +201,7 @@ SUBJECTS = [
         title="GCSE Science Tutor, Combined & Triple",
         desc="One-to-one GCSE Combined and Triple Science tutoring online: Biology, Chemistry and Physics for AQA, Edexcel and OCR. £32/hour, from Bath.",
         h1="GCSE Combined &amp; Triple Science tutoring",
-        lede="Biology, Chemistry and Physics, taught to your exam board, whether you're sitting Combined or Triple Science. I sat my GCSEs recently, with 8s and 9s in 10 subjects, so I know the current specifications and how the papers are marked.",
+        lede="Biology, Chemistry and Physics, taught to your exam board, whether you're sitting Combined or Triple Science. I sat my GCSEs recently, with 8s and 9s in 10 subjects, so the current specifications are familiar to me.",
         card="Combined and Triple: Biology, Chemistry and Physics.",
         boards="AQA, Edexcel, OCR",
         topics=[
@@ -235,8 +235,8 @@ SUBJECTS = [
         title="GCSE Business Studies Tutor, Online from Bath",
         desc="One-to-one GCSE Business Studies tutoring online. Marketing, finance, operations and exam technique. £32/hour, from Bath.",
         h1="GCSE Business Studies tutoring",
-        lede="Marketing, finance, operations and the exam technique that turns knowledge into marks. A student I tutored went from a grade 3 to a grade 8 in Business Studies.",
-        card="Marketing, finance, operations and exam technique. One student went from 3 to 8.",
+        lede="Marketing, finance, operations and the exam technique that helps turn knowledge into marks. One student I tutored went from a grade 3 to a grade 8.",
+        card="Marketing, finance, operations and exam technique.",
         boards="AQA, Edexcel, OCR",
         topics=[
             ("Business in the real world", ["Enterprise and entrepreneurs", "Business ownership and aims", "Stakeholders", "Technology, ethics and the economic climate"]),
@@ -261,7 +261,7 @@ SUBJECTS = [
             ("Is there much maths in Business Studies?",
              "<p>A little. Finance questions use break-even, profit margins and cash flow, usually in a business case-study setting.</p>"),
             ("My child has written Business Studies off. Is it too late?",
-             "<p>One parent wrote that their daughter was on a grade 3 and finished on a grade 8. Book a free intro call and we can talk through where your child is now.</p>"),
+             "<p>Every student is different, but one parent wrote that their daughter was on a grade 3 and finished on a grade 8. Book a free intro call and we can talk through where your child is now.</p>"),
         ],
     ),
     dict(
@@ -269,7 +269,7 @@ SUBJECTS = [
         title="KS3 Maths & Science Tutor, Years 7-9",
         desc="One-to-one KS3 Maths and Science tutoring online for Years 7 to 9, tailored to what's covered in school. £32/hour, from Bath.",
         h1="KS3 Maths &amp; Science tutoring",
-        lede="Years 7 to 9 Maths and Science, tailored to what the student is covering in school. A confident start makes the step up to GCSE much smaller.",
+        lede="Years 7 to 9 Maths and Science, tailored to what the student is covering in school. A confident start can make the step up to GCSE feel smaller.",
         card="Years 7 to 9 Maths and Science, tailored to what's covered in school.",
         boards="School curriculum",
         boards_label="Follows",
@@ -279,18 +279,18 @@ SUBJECTS = [
         ],
         structure_h="Why start at KS3",
         structure=[
-            "In many schools, GCSE content starts to appear in Year 9. Solid foundations in Years 7 and 8, especially in algebra, fractions and ratio, make GCSE Maths and Science far less of a jump.",
+            "In many schools, GCSE content starts to appear in Year 9. Solid foundations in Years 7 and 8, especially in algebra, fractions and ratio, can make GCSE Maths and Science less of a jump.",
         ],
         lose=[
             "Fractions, decimals and percentages that were never quite secure",
             "Algebra introduced before the number work underneath it is solid",
             "Science vocabulary that gets muddled as topics pile up",
         ],
-        lose_h="Where gaps usually start",
+        lose_h="Where gaps often start",
         topics_intro="Sessions follow what the student is covering in school. These are the main areas.",
         structure_kicker="Why KS3", lose_kicker="Common gaps",
-        results_h="A tutor who knows where KS3 leads",
-        results_p="I sat my GCSEs recently, so I know which KS3 foundations the GCSE papers build on.",
+        results_h="Building towards GCSE",
+        results_p="I sat my GCSEs recently, so I have a clear picture of what KS3 work leads into.",
         results=[("8s &amp; 9s", "across 10 GCSEs")],
         review=None,
         faq=[
@@ -308,7 +308,7 @@ SUBJECTS = [
         title="11+ & 13+ Maths Tutor, Online from Bath",
         desc="One-to-one Maths tutoring online for 11+ and 13+ entrance exams: private school papers, the ISEB Pre-Test and grammar school 11+. Years 5 and 6, £32/hour.",
         h1="11+ &amp; 13+ entrance exam Maths tutoring",
-        lede="One-to-one Maths preparation for private school 11+ papers, the ISEB Pre&#8209;Test, grammar school 11+ and 13+ entrance. We make the core arithmetic secure, then build the problem solving and speed these papers reward.",
+        lede="One-to-one Maths preparation for private school 11+ papers, the ISEB Pre&#8209;Test, grammar school 11+ and 13+ entrance. We work on secure core arithmetic first, then on the problem solving and speed these papers need.",
         card="Maths for private school 11+, the ISEB Pre&#8209;Test, grammar school 11+ and 13+ entrance. Years 5 and 6.",
         boards="Private &amp; grammar 11+, 13+, ISEB&nbsp;Pre&#8209;Test",
         boards_label="Exams",
@@ -330,7 +330,7 @@ SUBJECTS = [
             "Not checking answers, or spending too long on one question",
         ],
         results=[("8s &amp; 9s", "across 10 GCSEs"), ("A*A*A", "at A-level")],
-        results_h="A tutor with top grades of my own",
+        results_h="My own results",
         results_p="Sessions are one-to-one and paced to your child, planned around the exams they're sitting.",
         review=None,
         faq=[
@@ -452,7 +452,7 @@ def slip_html(rows, note=None, simple=False):
 
 
 MY_RESULTS = [
-    ("A-level Philosophy", "AQA", "A*", "196/200", True),
+    ("A-level Philosophy", "AQA", "A*", "196/200", False),
     ("A-level Economics", "Edexcel A", "A*", "96% in Paper 3", False),
     ("A-level Maths", "", "A", "", False),
     ("GCSEs", "10 subjects", "8s &amp; 9s", "", False),
@@ -653,13 +653,13 @@ SEASON_JS = """<script>
 def build_home():
     faqs = [
         ("Which exam boards do you cover?",
-         "<p>Content is tailored to whichever exam board the student's school uses (AQA, Edexcel, OCR and others) for GCSE Maths, Combined Science, Triple Science, Business Studies, and A-level Maths, Economics and Philosophy. Each subject page lists what's covered.</p>"),
+         "<p>Content is tailored to whichever exam board the student's school uses (AQA, Edexcel, OCR and others, depending on the subject) for GCSE Maths, Combined Science, Triple Science, Business Studies, and A-level Maths, Economics and Philosophy. Each subject page lists what's covered.</p>"),
         ("What grades did you get?",
          "<p>A* in Economics and A* in Philosophy, and an A in Maths, including 196/200 across the AQA Philosophy papers and 96% in Paper 3 of Edexcel A Economics. At GCSE, grades 8 and 9 across 10 subjects. I sat all of these recently, so the specs and mark schemes I teach from are the current ones.</p>"),
         ("Do you tutor students younger than GCSE?",
          "<p>Yes. <a href=\"ks3-maths-science.html\">KS3 Maths and Science</a> for Years 7 to 9, tailored to what the student's covering in school, and <a href=\"11-plus-maths.html\">Maths for 11+ and 13+ entrance exams</a>, from Year 5. Both are at the same rates as GCSE.</p>"),
         ("Are sessions online or in person?",
-         "<p>Online only, held via Google Meet. No travel time, and easy to fit around school and other commitments.</p>"),
+         "<p>Online only, held via Google Meet. No travel time, and easier to fit around school and other commitments.</p>"),
         ("What happens after the free intro call?",
          "<p>If it's a good fit, you book a block of five weekly sessions. There's no obligation to continue after the call itself.</p>"),
         ("How does payment work, and what if I need to cancel?",
@@ -673,8 +673,8 @@ def build_home():
       <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE, A-level &amp; 11+ tutor</span></div>
       <p class="season-pill" data-season>{season_text(date.today().month)}</p>
       <p class="eyebrow">GCSE, A-level &amp; 11+ tutor &middot; Bath and online</p>
-      <h1>GCSE &amp; A-level tutoring from someone who&rsquo;s <mark>just been through&nbsp;it</mark>.</h1>
-      <p class="lede">I'm Ali, a tutor in Bath. I got <strong>8s and 9s in 10 GCSEs</strong> and <strong>A*A*A at A&#8209;level</strong>, so I know what today's examiners reward. Now in my second year of tutoring, before I start at Durham in 2027.</p>
+      <h1>GCSE &amp; A-level tutoring from someone who&rsquo;s <mark>been through it recently</mark>.</h1>
+      <p class="lede">I'm Ali, a tutor in Bath. I got <strong>8s and 9s in 10 GCSEs</strong> and <strong>A*A*A at A&#8209;level</strong>, and the specifications I studied are the ones students sit today. Now in my second year of tutoring, before I start at Durham in 2027.</p>
       <div class="cta-row">{call_btn()}<a class="link-arrow" href="#subjects">See subjects and prices</a></div>
       <ul class="ticks"><li>DBS checked</li><li>Online via Google Meet</li><li>Unused sessions refunded</li></ul>
     </div>
@@ -689,12 +689,12 @@ def build_home():
 <section class="section proof" id="results">
   <div class="wrap proof-grid">
     <div class="proof-copy">
-      <p class="kicker">my own results</p>
-      <h2>Recent results, not distant memories</h2>
-      <p class="section-sub">I sat these exams recently. The specifications and mark schemes I teach from are the current ones, and I know first-hand what a top answer looks like.</p>
+      <p class="kicker">for the record</p>
+      <h2>My own exam results</h2>
+      <p class="section-sub">I sat these exams recently, so the specifications and mark schemes I teach from are the current ones, and I remember what it's like to prepare for them.</p>
       <p><a class="link-arrow" href="about.html">More about me</a></p>
     </div>
-    {slip_html(MY_RESULTS, "that's 98%")}
+    {slip_html(MY_RESULTS)}
   </div>
 </section>
 
@@ -719,7 +719,7 @@ def build_home():
   <div class="wrap">
     <div class="section-head split">
       <div><p class="kicker">clear prices</p><h2>Prices, in blocks of five</h2></div>
-      <p class="section-sub">Weekly sessions, booked five at a time so progress stays steady. <strong>Any session you don't use is refunded.</strong></p>
+      <p class="section-sub">Weekly sessions, booked five at a time for a steady routine. <strong>Any session you don't use is refunded.</strong></p>
     </div>
     <div class="tiers">{tier_html("A")}{tier_html("G")}</div>
     <p class="fine">Cancel before a block starts for a full refund. {a("pricing.html", "How blocks, payment and refunds work", "link-arrow")}</p>
@@ -732,7 +732,7 @@ def build_home():
     <ol class="steps">
       <li class="step"><span class="n" aria-hidden="true">1</span><h3>Free intro call</h3><p>We talk through what's needed: the subject, the exam board and the target grade. Parents or A-level students can book it. No obligation.</p></li>
       <li class="step"><span class="n" aria-hidden="true">2</span><h3>Book a block of five</h3><p>Five weekly sessions, booked in advance and paid upfront. Any you don't use are refunded.</p></li>
-      <li class="step"><span class="n" aria-hidden="true">3</span><h3>Sessions on Google Meet</h3><p>Online, so there's no travel and it fits around school and everything else.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">3</span><h3>Sessions on Google Meet</h3><p>Online, so there's no travel, which makes it easier to fit around school and other commitments.</p></li>
     </ol>
   </div>
 </section>
@@ -782,7 +782,7 @@ def build_subject(s):
     topics_note = f'<p class="section-sub" style="margin-top:18px;font-size:14.5px;color:var(--muted)">{s["topics_note"]}</p>' if s.get("topics_note") else ""
     structure = "".join(f"<p>{p}</p>" for p in s["structure"])
     lose = "".join(f"<li>{x}</li>" for x in s["lose"])
-    lose_h = s.get("lose_h", "Where marks are usually lost")
+    lose_h = s.get("lose_h", "Where marks are often lost")
     results_box = slip_html([(lbl, "", num, "", False) for num, lbl in s["results"]], simple=True)
     results_h = s.get("results_h", "Taught by someone who sat the papers")
     results_p = s.get("results_p", HONEST_RECENT)
@@ -961,11 +961,11 @@ def build_about():
 <section class="section alt">
   <div class="wrap two-col">
     <div>
-      <p class="kicker">Why me</p>
+      <p class="kicker">Background</p>
       <h2>A tutor who sat these exams recently</h2>
     </div>
     <div class="prose">
-      <p>I sat these papers recently, so I know the current specifications and what examiners actually reward. The specs and mark schemes I teach from are the current ones.</p>
+      <p>I sat these papers recently, so the specifications and mark schemes I teach from are the current ones.</p>
       <p>Sessions are one-to-one and tailored to the student's exam board and target grade.</p>
     </div>
   </div>
@@ -975,7 +975,7 @@ def build_about():
   <div class="wrap">
     <div class="proof-grid">
       <div><p class="kicker">Results</p><h2>My own grades</h2><p class="section-sub">Sat recently, so the specifications and mark schemes I teach from are the current ones.</p></div>
-      {slip_html(MY_RESULTS, "that's 98%")}
+      {slip_html(MY_RESULTS)}
     </div>
   </div>
 </section>

@@ -304,7 +304,7 @@ SUBJECTS = [
     ),
     dict(
         slug="11-plus-maths", name="11+ & 13+ Entrance Maths", level="Entrance", tier="G",
-        level_label="Years 5 and 6, plus 13+", kicker="Entrance exams",
+        level_label="Years 5 and 6 (11+), and 13+ entry", kicker="Entrance exams",
         title="11+ & 13+ Maths Tutor, Online from Bath",
         desc="One-to-one Maths tutoring online for 11+ and 13+ entrance exams: private school papers, the ISEB Pre-Test and grammar school 11+. Years 5 and 6, £32/hour.",
         h1="11+ &amp; 13+ entrance exam Maths tutoring",
@@ -430,10 +430,11 @@ def tier_html(key):
     subs = [s for s in SUBJECTS if s["tier"] == key]
     items = "".join(f'<li>{a(s["slug"] + ".html", s["name"].replace("&", "&amp;") + s.get("suffix", ""))}</li>' for s in subs)
     return (f'<div class="tier"><h3 class="tier-label">{t["label"].replace("&", "&amp;")}</h3>'
-            f'<p class="tier-price"><span class="amount">&pound;{t["block"]}</span><span class="unit">for five sessions</span></p>'
-            f'<p class="tier-per">&pound;{t["rate"]} an hour, paid upfront</p>'
+            f'<p class="tier-price"><span class="amount">&pound;{t["block"]}</span><span class="unit">for five one-hour sessions</span></p>'
+            f'<p class="tier-per">&pound;{t["rate"]} an hour. The block is paid upfront.</p>'
             f'<ul class="check-list">{items}</ul>'
-            f'<div class="tier-actions">{a(t["stripe"], "Book a block of five", "btn btn-ghost", ext=True)}'
+            f'<div class="tier-actions">{a(t["stripe"], "Pay for a block of five", "btn btn-ghost", ext=True)}'
+            f'<p class="tier-help">Secure payment through Stripe. You choose your session times after paying.</p>'
             f'{a(CALL, "or start with a free intro call", "text-link", ext=True)}</div></div>')
 
 
@@ -465,7 +466,7 @@ def cta_band(h="Let's see if I can help", p="Book a free intro call. We'll talk 
     return (f'<section class="cta-band"{sid}><div class="wrap cta-grid"><div><h2>{h}</h2><p>{p}</p></div>'
             f'<div class="cta-actions">{call_btn("Book a free intro call", "btn btn-light")}'
             f'<ul class="cta-contacts"><li>{a("tel:" + PHONE_TEL, "Call " + PHONE)}</li>'
-            f'<li>{a(wa, "WhatsApp me", ext=True)}</li><li>{a("mailto:" + EMAIL, "Email me")}</li></ul></div></div></section>')
+            f'<li>{a(wa, "WhatsApp me", ext=True)}</li><li>{a("mailto:" + EMAIL, EMAIL)}</li></ul></div></div></section>')
 
 
 NAV = [("Subjects", "index.html#subjects", None), ("Pricing", "pricing.html", "pricing"),
@@ -516,7 +517,7 @@ def footer_html():
         <li><a href="privacy.html">Privacy Policy</a></li>
       </ul></div>
     </div>
-    <div class="footer-bottom">&copy; {YEAR} Ali Aljawabra, trading as Ali Tutors. Bath &amp; online.</div>
+    <div class="footer-bottom">&copy; {YEAR} Ali Aljawabra, trading as Ali Tutors. Based in Bath, tutoring online.</div>
   </div>
 </footer>'''
 
@@ -661,7 +662,9 @@ def build_home():
         ("Are sessions online or in person?",
          "<p>Online only, held via Google Meet. No travel time, and easier to fit around school and other commitments.</p>"),
         ("What happens after the free intro call?",
-         "<p>If it's a good fit, you book a block of five weekly sessions. There's no obligation to continue after the call itself.</p>"),
+         "<p>If it's a good fit, you pay for a block of five weekly sessions online, then choose your session times in my calendar. There's no obligation to continue after the call.</p>"),
+        ("How long is each session?",
+         "<p>An hour. A block of five is five one-hour sessions, usually one a week.</p>"),
         ("How does payment work, and what if I need to cancel?",
          "<p>Blocks of five are paid upfront, before the sessions begin. Cancel before a block starts for a full refund. Once a block is underway, any sessions not yet taken are refunded; sessions already delivered are not. Full details are on the <a href=\"pricing.html\">pricing page</a>.</p>"),
     ]
@@ -672,11 +675,12 @@ def build_home():
     <div class="hero-copy">
       <div class="hero-id"><strong>Ali Aljawabra</strong><span>GCSE, A-level &amp; 11+ tutor</span></div>
       <p class="season-pill" data-season>{season_text(date.today().month)}</p>
-      <p class="eyebrow">GCSE, A-level &amp; 11+ tutor &middot; Bath and online</p>
+      <p class="eyebrow">GCSE, A-level &amp; 11+ tutor &middot; Based in Bath, teaching online</p>
       <h1>GCSE &amp; A-level tutoring from someone who&rsquo;s <mark>been through it recently</mark>.</h1>
-      <p class="lede">I'm Ali, a tutor in Bath. I got <strong>8s and 9s in 10 GCSEs</strong> and <strong>A*A*A at A&#8209;level</strong>, and the specifications I studied are the ones students sit today. Now in my second year of tutoring, before I start at Durham in 2027.</p>
+      <p class="lede">I'm Ali, a Bath-based tutor teaching online. I got <strong>8s and 9s in 10 GCSEs</strong> and <strong>A*A*A at A&#8209;level</strong>, and the specifications I studied are the ones students sit today. Now in my second year of tutoring, before I start at Durham in 2027.</p>
       <div class="cta-row">{call_btn()}<a class="link-arrow" href="#subjects">See subjects and prices</a></div>
-      <ul class="ticks"><li>DBS checked</li><li>Online via Google Meet</li><li>Unused sessions refunded</li></ul>
+      <p class="cta-note">Free, with no obligation. You pick a time in my online calendar.</p>
+      <ul class="ticks"><li>DBS checked</li><li>Online via Google Meet</li><li>Refunds for sessions not yet taken</li></ul>
     </div>
     <div class="hero-visual">
       <figure class="portrait">{photo("(max-width: 860px) 72px, 380px", ' fetchpriority="high"')}</figure>
@@ -719,7 +723,7 @@ def build_home():
   <div class="wrap">
     <div class="section-head split">
       <div><p class="kicker">clear prices</p><h2>Prices, in blocks of five</h2></div>
-      <p class="section-sub">Weekly sessions, booked five at a time for a steady routine. <strong>Any session you don't use is refunded.</strong></p>
+      <p class="section-sub">Weekly one-hour sessions, booked five at a time for a steady routine. <strong>If you stop partway through, any sessions you haven't had yet are refunded.</strong></p>
     </div>
     <div class="tiers">{tier_html("A")}{tier_html("G")}</div>
     <p class="fine">Cancel before a block starts for a full refund. {a("pricing.html", "How blocks, payment and refunds work", "link-arrow")}</p>
@@ -731,8 +735,8 @@ def build_home():
     <div class="section-head"><p class="kicker">three steps</p><h2>How it works</h2></div>
     <ol class="steps">
       <li class="step"><span class="n" aria-hidden="true">1</span><h3>Free intro call</h3><p>We talk through what's needed: the subject, the exam board and the target grade. Parents or A-level students can book it. No obligation.</p></li>
-      <li class="step"><span class="n" aria-hidden="true">2</span><h3>Book a block of five</h3><p>Five weekly sessions, booked in advance and paid upfront. Any you don't use are refunded.</p></li>
-      <li class="step"><span class="n" aria-hidden="true">3</span><h3>Sessions on Google Meet</h3><p>Online, so there's no travel, which makes it easier to fit around school and other commitments.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">2</span><h3>Pay for a block of five</h3><p>Pay for five weekly sessions upfront, then choose your session times in my online calendar.</p></li>
+      <li class="step"><span class="n" aria-hidden="true">3</span><h3>Sessions on Google Meet</h3><p>Each session is an hour online, so there's no travel. You'll get the Meet link before your first session.</p></li>
     </ol>
   </div>
 </section>
@@ -800,7 +804,8 @@ def build_subject(s):
         ("Level", s.get("level_label") or {"A-level": "A-level", "GCSE": "GCSE", "KS3": "Years 7 to 9"}[s["level"]]),
         (s.get("boards_label", "Exam boards"), s["boards"]),
         ("Format", "Online, one-to-one"),
-        ("Rate", f"&pound;{t['rate']} / hour"),
+        ("Sessions", "One hour, weekly"),
+        ("Rate", f"&pound;{t['rate']} an hour"),
         ("Block of five", f"&pound;{t['block']}"),
     ]
     glance = "".join(f'<div class="row"><dt>{k}</dt><dd>{v}</dd></div>' for k, v in glance_rows)
@@ -817,7 +822,7 @@ def build_subject(s):
       <h1>{s["h1"]}</h1>
       <p class="lede">{s["lede"]}</p>
       <div class="cta-row">{call_btn()}<a class="link-arrow" href="#rates">See the price: &pound;{t['rate']} an hour</a></div>
-      <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Unused sessions refunded</li></ul>
+      <ul class="ticks"><li>Online via Google Meet</li><li>DBS checked</li><li>Refunds for sessions not yet taken</li></ul>
     </div>
     <aside class="glance" aria-labelledby="glance-h"><h2 id="glance-h">At a glance</h2><dl>{glance}</dl></aside>
   </div>
@@ -844,10 +849,10 @@ def build_subject(s):
     <div class="pricebar">
       <div>
         <p class="kicker">Rates</p>
-        <p class="tier-price"><span class="amount">&pound;{t["block"]}</span><span class="unit">for five sessions</span></p>
-        <p class="pricebar-sub">&pound;{t["rate"]} an hour, paid upfront. Any session you don't use is refunded. {a("pricing.html", "How blocks and refunds work", "text-link")}</p>
+        <p class="tier-price"><span class="amount">&pound;{t["block"]}</span><span class="unit">for five one-hour sessions</span></p>
+        <p class="pricebar-sub">&pound;{t["rate"]} an hour. The block is paid upfront, and if you stop partway through, any sessions you haven't had yet are refunded. {a("pricing.html", "How blocks and refunds work", "text-link")}</p>
       </div>
-      <div class="actions">{call_btn()}{a(t["stripe"], "Book a block of five", "btn btn-ghost", ext=True)}</div>
+      <div class="actions">{call_btn()}{a(t["stripe"], "Pay for a block of five", "btn btn-ghost", ext=True)}</div>
     </div>
   </div>
 </section>
@@ -891,7 +896,7 @@ def build_pricing():
   <div class="wrap">
     <p class="kicker">Rates</p>
     <h1>Pricing, in blocks of five</h1>
-    <p class="lede">Sessions are booked in blocks of five for steadier weekly progress, rather than one-off lessons. Any sessions you don't take are always refunded.</p>
+    <p class="lede">Sessions are booked in blocks of five for steadier weekly progress, rather than one-off lessons. Each session is one hour. If you stop partway through a block, any sessions you haven't had yet are refunded.</p>
   </div>
 </section>
 
@@ -939,7 +944,7 @@ def build_pricing():
 
 {cta_band("Questions before you book?", "Book a free intro call, or call, message on WhatsApp or email any time.")}'''
     page("pricing.html", "Pricing: Blocks of Five from £160 · Ali Tutors",
-         "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE, KS3 and 11+, booked in blocks of five. Unused sessions are always refunded.",
+         "Tutoring rates from Ali Tutors: £35/hour for A-level and £32/hour for GCSE, KS3 and 11+, booked in blocks of five one-hour sessions. Sessions not yet taken are refunded.",
          body, current="pricing", jsonld=[breadcrumb_ld([("Home", SITE + "/"), ("Pricing", f"{SITE}/pricing.html")])])
 
 
@@ -951,7 +956,7 @@ def build_about():
     <div>
       <p class="kicker">About</p>
       <h1>Hi, I'm Ali</h1>
-      <p class="lede">I'm Ali Aljawabra, a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE and A-level students one-to-one over Google Meet.</p>
+      <p class="lede">I'm Ali Aljawabra, a Bath-based tutor in my second year of tutoring, before I start at Durham in 2027. I tutor GCSE, A-level, KS3 and 11+ students one-to-one over Google Meet.</p>
       <div class="cta-row">{call_btn()}<a class="link-arrow" href="pricing.html">See pricing</a></div>
     </div>
     <figure class="portrait about-portrait">{photo("(max-width: 860px) 240px, 360px", ' fetchpriority="high"')}</figure>
@@ -990,7 +995,7 @@ def build_about():
       <li>DBS checked</li>
       <li>Online via Google Meet, no travel time</li>
       <li>A free intro call before you commit to anything</li>
-      <li>Blocks of five weekly sessions, with unused sessions refunded</li>
+      <li>Blocks of five weekly one-hour sessions. Stop partway through and any sessions you haven't had yet are refunded</li>
       <li>Tutoring online across the UK, from Bath</li>
     </ul>
   </div>
@@ -1084,7 +1089,7 @@ def build_terms():
     <p>These terms cover tutoring from Ali Aljawabra, trading as Ali Tutors, a Bath-based private tutor. Questions about them: {a("mailto:" + EMAIL, EMAIL)} or {a("tel:" + PHONE_TEL, PHONE)}.</p>
 
     <h2>The service</h2>
-    <p>One-to-one tutoring in GCSE, A-level and KS3 subjects, and Maths for 11+ and 13+ entrance exams, held online via Google Meet. Sessions are charged at the hourly rates on the {a("pricing.html", "pricing page")}.</p>
+    <p>One-to-one tutoring in GCSE, A-level and KS3 subjects, and Maths for 11+ and 13+ entrance exams, held online via Google Meet. Each session lasts one hour and is charged at the hourly rates on the {a("pricing.html", "pricing page")}.</p>
 
     <h2>Booking and payment</h2>
     <ul>

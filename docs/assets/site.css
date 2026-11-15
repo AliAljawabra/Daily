@@ -226,7 +226,9 @@ mark {
 .hero h1 { margin-bottom: 24px; }
 .lede { font-size: clamp(18px, 1.45vw, 20px); line-height: 1.6; color: var(--text); max-width: 33em; margin: 0 0 34px; }
 .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; }
-.hero .ticks { margin-top: 34px; }
+.hero .ticks { margin-top: 26px; }
+.cta-note { margin: 14px 0 0; font-size: 15px; color: var(--muted); }
+.tier-help { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--muted); }
 .hero-id, .season-pill { display: none; }
 
 .hero-visual { position: relative; justify-self: end; width: 100%; max-width: 380px; margin-right: 12px; }

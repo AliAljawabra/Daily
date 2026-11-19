@@ -559,7 +559,7 @@ def head(title, desc, path, jsonld=None, noindex=False):
 <title>{t}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{d}">
-<meta name="theme-color" content="#0F2A4A">
+<meta name="theme-color" content="#FBF8F2">
 {robots}{meta_social}<link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
